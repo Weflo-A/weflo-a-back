@@ -38,3 +38,6 @@ out/
 
 ### Yml ###
 **/src/main/resources/application.yml
+
+### Ds_Store ###
+.Ds_Store
