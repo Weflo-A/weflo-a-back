@@ -1,6 +1,7 @@
 package com.weflo.backend.domain.drone.domain;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ public class Drone {
     @Column(name = "drone_id")
     private Long id;
     private String name;
-    private Date productionYear;
+    private LocalDateTime productionYear;
     private String model;
     private String purpose;
     private Long cost;
     private int flightCount;
     @OneToMany(mappedBy = "drone")
     @Builder.Default
-    private List<DroneGroup> droneGroupList = new ArrayList<>();
+    private List<DroneGroup> droneGroups = new ArrayList<>();
     @OneToOne
     private Quotation quotation;
 }

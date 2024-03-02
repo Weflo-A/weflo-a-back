@@ -23,5 +23,5 @@ public class Dgroup {
     private LocalDateTime createDate;
     @OneToMany(mappedBy = "dgroup")
     @Builder.Default
-    private List<DroneGroup> droneGroupList = new ArrayList<>();
+    private List<DroneGroup> droneGroups = new ArrayList<>();
 }

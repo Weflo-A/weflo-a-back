@@ -24,5 +24,5 @@ public class Component {
     private String image;
     @OneToMany(mappedBy = "component")
     @Builder.Default
-    private List<DroneComponent> droneComponentList = new ArrayList<>();
+    private List<DroneComponent> droneComponents = new ArrayList<>();
 }

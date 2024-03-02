@@ -24,7 +24,7 @@ public class SuccessResponse<T> {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(SuccessResponse.of(SuccessCode.CREATED, data));
     }
-
+        
 
     public static <T> SuccessResponse<?> of(SuccessCode successCode, T data) {
         return SuccessResponse.builder()
