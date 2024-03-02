@@ -1,4 +1,4 @@
-package com.weflo.backend.domain.drone.domain;
+package com.weflo.backend.domain.component.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

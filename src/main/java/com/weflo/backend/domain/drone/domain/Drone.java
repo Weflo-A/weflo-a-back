@@ -1,11 +1,11 @@
 package com.weflo.backend.domain.drone.domain;
 
+import com.weflo.backend.domain.testresult.domain.TestResult;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,6 +29,7 @@ public class Drone {
     @OneToMany(mappedBy = "drone")
     @Builder.Default
     private List<DroneGroup> droneGroups = new ArrayList<>();
-    @OneToOne
-    private Quotation quotation;
+    @OneToMany(mappedBy = "drone")
+    @Builder.Default
+    private List<TestResult> testResults = new ArrayList<>();
 }
