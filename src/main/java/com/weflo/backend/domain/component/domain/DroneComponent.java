@@ -16,7 +16,6 @@ public class DroneComponent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "drone_component_id")
     private Long id;
-    private ComponetType type;
     private int point;
     private int brokenCount;
     @ManyToOne
@@ -26,4 +25,10 @@ public class DroneComponent {
     @ManyToOne
     @JoinColumn(name = "drone_id")
     private Drone drone;
+
+    @Enumerated(EnumType.STRING)
+    private ComponetType type;
+
+    @Enumerated(EnumType.STRING)
+    private Part part;
 }
