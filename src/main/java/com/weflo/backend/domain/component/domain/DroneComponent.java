@@ -1,5 +1,6 @@
 package com.weflo.backend.domain.component.domain;
 
+import com.weflo.backend.domain.drone.domain.Drone;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,4 +22,8 @@ public class DroneComponent {
     @ManyToOne
     @JoinColumn(name = "component_id")
     private Component component;
+
+    @ManyToOne
+    @JoinColumn(name = "drone_id")
+    private Drone drone;
 }
