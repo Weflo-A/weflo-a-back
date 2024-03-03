@@ -29,7 +29,7 @@ public class Drone {
 
     private String purpose;
 
-    private Long cost;
+    private int cost;
 
     private int flightCount;
 
