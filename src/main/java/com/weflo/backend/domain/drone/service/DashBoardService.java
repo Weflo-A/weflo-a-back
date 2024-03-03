@@ -23,7 +23,7 @@ public class DashBoardService {
         List<TimeLineResponse> timeLineResponses = createTimeLineResponse(testResults);
         List<TestListResponse> testListResponses = createTestListResponse(testResults);
         List<DroneListResponse> droneListResponses = createGroupListResponse();
-        return DroneDetailResponse.of(droneInfoResponse, timeLineResponses, testListResponses, droneListResponses);
+        return DroneDetailResponse.of(droneInfoResponse, timeLineResponses, testListResponses, droneListResponses, drone.getCost());
     }
     private List<DroneListResponse> createGroupListResponse(){
         List<Drone> drones = getAllDrone();
