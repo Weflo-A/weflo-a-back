@@ -30,6 +30,7 @@ public enum ErrorCode {
      * 404 Not Found
      */
     ENTITY_NOT_FOUND(HttpStatus.NOT_FOUND, "엔티티를 찾을 수 없습니다."),
+    DRONE_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 드론입니다."),
 
     /**
      * 405 Method Not Allowed
