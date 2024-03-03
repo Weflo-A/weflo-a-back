@@ -1,10 +1,11 @@
 package com.weflo.backend.domain.testresult.domain;
-import com.weflo.backend.domain.drone.domain.Dgroup;
+import com.weflo.backend.domain.component.domain.Part;
 import com.weflo.backend.domain.drone.domain.Drone;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import org.hibernate.type.ComponentType;
 
 @Entity
 @Table(name = "test_result")
@@ -18,10 +19,21 @@ public class TestResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "test_result_id")
     private Long id;
+
+    private Long point;
+
     private String space;
+
     private String stationId;
-    private LocalDateTime date;
+
     private LocalDateTime expectedDate;
+
+    @Enumerated(EnumType.STRING)
+    private ComponentType type;
+
+    @Enumerated(EnumType.STRING)
+    private Part part;
+
     @ManyToOne
     @JoinColumn(name = "drone_id")
     private Drone drone;
