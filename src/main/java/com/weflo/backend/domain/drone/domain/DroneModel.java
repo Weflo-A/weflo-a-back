@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 
+import static com.weflo.backend.global.error.ErrorCode.INVALID_MODEL_TYPE;
+
 @RequiredArgsConstructor
 @Getter
 public enum DroneModel {

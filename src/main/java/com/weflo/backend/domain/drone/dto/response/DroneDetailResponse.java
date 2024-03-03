@@ -8,13 +8,17 @@ import java.util.List;
 @Getter
 public class DroneDetailResponse {
     private DroneInfoResponse droneInfo;
-    private List<TimeLineResponse> timeLineResponses;
+    private List<TimeLineResponse> timeLine;
     private List<TestListResponse> testList;
 //    private BrokenTypeResponse brokenTypeResponse;
-    private List<GroupListResponse> groupListResponses;
+    private List<GroupListResponse> groupList;
 
-    public static DroneDetailResponse of(){
+    public static DroneDetailResponse of(DroneInfoResponse droneInfo,List<TimeLineResponse> timeLine, List<TestListResponse> testList,List<GroupListResponse> groupList ){
         return DroneDetailResponse.builder()
-                .droneInfo()
+                .droneInfo(droneInfo)
+                .timeLine(timeLine)
+                .testList(testList)
+                .groupList(groupList)
+                .build();
     }
 }

@@ -12,6 +12,7 @@ public enum ErrorCode {
      * 400 Bad Request
      */
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
+    INVALID_MODEL_TYPE(HttpStatus.BAD_REQUEST, "유효하지 않은 드론모델 타입입니다."),
 
     /**
      * 401 Unauthorized

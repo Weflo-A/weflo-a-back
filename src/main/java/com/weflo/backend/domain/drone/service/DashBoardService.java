@@ -4,10 +4,7 @@ import com.weflo.backend.domain.component.domain.DroneComponent;
 import com.weflo.backend.domain.component.repository.DroneComponentRepository;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.dto.request.DroneDetailRequest;
-import com.weflo.backend.domain.drone.dto.response.DroneDetailResponse;
-import com.weflo.backend.domain.drone.dto.response.DroneInfoResponse;
-import com.weflo.backend.domain.drone.dto.response.TestListResponse;
-import com.weflo.backend.domain.drone.dto.response.TimeLineResponse;
+import com.weflo.backend.domain.drone.dto.response.*;
 import com.weflo.backend.domain.drone.repository.DroneRepository;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
@@ -27,6 +24,11 @@ public class DashBoardService {
         DroneInfoResponse droneInfoResponse = createDroneInfoResponse(drone);
         List<TimeLineResponse> timeLineResponses = createTimeLineResponse(testResults);
         List<TestListResponse> testListResponses = createTestListResponse(testResults);
+        List<GroupListResponse> groupListResponses = createGroupListResponse(droneDetailRequest.getDroneId());
+        return DroneDetailResponse.of(droneInfoResponse, timeLineResponses, testListResponses, )
+    }
+    private List<GroupListResponse> createGroupListResponse(Long droneId){
+
     }
     private Drone findDroneById(Long droneId){
         return droneRepository.findById(droneId).orElseThrow();
