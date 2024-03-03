@@ -20,15 +20,23 @@ public class Drone {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "drone_id")
     private Long id;
+
     private String name;
+
     private LocalDateTime productionYear;
-    private String model;
+
+    private DroneModel model;
+
     private String purpose;
+
     private Long cost;
+
     private int flightCount;
+
     @OneToMany(mappedBy = "drone")
     @Builder.Default
-    private List<DroneGroup> droneGroups = new ArrayList<>();
+    private List<DroneGroupInfo> droneGroupInfos = new ArrayList<>();
+
     @OneToMany(mappedBy = "drone")
     @Builder.Default
     private List<TestResult> testResults = new ArrayList<>();
