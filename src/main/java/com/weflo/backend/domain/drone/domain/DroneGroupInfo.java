@@ -5,25 +5,25 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "dgroup")
+@Table(name = "drone_group")
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
 @Setter
-public class DroneGroup extends BaseTimeEntity {
+public class DroneGroupInfo extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "drone_group_id")
+    @Column(name = "drone_group_info_id")
     private Long id;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "drone_id")
+    private Drone drone;
 
-    @OneToMany(mappedBy = "droneGroup")
-    @Builder.Default
-    private List<DroneGroupInfo> droneGroupInfos = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "droneGroup_id")
+    private DroneGroup droneGroup;
 }
