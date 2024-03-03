@@ -17,7 +17,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     // TODO api 추가될 때 white list url 확인해서 추가하기.
 
-    private static final String[] whiteList = {"/"};
+    private static final String[] whiteList = {
+            "/api/**",
+            "/swagger-ui/**",
+            "/swagger-resources/**",
+            "/api-docs/**"
+    };
 
     private final CorsConfig corsConfig;
 
