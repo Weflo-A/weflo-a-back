@@ -1,5 +1,5 @@
 package com.weflo.backend.domain.component.domain;
 
-public enum ComponetType {
+public enum ComponentType {
     BLADE, MOTOR, ESC
 }

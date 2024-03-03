@@ -27,7 +27,7 @@ public class DroneComponent {
     private Drone drone;
 
     @Enumerated(EnumType.STRING)
-    private ComponetType type;
+    private ComponentType type;
 
     @Enumerated(EnumType.STRING)
     private Part part;

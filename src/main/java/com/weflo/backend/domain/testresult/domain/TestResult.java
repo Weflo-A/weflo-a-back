@@ -1,11 +1,11 @@
 package com.weflo.backend.domain.testresult.domain;
+import com.weflo.backend.domain.component.domain.ComponentType;
 import com.weflo.backend.domain.component.domain.Part;
 import com.weflo.backend.domain.drone.domain.Drone;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import org.hibernate.type.ComponentType;
 
 @Entity
 @Table(name = "test_result")
