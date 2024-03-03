@@ -24,44 +24,4 @@ public class SwaggerConfig {
                 .pathsToMatch(paths)     // 그룹에 속하는 경로 패턴을 지정한다.
                 .build();
     }
-
-    @Bean
-    public GroupedOpenApi droneAPI() {
-        String[] paths = {"/api/drones/**"};
-
-        return GroupedOpenApi.builder()
-                .group("드론-API")  // 그룹 이름을 설정한다.
-                .pathsToMatch(paths)     // 그룹에 속하는 경로 패턴을 지정한다.
-                .build();
-    }
-
-    @Bean
-    public GroupedOpenApi droneComponentAPI() {
-        String[] paths = {"/api/drone-components/**"};
-
-        return GroupedOpenApi.builder()
-                .group("드론부품-API")  // 그룹 이름을 설정한다.
-                .pathsToMatch(paths)     // 그룹에 속하는 경로 패턴을 지정한다.
-                .build();
-    }
-
-    @Bean
-    public GroupedOpenApi componentAPI() {
-        String[] paths = {"/api/components/**"};
-
-        return GroupedOpenApi.builder()
-                .group("부품-API")  // 그룹 이름을 설정한다.
-                .pathsToMatch(paths)     // 그룹에 속하는 경로 패턴을 지정한다.
-                .build();
-    }
-
-    @Bean
-    public GroupedOpenApi testResultAPI() {
-        String[] paths = {"/api/test-results/**"};
-
-        return GroupedOpenApi.builder()
-                .group("검사결과-API")  // 그룹 이름을 설정한다.
-                .pathsToMatch(paths)     // 그룹에 속하는 경로 패턴을 지정한다.
-                .build();
-    }
 }
