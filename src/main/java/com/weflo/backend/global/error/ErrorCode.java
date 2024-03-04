@@ -12,6 +12,7 @@ public enum ErrorCode {
      * 400 Bad Request
      */
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
+    INVALID_MODEL_TYPE(HttpStatus.BAD_REQUEST, "유효하지 않은 드론모델 타입입니다."),
 
     /**
      * 401 Unauthorized
@@ -29,6 +30,7 @@ public enum ErrorCode {
      * 404 Not Found
      */
     ENTITY_NOT_FOUND(HttpStatus.NOT_FOUND, "엔티티를 찾을 수 없습니다."),
+    DRONE_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 드론입니다."),
 
     /**
      * 405 Method Not Allowed
