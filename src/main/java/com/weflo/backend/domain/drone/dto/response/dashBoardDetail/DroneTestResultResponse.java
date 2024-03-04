@@ -11,4 +11,13 @@ public class DroneTestResultResponse {
     private int part2Score;
     private int part3Score;
     private int part4Score;
+    public static DroneTestResultResponse of(){
+        return DroneTestResultResponse.builder()
+                .totalScore()
+                .part1Score()
+                .part2Score()
+                .part3Score()
+                .part4Score()
+                .build();
+    }
 }

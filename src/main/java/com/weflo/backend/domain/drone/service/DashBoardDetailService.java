@@ -3,6 +3,7 @@ package com.weflo.backend.domain.drone.service;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DashBoardDetailResponse;
 import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DroneTestInfoResponse;
+import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DroneTestResultResponse;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
 import com.weflo.backend.global.common.service.FindService;
@@ -20,6 +21,10 @@ public class DashBoardDetailService {
         Drone drone = findService.findDroneById(droneId);
         TestResult testResult = findTestResultByDroneIdAndDate(droneId, date);
         DroneTestInfoResponse droneTestInfoResponse = createDroneTestInfoResponse(drone, testResult);
+        DroneTestResultResponse droneTestResultResponse = createDroneTestResultResponse(testResult);
+    }
+    private DroneTestResultResponse createDroneTestResultResponse(TestResult testResult){
+
     }
     private TestResult findTestResultByDroneIdAndDate(Long droneId, String date){
         return testResultRepository.findByDroneIdAndCreateDate(droneId, LocalDateTime.parse(date));
@@ -27,4 +32,5 @@ public class DashBoardDetailService {
     private DroneTestInfoResponse createDroneTestInfoResponse(Drone drone, TestResult testResult){
         return DroneTestInfoResponse.of(drone,testResult);
     }
+    private
 }
