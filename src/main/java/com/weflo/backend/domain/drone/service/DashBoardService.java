@@ -13,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class DashBoardService {
     private final DroneRepository droneRepository;

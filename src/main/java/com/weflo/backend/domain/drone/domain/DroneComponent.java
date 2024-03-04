@@ -1,5 +1,8 @@
-package com.weflo.backend.domain.component.domain;
+package com.weflo.backend.domain.drone.domain;
 
+import com.weflo.backend.domain.component.domain.Component;
+import com.weflo.backend.domain.component.domain.ComponentType;
+import com.weflo.backend.domain.component.domain.Part;
 import com.weflo.backend.domain.drone.domain.Drone;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,7 +19,7 @@ public class DroneComponent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "drone_component_id")
     private Long id;
-    private int point;
+    private Long point;
     private int brokenCount;
     @ManyToOne
     @JoinColumn(name = "component_id")

@@ -1,5 +1,6 @@
 package com.weflo.backend.domain.component.domain;
 
+import com.weflo.backend.domain.drone.domain.DroneComponent;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,8 @@ public class Component {
     private int price;
     private String description;
     private String image;
+    private Part part;
+    private ComponentType type;
     @OneToMany(mappedBy = "component")
     @Builder.Default
     private List<DroneComponent> droneComponents = new ArrayList<>();
