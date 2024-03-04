@@ -1,6 +1,7 @@
 package com.weflo.backend.domain.drone.service;
 
 import com.weflo.backend.domain.drone.domain.Drone;
+import com.weflo.backend.domain.drone.dto.request.DashBoardDetailRequest;
 import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.*;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
@@ -18,9 +19,9 @@ import java.util.List;
 public class DashBoardDetailService {
     private final TestResultRepository testResultRepository;
     private final FindService findService;
-    public DashBoardDetailResponse getDashBoardDetail(Long droneId, String date){
-        Drone drone = findService.findDroneById(droneId);
-        TestResult testResult = findTestResultByDroneIdAndDate(droneId, date);
+    public DashBoardDetailResponse getDashBoardDetail(DashBoardDetailRequest dashBoardDetailRequest){
+        Drone drone = findService.findDroneById(dashBoardDetailRequest.getDroneId());
+        TestResult testResult = findTestResultByDroneIdAndDate(dashBoardDetailRequest.getDroneId(), dashBoardDetailRequest.getDate());
         DroneTestInfoResponse droneTestInfoResponse = createDroneTestInfoResponse(drone, testResult);
         DroneTestResultResponse droneTestResultResponse = createDroneTestResultResponse(testResult);
         List<DroneScoreResponse> droneScoreResponses = createDroneScoreResponses(testResult);
