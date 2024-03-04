@@ -1,10 +1,7 @@
 package com.weflo.backend.domain.drone.service;
 
 import com.weflo.backend.domain.drone.domain.Drone;
-import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DashBoardDetailResponse;
-import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DroneScoreResponse;
-import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DroneTestInfoResponse;
-import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DroneTestResultResponse;
+import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.*;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
 import com.weflo.backend.global.common.service.FindService;
@@ -26,6 +23,14 @@ public class DashBoardDetailService {
         DroneTestInfoResponse droneTestInfoResponse = createDroneTestInfoResponse(drone, testResult);
         DroneTestResultResponse droneTestResultResponse = createDroneTestResultResponse(testResult);
         List<DroneScoreResponse> droneScoreResponses = createDroneScoreResponses(testResult);
+        DroneScoreAvgResponse droneScoreAvgResponse = createDroneScoreAvgResponse(testResult);
+    }
+    private DroneScoreAvgResponse createDroneScoreAvgResponse(TestResult testResult){
+        return DroneScoreAvgResponse.of(
+                findService.getMotorPoint(testResult),
+                findService.getBladePoint(testResult),
+                findService.getEscPoint(testResult),
+                findService.getPoint(testResult));
     }
     private List<DroneScoreResponse> createDroneScoreResponses(TestResult testResult) {
         List<DroneScoreResponse> droneScoreResponses = new ArrayList<>();

@@ -10,4 +10,12 @@ public class DroneScoreAvgResponse {
     private int bladeAvg;
     private int escAvg;
     private int totalAvg;
+    public static DroneScoreAvgResponse of(int motorAvg, int bladeAvg, int escAvg, int totalAvg){
+        return DroneScoreAvgResponse.builder()
+                .motorAvg(motorAvg)
+                .bladeAvg(bladeAvg)
+                .escAvg(escAvg)
+                .totalAvg(totalAvg)
+                .build();
+    }
 }
