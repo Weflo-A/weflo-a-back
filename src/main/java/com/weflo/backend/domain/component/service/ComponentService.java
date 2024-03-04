@@ -10,8 +10,6 @@ import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneComponent;
 import com.weflo.backend.domain.drone.domain.DroneModel;
 import com.weflo.backend.domain.drone.repository.DroneRepository;
-import com.weflo.backend.global.error.ErrorCode;
-import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -29,9 +27,7 @@ public class ComponentService {
         List<DroneComponent> findDroneComponents = droneComponentRepository.findByDroneIdAndPointGreaterThanEqual(
                 droneId, point);
 
-        List<Component> components = findDroneComponents.stream().map(DroneComponent::getComponent).toList();
-
-        return ComponentResponse.ofList(components);
+        return ComponentResponse.ofList(findDroneComponents);
     }
 
     @Transactional
