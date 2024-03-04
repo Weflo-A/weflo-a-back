@@ -16,4 +16,23 @@ public class DashBoardDetailResponse {
     private DroneTotalScoreResponse totalScore;
     private List<DroneWarningResponse> warningList;
     private String warningPart;
+    public static DashBoardDetailResponse of(
+            DroneTestInfoResponse testInfo,
+            DroneTestResultResponse testResult,
+            List<DroneScoreResponse> scoreList,
+            DroneScoreAvgResponse scoreAvg,
+            DroneTotalScoreResponse totalScore,
+            List<DroneWarningResponse> warningList,
+            String warningPart)
+    {
+        return DashBoardDetailResponse.builder()
+                .testInfo(testInfo)
+                .testResult(testResult)
+                .scoreList(scoreList)
+                .scoreAvg(scoreAvg)
+                .totalScore(totalScore)
+                .warningList(warningList)
+                .warningPart(warningPart)
+                .build();
+    }
 }

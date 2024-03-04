@@ -28,6 +28,14 @@ public class DashBoardDetailService {
         DroneTotalScoreResponse droneTotalScoreResponse =createDroneTotalScoreResponse(testResult);
         List<DroneWarningResponse> droneWarningResponses =createDroneWarningResponses(testResult);
         String warningPart = findWarningPart(testResult);
+        return DashBoardDetailResponse.of(
+                droneTestInfoResponse,
+                droneTestResultResponse,
+                droneScoreResponses,
+                droneScoreAvgResponse,
+                droneTotalScoreResponse,
+                droneWarningResponses,
+                warningPart);
     }
     private String findWarningPart(TestResult testResult){
         int part1 = findService.getPart1Point(testResult);
