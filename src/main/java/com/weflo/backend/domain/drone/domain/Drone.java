@@ -40,4 +40,8 @@ public class Drone {
     @OneToMany(mappedBy = "drone")
     @Builder.Default
     private List<TestResult> testResults = new ArrayList<>();
+
+    @OneToMany(mappedBy = "drone")
+    @Builder.Default
+    private List<DroneComponent> droneComponents = new ArrayList<>();
 }
