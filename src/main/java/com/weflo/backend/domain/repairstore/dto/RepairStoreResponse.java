@@ -14,6 +14,10 @@ public record RepairStoreResponse(
 ) {
 
     public static RepairStoreResponse of(RepairStore store, List<String> features) {
+        if (store.getCanUpgrade()) {
+            features.add("기능 업그레이드 가능");
+        }
+
         return builder()
                 .image(store.getImage())
                 .name(store.getName())
