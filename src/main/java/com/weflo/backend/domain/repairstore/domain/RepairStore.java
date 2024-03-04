@@ -26,6 +26,6 @@ public class RepairStore {
     private Boolean hasMotor;
     private Boolean hasEsc;
     private Boolean hasBlade;
-    private Long expectedMinCost;
-    private Long expectedMaxCost;
+    private Long expectedMinPrice;
+    private Long expectedMaxPrice;
 }
