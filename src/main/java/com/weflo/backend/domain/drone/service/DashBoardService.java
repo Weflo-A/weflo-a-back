@@ -10,11 +10,13 @@ import com.weflo.backend.domain.testresult.repository.TestResultRepository;
 import com.weflo.backend.global.error.ErrorCode;
 import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Service
 public class DashBoardService {
     private final DroneRepository droneRepository;
     private final TestResultRepository testResultRepository;
