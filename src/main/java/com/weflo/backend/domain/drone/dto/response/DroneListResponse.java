@@ -9,9 +9,9 @@ import lombok.Getter;
 public class DroneListResponse {
     private String name;
 
-    public static DroneListResponse of(Drone drone){
+    public static DroneListResponse of(String name){
         return DroneListResponse.builder()
-                .name(drone.getName())
+                .name(name)
                 .build();
     }
 }

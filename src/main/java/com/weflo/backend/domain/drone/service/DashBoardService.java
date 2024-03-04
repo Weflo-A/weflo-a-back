@@ -1,7 +1,9 @@
 package com.weflo.backend.domain.drone.service;
 
 import com.weflo.backend.domain.drone.domain.Drone;
+import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.dto.response.*;
+import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
 import com.weflo.backend.domain.drone.repository.DroneRepository;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
@@ -18,23 +20,26 @@ import org.springframework.stereotype.Service;
 public class DashBoardService {
     private final DroneRepository droneRepository;
     private final TestResultRepository testResultRepository;
+    private final DroneGroupInfoRepository droneGroupInfoRepository;
     public DroneDetailResponse getDroneDetail(Long droneId){
         Drone drone = findDroneById(droneId);
         List<TestResult> testResults = findTestResultById(droneId);
         DroneInfoResponse droneInfoResponse = createDroneInfoResponse(drone);
         List<TimeLineResponse> timeLineResponses = createTimeLineResponse(testResults);
         List<TestListResponse> testListResponses = createTestListResponse(testResults);
-        List<DroneListResponse> droneListResponses = createGroupListResponse();
-        return DroneDetailResponse.of(droneInfoResponse, timeLineResponses, testListResponses, droneListResponses, drone.getCost());
+        DroneGroupListResponse droneGroupListResponse = createDroneGroupListResponse(droneId);
+        return DroneDetailResponse.of(droneInfoResponse, timeLineResponses, testListResponses, droneGroupListResponse, drone.getCost());
     }
-    private List<DroneListResponse> createGroupListResponse(){
-        List<Drone> drones = getAllDrone();
+    private DroneGroupListResponse createDroneGroupListResponse(Long droneId){
+        DroneGroup droneGroup = droneGroupInfoRepository.findTopByDroneIdOrderByCreatedAtDesc(droneId);
+        List<DroneListResponse> droneListResponses = createDroneListResponse(droneGroup);
+        return DroneGroupListResponse.of(droneGroup.getName(),droneListResponses);
+    }
+    private List<DroneListResponse> createDroneListResponse(DroneGroup droneGroup){
+        List<Drone> drones = droneGroupInfoRepository.findAllDroneByDroneGroupId(droneGroup.getId());
         return drones.stream()
-                .map(DroneListResponse::of)
+                .map(drone -> DroneListResponse.of(drone.getName()))
                 .collect(Collectors.toList());
-    }
-    private List<Drone> getAllDrone(){
-        return droneRepository.findAll();
     }
     private Drone findDroneById(Long droneId){
         return droneRepository.findById(droneId).orElseThrow(() -> new EntityNotFoundException(ErrorCode.DRONE_NOT_FOUND));
