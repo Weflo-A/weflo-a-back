@@ -30,7 +30,7 @@ public class DashBoardService {
     private List<DroneListResponse> createGroupListResponse(){
         List<Drone> drones = getAllDrone();
         return drones.stream()
-                .map(drone -> DroneListResponse.of(drone))
+                .map(DroneListResponse::of)
                 .collect(Collectors.toList());
     }
     private List<Drone> getAllDrone(){
