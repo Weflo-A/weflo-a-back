@@ -5,6 +5,11 @@ import com.weflo.backend.domain.component.domain.ComponentType;
 import com.weflo.backend.domain.component.domain.Part;
 import com.weflo.backend.domain.component.dto.ComponentResponse.ExchangeComponentResponse;
 import com.weflo.backend.domain.component.repository.ComponentRepository;
+import com.weflo.backend.domain.drone.domain.Drone;
+import com.weflo.backend.domain.drone.domain.DroneComponent;
+import com.weflo.backend.domain.drone.repository.DroneRepository;
+import com.weflo.backend.global.error.ErrorCode;
+import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,12 +19,17 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ComponentService {
     private final ComponentRepository componentRepository;
+    private final DroneRepository droneRepository;
 
     @Transactional(readOnly = true)
-    public List<ExchangeComponentResponse> getAllComponents() {
-        List<Component> allComponents = componentRepository.findAll();
+    public List<ExchangeComponentResponse> getDroneComponents(Long droneId) {
+        Drone findDrone = droneRepository.findById(droneId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.DRONE_NOT_FOUND));
 
-        return ExchangeComponentResponse.ofList(allComponents);
+        List<DroneComponent> droneComponents = findDrone.getDroneComponents();
+        List<Component> components = droneComponents.stream().map(DroneComponent::getComponent).toList();
+
+        return ExchangeComponentResponse.ofList(components);
     }
 
     @Transactional

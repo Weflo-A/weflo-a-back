@@ -9,14 +9,15 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/component")
+@RequestMapping("/api")
 public class ComponentController {
-    
+
     private final ComponentService componentService;
 
     @Operation(
@@ -27,9 +28,9 @@ public class ComponentController {
             responseCode = "200",
             description = "get components success"
     )
-    @GetMapping("/exchange-components")
-    public ResponseEntity<SuccessResponse<?>> getExchangeComponents() {
-        List<ExchangeComponentResponse> exchangeComponentResponses = componentService.getAllComponents();
+    @GetMapping("/drones/{droneId}/components")
+    public ResponseEntity<SuccessResponse<?>> getDroneComponents(@PathVariable("droneId") Long droneId) {
+        List<ExchangeComponentResponse> exchangeComponentResponses = componentService.getDroneComponents(droneId);
 
         return SuccessResponse.ok(exchangeComponentResponses);
     }
