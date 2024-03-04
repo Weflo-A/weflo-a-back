@@ -24,7 +24,12 @@ public class DashBoardDetailService {
         DroneTestResultResponse droneTestResultResponse = createDroneTestResultResponse(testResult);
     }
     private DroneTestResultResponse createDroneTestResultResponse(TestResult testResult){
-
+        return DroneTestResultResponse.of(
+                findService.getPoint(testResult),
+                findService.getPart1Point(testResult),
+                findService.getPart2Point(testResult),
+                findService.getPart3Point(testResult),
+                findService.getPart4Point(testResult));
     }
     private TestResult findTestResultByDroneIdAndDate(Long droneId, String date){
         return testResultRepository.findByDroneIdAndCreateDate(droneId, LocalDateTime.parse(date));
@@ -32,5 +37,4 @@ public class DashBoardDetailService {
     private DroneTestInfoResponse createDroneTestInfoResponse(Drone drone, TestResult testResult){
         return DroneTestInfoResponse.of(drone,testResult);
     }
-    private
 }

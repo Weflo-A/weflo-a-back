@@ -30,4 +30,16 @@ public class FindService {
         return (testResult.getPart1Motor()+testResult.getPart2Motor()+testResult.getPart3Motor()+testResult.getPart4Motor())/4;
 
     }
+    public int getPart1Point(TestResult testResult){
+        return (testResult.getPart1Motor()+testResult.getPart1Esc()+testResult.getPart1Blade())/3;
+    }
+    public int getPart2Point(TestResult testResult){
+        return (testResult.getPart2Motor()+testResult.getPart2Esc()+testResult.getPart2Blade())/3;
+    }
+    public int getPart3Point(TestResult testResult){
+        return (testResult.getPart3Motor()+testResult.getPart3Esc()+testResult.getPart3Blade())/3;
+    }
+    public int getPart4Point(TestResult testResult){
+        return (testResult.getPart4Motor()+testResult.getPart4Esc()+testResult.getPart4Blade())/3;
+    }
 }
