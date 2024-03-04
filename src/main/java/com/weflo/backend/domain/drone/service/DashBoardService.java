@@ -7,6 +7,7 @@ import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
 import com.weflo.backend.domain.drone.repository.DroneRepository;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
+import com.weflo.backend.global.common.service.FindService;
 import com.weflo.backend.global.error.ErrorCode;
 import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,9 @@ public class DashBoardService {
     private final DroneRepository droneRepository;
     private final TestResultRepository testResultRepository;
     private final DroneGroupInfoRepository droneGroupInfoRepository;
+    private final FindService findService;
     public DroneDetailResponse getDroneDetail(Long droneId){
-        Drone drone = findDroneById(droneId);
+        Drone drone = findService.findDroneById(droneId);
         List<TestResult> testResults = findTestResultById(droneId);
         DroneInfoResponse droneInfoResponse = createDroneInfoResponse(drone);
         List<TimeLineResponse> timeLineResponses = createTimeLineResponse(testResults);
@@ -40,9 +42,6 @@ public class DashBoardService {
         return drones.stream()
                 .map(drone -> DroneListResponse.of(drone.getName()))
                 .collect(Collectors.toList());
-    }
-    private Drone findDroneById(Long droneId){
-        return droneRepository.findById(droneId).orElseThrow(() -> new EntityNotFoundException(ErrorCode.DRONE_NOT_FOUND));
     }
     private DroneInfoResponse createDroneInfoResponse(Drone drone){
         return DroneInfoResponse.of(drone);
