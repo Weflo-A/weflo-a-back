@@ -3,7 +3,7 @@ package com.weflo.backend.domain.component.service;
 import com.weflo.backend.domain.component.domain.Component;
 import com.weflo.backend.domain.component.domain.ComponentType;
 import com.weflo.backend.domain.component.domain.Part;
-import com.weflo.backend.domain.component.dto.ComponentResponse.ExchangeComponentResponse;
+import com.weflo.backend.domain.component.dto.ComponentResponse;
 import com.weflo.backend.domain.component.repository.ComponentRepository;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneComponent;
@@ -22,14 +22,14 @@ public class ComponentService {
     private final DroneRepository droneRepository;
 
     @Transactional(readOnly = true)
-    public List<ExchangeComponentResponse> getDroneComponents(Long droneId) {
+    public List<ComponentResponse> getDroneComponents(Long droneId) {
         Drone findDrone = droneRepository.findById(droneId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.DRONE_NOT_FOUND));
 
         List<DroneComponent> droneComponents = findDrone.getDroneComponents();
         List<Component> components = droneComponents.stream().map(DroneComponent::getComponent).toList();
 
-        return ExchangeComponentResponse.ofList(components);
+        return ComponentResponse.ofList(components);
     }
 
     @Transactional

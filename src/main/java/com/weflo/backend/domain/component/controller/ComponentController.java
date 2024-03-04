@@ -1,6 +1,6 @@
 package com.weflo.backend.domain.component.controller;
 
-import com.weflo.backend.domain.component.dto.ComponentResponse.ExchangeComponentResponse;
+import com.weflo.backend.domain.component.dto.ComponentResponse;
 import com.weflo.backend.domain.component.service.ComponentService;
 import com.weflo.backend.global.common.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,9 +30,9 @@ public class ComponentController {
     )
     @GetMapping("/drones/{droneId}/components")
     public ResponseEntity<SuccessResponse<?>> getDroneComponents(@PathVariable("droneId") Long droneId) {
-        List<ExchangeComponentResponse> exchangeComponentResponses = componentService.getDroneComponents(droneId);
+        List<ComponentResponse> findComponents = componentService.getDroneComponents(droneId);
 
-        return SuccessResponse.ok(exchangeComponentResponses);
+        return SuccessResponse.ok(findComponents);
     }
 
     @GetMapping("/set-data")

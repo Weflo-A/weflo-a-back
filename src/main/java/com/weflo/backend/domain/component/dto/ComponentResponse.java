@@ -6,20 +6,16 @@ import com.weflo.backend.domain.component.domain.Part;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-
-public class ComponentResponse{
-
-    @Builder
-    @Getter
-    public static class ExchangeComponentResponse {
-        private final String image;
-        private final ComponentType type;
-        private final Part part;
-        private final String name;
-        private final String description;
-        private final int price;
-
-        public static List<ExchangeComponentResponse> ofList(List<Component> allComponents) {
+@Builder
+public record ComponentResponse(
+        String image,
+        ComponentType type,
+        Part part,
+        String name,
+        String description,
+        int price
+){
+        public static List<ComponentResponse> ofList(List<Component> allComponents) {
             return allComponents.stream().map(component -> builder()
                     .image(component.getImage())
                     .type(component.getType())
@@ -30,8 +26,4 @@ public class ComponentResponse{
                     .build()
             ).toList();
         }
-    }
-
-
-
 }
