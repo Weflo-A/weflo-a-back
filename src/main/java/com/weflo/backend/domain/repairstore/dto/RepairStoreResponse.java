@@ -1,5 +1,6 @@
 package com.weflo.backend.domain.repairstore.dto;
 
+import com.weflo.backend.domain.repairstore.domain.RepairStore;
 import java.util.List;
 import lombok.Builder;
 
@@ -11,4 +12,15 @@ public record RepairStoreResponse(
         Long minPrice,
         Long maxPrice
 ) {
+
+    public static RepairStoreResponse of(RepairStore store, List<String> features) {
+        return builder()
+                .image(store.getImage())
+                .name(store.getName())
+                .features(features)
+                .minPrice(store.getExpectedMinPrice())
+                .maxPrice(store.getExpectedMaxPrice())
+                .build();
+    }
+
 }

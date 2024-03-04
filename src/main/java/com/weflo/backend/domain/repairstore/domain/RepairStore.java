@@ -21,11 +21,12 @@ public class RepairStore {
     private Long id;
 
     private String name;
+    private String image;
     private Boolean canUpgrade;
     private Boolean canRepair;
     private Boolean hasMotor;
     private Boolean hasEsc;
     private Boolean hasBlade;
-    private Long expectedMinPrice;
-    private Long expectedMaxPrice;
+    private Long expectedMinCost;
+    private Long expectedMaxCost;
 }
