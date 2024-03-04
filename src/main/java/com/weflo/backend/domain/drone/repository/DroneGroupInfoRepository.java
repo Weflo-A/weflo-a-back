@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface DroneGroupInfoRepository extends JpaRepository<DroneGroupInfo, Long> {
-    DroneGroup findDroneGroupByDroneId(Long droneId);
+    DroneGroup findTopByDroneIdOrderByCreatedAtDesc(Long droneId);
     List<Drone> findAllDroneByDroneGroupId(Long DroneGroupId);
 }
