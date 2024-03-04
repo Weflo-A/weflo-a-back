@@ -24,6 +24,19 @@ public class DashBoardDetailService {
         DroneTestResultResponse droneTestResultResponse = createDroneTestResultResponse(testResult);
         List<DroneScoreResponse> droneScoreResponses = createDroneScoreResponses(testResult);
         DroneScoreAvgResponse droneScoreAvgResponse = createDroneScoreAvgResponse(testResult);
+        DroneTotalScoreResponse droneTotalScoreResponse =createDroneTotalScoreResponse(testResult);
+    }
+    private DroneTotalScoreResponse createDroneTotalScoreResponse(TestResult testResult){
+        TotalScoreResponse totalScoreResponse = createTotalScoreResponse(testResult);
+        return DroneTotalScoreResponse.of(totalScoreResponse);
+    }
+    private TotalScoreResponse createTotalScoreResponse(TestResult testResult){
+        return TotalScoreResponse.of(
+                findService.getPart1Point(testResult),
+                findService.getPart2Point(testResult),
+                findService.getPart3Point(testResult),
+                findService.getPart4Point(testResult)
+        );
     }
     private DroneScoreAvgResponse createDroneScoreAvgResponse(TestResult testResult){
         return DroneScoreAvgResponse.of(
