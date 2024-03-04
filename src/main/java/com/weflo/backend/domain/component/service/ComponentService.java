@@ -3,7 +3,7 @@ package com.weflo.backend.domain.component.service;
 import com.weflo.backend.domain.component.domain.Component;
 import com.weflo.backend.domain.component.domain.ComponentType;
 import com.weflo.backend.domain.component.domain.Part;
-import com.weflo.backend.domain.component.dto.ExchangeComponentResponse;
+import com.weflo.backend.domain.component.dto.ComponentResponse.ExchangeComponentResponse;
 import com.weflo.backend.domain.component.repository.ComponentRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
