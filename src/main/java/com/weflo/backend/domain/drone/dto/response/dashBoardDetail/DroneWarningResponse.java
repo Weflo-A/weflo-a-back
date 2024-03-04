@@ -9,4 +9,12 @@ public class DroneWarningResponse {
     private String part;
     private String component;
     private int score;
+    public static DroneWarningResponse createDroneWarningResponse(String part, String component, int score){
+        DroneWarningResponse droneWarningResponse = DroneWarningResponse.builder()
+                .part(part)
+                .component(component)
+                .score(score)
+                .build();
+        return droneWarningResponse;
+    }
 }
