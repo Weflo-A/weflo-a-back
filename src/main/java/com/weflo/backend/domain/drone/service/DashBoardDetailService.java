@@ -27,6 +27,26 @@ public class DashBoardDetailService {
         DroneScoreAvgResponse droneScoreAvgResponse = createDroneScoreAvgResponse(testResult);
         DroneTotalScoreResponse droneTotalScoreResponse =createDroneTotalScoreResponse(testResult);
         List<DroneWarningResponse> droneWarningResponses =createDroneWarningResponses(testResult);
+        String warningPart = findWarningPart(testResult);
+    }
+    private String findWarningPart(TestResult testResult){
+        int part1 = findService.getPart1Point(testResult);
+        int part2 = findService.getPart2Point(testResult);
+        int part3 = findService.getPart3Point(testResult);
+        int part4 = findService.getPart4Point(testResult);
+        int value = Math.min(part1, Math.min(part2, Math.min(part3, part4)));
+        return computeWaringPart(value,part1,part2,part3);
+    }
+    private String computeWaringPart(int value,int part1, int part2, int part3){
+        if (value == part1) {
+            return "PART1";
+        } else if (value == part2) {
+            return "PART2";
+        } else if (value == part3) {
+            return "PART3";
+        } else {
+            return "PART4";
+        }
     }
     private List<DroneWarningResponse> createDroneWarningResponses(TestResult testResult){
         List<DroneWarningResponse> droneWarningResponses = new ArrayList<>();
