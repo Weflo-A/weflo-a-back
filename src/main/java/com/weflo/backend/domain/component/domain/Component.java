@@ -22,6 +22,8 @@ public class Component {
     private int price;
     private String description;
     private String image;
+    private Part part;
+    private ComponentType type;
     @OneToMany(mappedBy = "component")
     @Builder.Default
     private List<DroneComponent> droneComponents = new ArrayList<>();
