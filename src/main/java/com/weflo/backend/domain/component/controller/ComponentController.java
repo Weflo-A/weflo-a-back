@@ -36,6 +36,7 @@ public class ComponentController {
 
     @GetMapping("/set-data")
     public void setData() {
+
         componentService.setData();
     }
 }
