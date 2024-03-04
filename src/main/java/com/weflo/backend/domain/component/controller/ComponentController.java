@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/component")
 public class ComponentController {
-
+    
     private final ComponentService componentService;
 
     @Operation(
