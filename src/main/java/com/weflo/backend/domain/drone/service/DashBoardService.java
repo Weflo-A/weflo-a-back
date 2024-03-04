@@ -51,9 +51,9 @@ public class DashBoardService {
                 .map(testResult ->
                         TimeLineResponse.of(
                                 testResult,
-                                getEscPoint(testResult),
-                                getBladePoint(testResult),
-                                getMotorPoint(testResult)))
+                                findService.getEscPoint(testResult),
+                                findService.getBladePoint(testResult),
+                                findService.getMotorPoint(testResult)))
                 .collect(Collectors.toList());
     }
     private List<TestListResponse> createTestListResponse(List<TestResult> testResults){
@@ -61,24 +61,10 @@ public class DashBoardService {
                 .map(testResult ->
                         TestListResponse.of(
                                 testResult,
-                                getPoint(testResult)))
+                                findService.getPoint(testResult)))
                 .collect(Collectors.toList());
     }
-    private int getPoint(TestResult testResult){
-        return (getEscPoint(testResult)+getBladePoint(testResult)+getMotorPoint(testResult))/3;
-    }
-    private int getEscPoint(TestResult testResult){
-        return (testResult.getPart1Esc()+testResult.getPart2Esc()+testResult.getPart3Esc()+testResult.getPart4Esc())/4;
 
-    }
-    private int getBladePoint(TestResult testResult){
-        return (testResult.getPart1Blade()+testResult.getPart2Blade()+testResult.getPart3Blade()+testResult.getPart4Blade())/4;
-
-    }
-    private int getMotorPoint(TestResult testResult){
-        return (testResult.getPart1Motor()+testResult.getPart2Motor()+testResult.getPart3Motor()+testResult.getPart4Motor())/4;
-
-    }
     private List<TestResult> findTestResultById(Long droneId){
         return testResultRepository.findAllByDroneId(droneId);
     }
