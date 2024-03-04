@@ -5,6 +5,7 @@ import com.weflo.backend.domain.component.service.ComponentService;
 import com.weflo.backend.global.common.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@Tag(name = "부품 & 드론 부품 관련 API 모음", description = "부품 관련 API")
 public class ComponentController {
 
     private final ComponentService componentService;
@@ -37,6 +39,9 @@ public class ComponentController {
         return SuccessResponse.ok(findComponents);
     }
 
+    @Operation(
+            summary = "데이터 세팅 API"
+    )
     @GetMapping("/set-data")
     public void setData() {
 
