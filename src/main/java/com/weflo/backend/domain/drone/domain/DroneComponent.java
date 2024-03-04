@@ -19,7 +19,7 @@ public class DroneComponent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "drone_component_id")
     private Long id;
-    private int point;
+    private Long point;
     private int brokenCount;
     @ManyToOne
     @JoinColumn(name = "component_id")
