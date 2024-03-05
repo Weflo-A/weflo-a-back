@@ -5,6 +5,8 @@ import com.weflo.backend.domain.component.domain.ComponentType;
 import com.weflo.backend.domain.component.domain.Part;
 import com.weflo.backend.domain.component.repository.ComponentRepository;
 import com.weflo.backend.domain.component.repository.DroneComponentRepository;
+import com.weflo.backend.domain.cost.domain.DroneGroupMonthCost;
+import com.weflo.backend.domain.cost.repository.DroneGroupMonthCostRepository;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneComponent;
 import com.weflo.backend.domain.drone.domain.DroneModel;
@@ -33,7 +35,7 @@ public class HealthCheckController {
     private final ComponentRepository componentRepository;
     private final DroneRepository droneRepository;
     private final DroneComponentRepository droneComponentRepository;
-
+    private final DroneGroupMonthCostRepository droneGroupMonthCostRepository;
     @Operation(
             summary = "데이터 세팅",
             description = "서버 상태를 체크합니다."
@@ -209,5 +211,31 @@ public class HealthCheckController {
         droneComponentRepository.save(droneComponentB);
         droneComponentRepository.save(droneComponentC);
         droneComponentRepository.save(droneComponentD);
+
+        for (int i = 1; i <= 12; i++) {
+            DroneGroupMonthCost monthCost = DroneGroupMonthCost.builder()
+                    .name("그룹A")
+                    .droneCount((long) i * 10)
+                    .month((long) i)
+                    .year(2023L)
+                    .monthCost((long) i * 20)
+                    .purpose("비행 목적" + i)
+                    .build();
+
+            droneGroupMonthCostRepository.save(monthCost);
+        }
+
+        for (int i = 1; i <= 6; i++) {
+            DroneGroupMonthCost monthCost = DroneGroupMonthCost.builder()
+                    .name("그룹A")
+                    .droneCount((long) i * 10)
+                    .month((long) i)
+                    .year(2024L)
+                    .monthCost((long) i * 20)
+                    .purpose("비행 목적" + i)
+                    .build();
+
+            droneGroupMonthCostRepository.save(monthCost);
+        }
     }
 }
