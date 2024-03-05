@@ -1,6 +1,7 @@
 package com.weflo.backend.domain.component.controller;
 
 import com.weflo.backend.domain.component.dto.ComponentResponse;
+import com.weflo.backend.domain.component.dto.DroneComponentResponse;
 import com.weflo.backend.domain.component.service.ComponentService;
 import com.weflo.backend.global.common.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,9 +34,22 @@ public class ComponentController {
     )
     @GetMapping("/drones/{droneId}/components")
     public ResponseEntity<SuccessResponse<?>> getDroneComponentsByPoint(@PathVariable("droneId") Long droneId,
-                                                                 @RequestParam(value = "point") Long point) {
+                                                                        @RequestParam(value = "point") Long point) {
+        List<DroneComponentResponse> findComponents = componentService.getDroneComponentsByPoint(droneId, point);
+        return SuccessResponse.ok(findComponents);
+    }
 
-        List<ComponentResponse>findComponents = componentService.getDroneComponentsByPoint(droneId, point);
+    @Operation(
+            summary = "부품 종류 기준 부품 리스트 조회 API",
+            description = "선택한 부품 종류를 기준으로 드론의 부품 리스트가 반환됩니다."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "요청이 성공했습니다."
+    )
+    @GetMapping("/components")
+    public ResponseEntity<SuccessResponse<?>> getComponentsByTypes(@RequestParam String[] type) {
+        List<ComponentResponse> findComponents = componentService.getComponentsByTypes(type);
         return SuccessResponse.ok(findComponents);
     }
 }
