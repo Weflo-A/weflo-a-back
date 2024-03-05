@@ -23,6 +23,7 @@ public class Component {
     private int price;
     private String description;
     private String image;
+    private Double star;
     private Part part;
     private ComponentType type;
     @OneToMany(mappedBy = "component")

@@ -113,6 +113,7 @@ public class HealthCheckController {
                 .price(1000)
                 .description("부품 A 정의")
                 .type(ComponentType.ESC)
+                .star(4.5)
                 .image("부품 A 이미지 경로")
                 .build();
 
@@ -122,6 +123,7 @@ public class HealthCheckController {
                 .price(2000)
                 .description("부품 B 정의")
                 .type(ComponentType.BLADE)
+                .star(3.5)
                 .image("부품 B 이미지 경로")
                 .build();
 
@@ -131,6 +133,7 @@ public class HealthCheckController {
                 .price(3000)
                 .description("부품 C 정의")
                 .type(ComponentType.MOTOR)
+                .star(1.0)
                 .image("부품 C 이미지 경로")
                 .build();
 
@@ -140,6 +143,7 @@ public class HealthCheckController {
                 .price(4000)
                 .description("부품 D 정의")
                 .type(ComponentType.BLADE)
+                .star(2.0)
                 .image("부품 D 이미지 경로")
                 .build();
 

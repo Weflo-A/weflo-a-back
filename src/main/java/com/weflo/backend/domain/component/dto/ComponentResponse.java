@@ -15,6 +15,7 @@ public record ComponentResponse(
         Part part,
         String name,
         Long point,
+        Double star,
         String description,
         int price
 ){
@@ -29,6 +30,7 @@ public record ComponentResponse(
                         .part(component.getPart())
                         .point(droneComponent.getPoint())
                         .name(component.getName())
+                        .star(component.getStar())
                         .description(component.getDescription())
                         .price(component.getPrice())
                         .build();
