@@ -7,9 +7,11 @@ import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
 import com.weflo.backend.domain.drone.repository.DroneRepository;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
+import com.weflo.backend.global.common.service.FindService;
 import com.weflo.backend.global.error.ErrorCode;
 import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,12 +19,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Service
 public class DashBoardService {
     private final DroneRepository droneRepository;
     private final TestResultRepository testResultRepository;
     private final DroneGroupInfoRepository droneGroupInfoRepository;
+    private final FindService findService;
     public DroneDetailResponse getDroneDetail(Long droneId){
-        Drone drone = findDroneById(droneId);
+        Drone drone = findService.findDroneById(droneId);
         List<TestResult> testResults = findTestResultById(droneId);
         DroneInfoResponse droneInfoResponse = createDroneInfoResponse(drone);
         List<TimeLineResponse> timeLineResponses = createTimeLineResponse(testResults);
@@ -41,9 +45,6 @@ public class DashBoardService {
                 .map(drone -> DroneListResponse.of(drone.getName()))
                 .collect(Collectors.toList());
     }
-    private Drone findDroneById(Long droneId){
-        return droneRepository.findById(droneId).orElseThrow(() -> new EntityNotFoundException(ErrorCode.DRONE_NOT_FOUND));
-    }
     private DroneInfoResponse createDroneInfoResponse(Drone drone){
         return DroneInfoResponse.of(drone);
     }
@@ -52,9 +53,9 @@ public class DashBoardService {
                 .map(testResult ->
                         TimeLineResponse.of(
                                 testResult,
-                                getEscPoint(testResult),
-                                getBladePoint(testResult),
-                                getMotorPoint(testResult)))
+                                findService.getEscPoint(testResult),
+                                findService.getBladePoint(testResult),
+                                findService.getMotorPoint(testResult)))
                 .collect(Collectors.toList());
     }
     private List<TestListResponse> createTestListResponse(List<TestResult> testResults){
@@ -62,24 +63,10 @@ public class DashBoardService {
                 .map(testResult ->
                         TestListResponse.of(
                                 testResult,
-                                getPoint(testResult)))
+                                findService.getPoint(testResult)))
                 .collect(Collectors.toList());
     }
-    private int getPoint(TestResult testResult){
-        return (getEscPoint(testResult)+getBladePoint(testResult)+getMotorPoint(testResult))/3;
-    }
-    private int getEscPoint(TestResult testResult){
-        return (testResult.getPart1Esc()+testResult.getPart2Esc()+testResult.getPart3Esc()+testResult.getPart4Esc())/4;
 
-    }
-    private int getBladePoint(TestResult testResult){
-        return (testResult.getPart1Blade()+testResult.getPart2Blade()+testResult.getPart3Blade()+testResult.getPart4Blade())/4;
-
-    }
-    private int getMotorPoint(TestResult testResult){
-        return (testResult.getPart1Motor()+testResult.getPart2Motor()+testResult.getPart3Motor()+testResult.getPart4Motor())/4;
-
-    }
     private List<TestResult> findTestResultById(Long droneId){
         return testResultRepository.findAllByDroneId(droneId);
     }
