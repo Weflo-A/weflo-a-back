@@ -7,7 +7,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "drone_group")
+@Table(name = "drone_group_info")
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -19,11 +19,11 @@ public class DroneGroupInfo extends BaseTimeEntity {
     @Column(name = "drone_group_info_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drone_id")
     private Drone drone;
 
-    @ManyToOne
-    @JoinColumn(name = "droneGroup_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "drone_group_id")
     private DroneGroup droneGroup;
 }
