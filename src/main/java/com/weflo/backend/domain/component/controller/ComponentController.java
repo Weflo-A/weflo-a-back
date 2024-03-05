@@ -38,13 +38,4 @@ public class ComponentController {
         List<ComponentResponse>findComponents = componentService.getDroneComponentsByPoint(droneId, point);
         return SuccessResponse.ok(findComponents);
     }
-
-    @Operation(
-            summary = "데이터 세팅 API"
-    )
-    @GetMapping("/set-data")
-    public void setData() {
-
-        componentService.setData();
-    }
 }
