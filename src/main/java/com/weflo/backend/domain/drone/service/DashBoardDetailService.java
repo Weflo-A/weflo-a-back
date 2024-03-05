@@ -9,6 +9,7 @@ import com.weflo.backend.global.common.service.FindService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -132,7 +133,11 @@ public class DashBoardDetailService {
                 findService.getPart4Point(testResult));
     }
     private TestResult findTestResultByDroneIdAndDate(Long droneId, String date){
-        return testResultRepository.findByDroneIdAndCreateDate(droneId, LocalDateTime.parse(date));
+        // "2022-03-15"와 같은 형식의 날짜 문자열을 LocalDate로 변환
+        LocalDate localDate = LocalDate.parse(date);
+
+        // 변환된 LocalDate를 사용하여 Repository 메서드 호출
+        return testResultRepository.findByDroneIdAndCreateDate(droneId, localDate.atStartOfDay());
     }
     private DroneTestInfoResponse createDroneTestInfoResponse(Drone drone, TestResult testResult){
         return DroneTestInfoResponse.of(drone,testResult);

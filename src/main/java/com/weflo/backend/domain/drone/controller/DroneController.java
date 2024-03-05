@@ -18,7 +18,7 @@ public class DroneController {
     private final DashBoardDetailService dashBoardDetailService;
 
     @GetMapping("/detail")
-    public ResponseEntity<SuccessResponse<?>> getDroneDetail(@RequestParam Long droneId){
+    public ResponseEntity<SuccessResponse<?>> getDroneDetail(@RequestParam(value = "droneId") Long droneId){
         final DroneDetailResponse droneDetailResponse = dashBoardService.getDroneDetail(droneId);
         return SuccessResponse.ok(droneDetailResponse);
     }

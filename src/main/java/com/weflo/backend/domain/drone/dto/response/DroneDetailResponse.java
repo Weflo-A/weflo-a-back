@@ -20,6 +20,7 @@ public class DroneDetailResponse {
                 .timeLine(timeLine)
                 .testList(testList)
                 .totalScore(cost)
+                .droneGroup(droneGroupListResponse)
                 .build();
     }
 }

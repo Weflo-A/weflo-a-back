@@ -24,7 +24,7 @@ public class Drone {
     private String name;
 
     private LocalDateTime productionYear;
-
+    @Enumerated(EnumType.STRING)
     private DroneModel model;
 
     private String purpose;
