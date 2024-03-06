@@ -6,6 +6,7 @@ import com.weflo.backend.global.common.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +34,17 @@ public class ComponentController {
     )
     @GetMapping("/drones/{droneId}/components")
     public ResponseEntity<SuccessResponse<?>> getDroneComponentsByPoint(@PathVariable("droneId") Long droneId,
-                                                                 @RequestParam(value = "point") Long point) {
+                                                                 @RequestParam(value = "point") Long point,
+                                                                        @RequestParam(value = "than") String than) {
 
-        List<ComponentResponse>findComponents = componentService.getDroneComponentsByPoint(droneId, point);
+        List<ComponentResponse> findComponents = new ArrayList<>();
+
+        if ("MORE".equals(than)) {
+            findComponents = componentService.getDroneComponentsByPointUp(droneId, point);
+        } else if ("LESS".equals(than)) {
+            findComponents = componentService.getDroneComponentsByPointDown(droneId, point);
+        }
+
         return SuccessResponse.ok(findComponents);
     }
 }

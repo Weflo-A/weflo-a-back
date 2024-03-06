@@ -19,12 +19,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class ComponentService {
-    private final ComponentRepository componentRepository;
-    private final DroneRepository droneRepository;
     private final DroneComponentRepository droneComponentRepository;
 
-    public List<ComponentResponse> getDroneComponentsByPoint(Long droneId, Long point) {
+    public List<ComponentResponse> getDroneComponentsByPointUp(Long droneId, Long point) {
         List<DroneComponent> findDroneComponents = droneComponentRepository.findByDroneIdAndPointGreaterThanEqual(
+                droneId, point);
+
+        return ComponentResponse.ofList(findDroneComponents);
+    }
+
+    public List<ComponentResponse> getDroneComponentsByPointDown(Long droneId, Long point) {
+        List<DroneComponent> findDroneComponents = droneComponentRepository.findByDroneIdAndPointLessThanEqual(
                 droneId, point);
 
         return ComponentResponse.ofList(findDroneComponents);
