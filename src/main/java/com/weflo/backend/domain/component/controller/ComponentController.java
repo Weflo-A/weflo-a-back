@@ -2,6 +2,7 @@ package com.weflo.backend.domain.component.controller;
 
 import com.weflo.backend.domain.component.dto.ComponentResponse;
 import com.weflo.backend.domain.component.dto.ComponentsByModelsResponse;
+import com.weflo.backend.domain.component.dto.DroneComponentResponse;
 import com.weflo.backend.domain.component.service.ComponentService;
 import com.weflo.backend.global.common.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,7 +39,7 @@ public class ComponentController {
     public ResponseEntity<SuccessResponse<?>> getDroneComponentsByPoint(@PathVariable("droneId") Long droneId,
                                                                  @RequestParam(value = "point") Long point,
                                                                  @RequestParam(value = "than") String than) {
-        List<ComponentResponse> findComponents = new ArrayList<>();
+        List<DroneComponentResponse> findComponents = new ArrayList<>();
 
         if ("MORE".equals(than)) {
             findComponents = componentService.getDroneComponentsByPointUp(droneId, point);
