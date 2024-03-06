@@ -31,10 +31,4 @@ public class DroneController {
         final DashBoardDetailResponse dashBoardDetailResponse = dashBoardDetailService.getDashBoardDetail(dashBoardDetailRequest);
         return SuccessResponse.ok(dashBoardDetailResponse);
     }
-
-    @GetMapping("/groups")
-    public ResponseEntity<SuccessResponse<?>> getDroneGroups(){
-        List<DroneGroupListResponse> droneGroupListResponses = droneGroupService.getAllDroneGroups();
-        return SuccessResponse.ok(droneGroupListResponses);
-    }
 }
