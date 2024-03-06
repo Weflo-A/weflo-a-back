@@ -7,12 +7,14 @@ import lombok.Getter;
 @Builder
 @Getter
 public class DroneScoreResponse {
+    private String part;
     private int motor;
     private int blade;
     private int esc;
     private int total;
-    public static DroneScoreResponse createDroneScoreResponse(int motor, int blade, int esc, int total){
+    public static DroneScoreResponse createDroneScoreResponse(String part, int motor, int blade, int esc, int total){
         DroneScoreResponse droneScoreResponse = DroneScoreResponse.builder()
+                .part(part)
                 .motor(motor)
                 .blade(blade)
                 .esc(esc)
