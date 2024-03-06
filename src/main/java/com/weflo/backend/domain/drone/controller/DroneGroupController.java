@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@Tag(name = "그룹 내 드론 조회 API", description = "드론 그룹 관련 API")
+@Tag(name = "드론 그룹 관련 API", description = "드론 그룹 API")
 public class DroneGroupController {
     private final DroneGroupService droneGroupService;
 
