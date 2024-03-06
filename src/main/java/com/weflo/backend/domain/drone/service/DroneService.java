@@ -3,8 +3,10 @@ package com.weflo.backend.domain.drone.service;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.dto.request.SearchDroneRequest;
+import com.weflo.backend.domain.drone.dto.response.DroneGroupInfoResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.SearchDroneResponse;
 import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
+import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
 import com.weflo.backend.domain.drone.repository.DroneRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,13 +20,14 @@ import java.util.stream.Collectors;
 public class DroneService {
     private final DroneRepository droneRepository;
     private final DroneGroupInfoRepository droneGroupInfoRepository;
+    private final DroneGroupRepository droneGroupRepository;
     public List<SearchDroneResponse> searchDrone(SearchDroneRequest searchDroneRequest){
         return createSearchDroneResponse(searchDroneRequest);
     }
     private List<SearchDroneResponse> createSearchDroneResponse(SearchDroneRequest searchDroneRequest){
         List<Drone> drones = droneRepository.findAllByNameContaining(searchDroneRequest.getName());
         List<Drone> searchResults = new ArrayList<>();
-
+        List<DroneGroupInfoResponse> groupInfo = createDroneGroupInfoResponses();
         for(Drone drone : drones){
             List<DroneGroup> droneGroups = droneGroupInfoRepository.findAllDroneGroupByDroneId(drone.getId());
             if (searchDroneRequest.getModel().stream().anyMatch(model -> model.equalsIgnoreCase(String.valueOf(drone.getModel())))) {
@@ -40,10 +43,14 @@ public class DroneService {
         }
         return searchResults.stream()
                 .map(searchResult ->
-                        SearchDroneResponse.of(
+                        SearchDroneResponse.of(groupInfo,
                                 searchResult, getGroupsWithDroneId(searchResult.getId())
                         ))
                 .collect(Collectors.toList());
+    }
+    private List<DroneGroupInfoResponse> createDroneGroupInfoResponses(){
+        List<DroneGroup> droneGroups = droneGroupRepository.findAll();
+        return droneGroups.stream().map(droneGroup -> DroneGroupInfoResponse.of(droneGroup)).collect(Collectors.toList());
     }
     private List<String> getGroupsWithDroneId(Long droneId){
         List<DroneGroup> droneGroups = droneGroupInfoRepository.findAllDroneGroupByDroneId(droneId);
