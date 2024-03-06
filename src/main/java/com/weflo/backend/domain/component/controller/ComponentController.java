@@ -37,8 +37,8 @@ public class ComponentController {
     )
     @GetMapping("/drones/{droneId}/components")
     public ResponseEntity<SuccessResponse<?>> getDroneComponentsByPoint(@PathVariable("droneId") Long droneId,
-                                                                 @RequestParam(value = "point") Long point,
-                                                                 @RequestParam(value = "than") String than) {
+                                                                        @RequestParam(value = "point") Long point,
+                                                                        @RequestParam(value = "than") String than) {
         List<DroneComponentResponse> findComponents = new ArrayList<>();
 
         if ("MORE".equals(than)) {
@@ -46,21 +46,35 @@ public class ComponentController {
         } else if ("LESS".equals(than)) {
             findComponents = componentService.getDroneComponentsByPointDown(droneId, point);
         }
-      
+
         return SuccessResponse.ok(findComponents);
     }
 
     @Operation(
-            summary = "모든 드론의 모델 별 점수 기준 부품 리스트 조회 API",
+            summary = "드론 모델 별 점수 기준 부품 리스트 조회 API",
             description = "쿼리 파라미터로 넘어온 점수 이하의 부품들을 모델 별로 나누어 반환합니다."
     )
     @ApiResponse(
             responseCode = "200",
             description = "요청이 성공했습니다."
     )
-    @GetMapping("/components")
+    @GetMapping("/drone-components")
     public ResponseEntity<SuccessResponse<?>> getComponentsByModels(@RequestParam("point") Long point) {
         List<ComponentsByModelsResponse> responses = componentService.getDroneComponentsByModels(point);
         return SuccessResponse.ok(responses);
+    }
+
+    @Operation(
+            summary = "타입 별 부품 조회 API",
+            description = "쿼리 파라미터로 넘어온 타입의 부품들을 반환합니다."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "요청이 성공했습니다."
+    )
+    @GetMapping("/components")
+    public ResponseEntity<SuccessResponse<?>> getComponentsByType(String[] type) {
+        List<ComponentResponse> componentResponses = componentService.getComponentsByTypes(type);
+        return SuccessResponse.ok(componentResponses);
     }
 }
