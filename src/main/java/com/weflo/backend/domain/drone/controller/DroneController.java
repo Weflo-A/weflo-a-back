@@ -3,16 +3,12 @@ package com.weflo.backend.domain.drone.controller;
 import com.weflo.backend.domain.drone.dto.request.DashBoardDetailRequest;
 import com.weflo.backend.domain.drone.dto.request.SearchDroneRequest;
 import com.weflo.backend.domain.drone.dto.response.DroneDetailResponse;
-import com.weflo.backend.domain.drone.dto.response.DroneGroupListResponse;
 import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DashBoardDetailResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.SearchDroneResponse;
 import com.weflo.backend.domain.drone.service.DashBoardDetailService;
 import com.weflo.backend.domain.drone.service.DashBoardService;
-<<<<<<< HEAD
 import com.weflo.backend.domain.drone.service.DroneService;
-=======
 import com.weflo.backend.domain.drone.service.DroneGroupService;
->>>>>>> fd740737eaf04e5c36438026c6104ab22bd3c497
 import com.weflo.backend.global.common.SuccessResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
