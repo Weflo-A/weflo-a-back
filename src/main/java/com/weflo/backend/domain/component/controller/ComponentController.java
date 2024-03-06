@@ -27,6 +27,7 @@ public class ComponentController {
     @Operation(
             summary = "점수 기준 부품 리스트 조회 API",
             description = "해당 드론의 쿼리 파라미터(point) 점수 이상의 부품 리스트가 반환됩니다. (전체 조회 시 점수 = 0 사용)"
+                    + "than 파라미터 값으로 MORE -> 기준 점수 이상, LESS -> 기준 점수 이하의 부품이 반환됩니다. "
     )
     @ApiResponse(
             responseCode = "200",
