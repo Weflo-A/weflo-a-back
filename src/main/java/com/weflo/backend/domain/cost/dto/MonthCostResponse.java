@@ -8,6 +8,8 @@ import lombok.Builder;
 public record MonthCostResponse(
         String name,
         String purpose,
+        Long year,
+        Long month,
         Long droneCount,
         Long monthCost
 ) {
@@ -17,6 +19,8 @@ public record MonthCostResponse(
                 .name(cost.getName())
                 .monthCost(cost.getMonthCost())
                 .droneCount(cost.getDroneCount())
+                .year(cost.getYear())
+                .month(cost.getMonth())
                 .purpose(cost.getPurpose())
                 .build()
         ).toList();
