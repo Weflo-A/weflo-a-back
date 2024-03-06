@@ -3,6 +3,7 @@ package com.weflo.backend.domain.drone.service;
 import com.weflo.backend.domain.cost.dto.ComponentCostAvgTimeLine;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
+import com.weflo.backend.domain.drone.dto.response.onBoarding.DroneGroupAvgResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.DroneGroupInfoDetailResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.DroneGroupInfoResponse;
 import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
@@ -26,6 +27,10 @@ public class OnBoardingService {
         DroneGroupInfoDetailResponse droneGroupInfoDetail = createDroneGroupInfoDetail(droneGroup);
         List<ComponentCostAvgTimeLine> componentCostAvgTimeLines = createComponentCostAvgTimeLines(groupId, year);
         return DroneGroupInfoResponse.of(droneGroupInfoDetail, componentCostAvgTimeLines);
+    }
+    public DroneGroupAvgResponse getDroneGroupAvg(Long groupId, int year){
+
+
     }
     private List<ComponentCostAvgTimeLine> createComponentCostAvgTimeLines(Long groupId, int year){
         List<ComponentCostAvgTimeLine> componentCostAvgTimeLines = new ArrayList<>();

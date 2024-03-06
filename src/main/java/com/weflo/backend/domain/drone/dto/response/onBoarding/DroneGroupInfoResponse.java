@@ -9,12 +9,12 @@ import java.util.List;
 @Builder
 @Getter
 public class DroneGroupInfoResponse {
-    private DroneGroupInfoDetailResponse droneGroupInfoDetailResponse;
-    private List<ComponentCostAvgTimeLine> componentCostAvgTimeLines;
+    private DroneGroupInfoDetailResponse groupInfoDetail;
+    private List<ComponentCostAvgTimeLine> costAvgTimeLines;
     public static DroneGroupInfoResponse of(DroneGroupInfoDetailResponse droneGroupInfoDetailResponse, List<ComponentCostAvgTimeLine> componentCostAvgTimeLines){
         return DroneGroupInfoResponse.builder()
-                .droneGroupInfoDetailResponse(droneGroupInfoDetailResponse)
-                .componentCostAvgTimeLines(componentCostAvgTimeLines)
+                .groupInfoDetail(droneGroupInfoDetailResponse)
+                .costAvgTimeLines(componentCostAvgTimeLines)
                 .build();
     }
 }

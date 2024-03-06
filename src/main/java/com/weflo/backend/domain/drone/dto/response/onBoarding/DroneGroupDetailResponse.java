@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public class DroneGroupDetailResponse {
     private String groupName;
-    private DroneGroupInfoResponse droneGroupInfoResponse;
+    private DroneGroupInfoResponse groupInfo;
 }
