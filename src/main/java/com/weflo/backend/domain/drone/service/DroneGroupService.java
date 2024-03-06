@@ -4,6 +4,7 @@ import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.domain.DroneGroupInfo;
 import com.weflo.backend.domain.drone.dto.response.DroneGroupListResponse;
+import com.weflo.backend.domain.drone.dto.response.DroneListResponse;
 import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
 import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
 import com.weflo.backend.domain.drone.repository.DroneRepository;
@@ -19,15 +20,20 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class DroneGroupService {
     private final DroneGroupInfoRepository droneGroupInfoRepository;
+    private final DroneGroupRepository droneGroupRepository;
 
     @Transactional(readOnly = true)
-    public List<DroneGroupListResponse> getDronesByDroneGroup(Long droneGroupId) {
+    public DroneGroupListResponse getDronesByDroneGroup(Long droneGroupId) {
         List<Drone> findDrones = droneGroupInfoRepository.findAllDroneByDroneGroupId(droneGroupId);
-        List<DroneGroupListResponse> result = new ArrayList<>();
-        for (Drone findDrone : findDrones) {
-            result.add(DroneGroupListResponse.of(findDrone.getName(), null));
-        }
+        DroneGroup findDroneGroup = droneGroupRepository.findById(droneGroupId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
 
-        return result;
+        List<DroneListResponse> droneListResponses = findDrones.stream()
+                .map(drone -> DroneListResponse.builder()
+                .name(drone.getName())
+                .build()).toList();
+        List<DroneGroupListResponse> result = new ArrayList<>();
+
+        return DroneGroupListResponse.of(findDroneGroup.getName(), droneListResponses);
     }
 }
