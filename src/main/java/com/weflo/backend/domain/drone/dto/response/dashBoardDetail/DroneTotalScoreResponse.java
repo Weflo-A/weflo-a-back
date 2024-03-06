@@ -1,25 +1,23 @@
 package com.weflo.backend.domain.drone.dto.response.dashBoardDetail;
 
+import com.weflo.backend.domain.testresult.domain.TestResult;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.time.format.DateTimeFormatter;
 
 @Builder
 @Getter
 public class DroneTotalScoreResponse {
-    private TotalScoreResponse totalScore;
-    private String part;
-    private String component;
-    private String date;
-    private int balance;
     private int accident;
-    public static DroneTotalScoreResponse of(TotalScoreResponse totalScore){
+    private String expectedDate;
+    private String exchangeDate;
+
+    public static DroneTotalScoreResponse of(TestResult testResult, TestResult closetTestResult){
         return DroneTotalScoreResponse.builder()
-                .totalScore(totalScore)
-                .part("더미")
-                .component("더미")
-                .date("더미")
-                .balance(11)
                 .accident(11)
+                .expectedDate(testResult.getExpectedDate().format(DateTimeFormatter.ofPattern("MM월 dd일")))
+                .exchangeDate(closetTestResult.getCreateDate().format(DateTimeFormatter.ofPattern("MM월 dd일")))
                 .build();
     }
 }

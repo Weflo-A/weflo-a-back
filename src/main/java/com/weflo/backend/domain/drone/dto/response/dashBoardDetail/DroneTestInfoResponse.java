@@ -5,17 +5,17 @@ import com.weflo.backend.domain.testresult.domain.TestResult;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+
 @Builder
 @Getter
 public class DroneTestInfoResponse {
     private String name;
-    private String testDate;
-    private String stationId;
-    public static DroneTestInfoResponse of(Drone drone, TestResult testResult){
+    private List<String> testDate;
+    public static DroneTestInfoResponse of(Drone drone, List<String> testDates){
         return DroneTestInfoResponse.builder()
                 .name(drone.getName())
-                .testDate(String.valueOf(testResult.getCreateDate()))
-                .stationId(testResult.getStationId())
+                .testDate(testDates)
                 .build();
     }
 }

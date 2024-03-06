@@ -31,7 +31,7 @@ public class DashBoardService {
         List<TimeLineResponse> timeLineResponses = createTimeLineResponse(testResults);
         List<TestListResponse> testListResponses = createTestListResponse(testResults);
         DroneGroupListResponse droneGroupListResponse = createDroneGroupListResponse(droneId);
-        return DroneDetailResponse.of(droneInfoResponse, timeLineResponses, testListResponses, droneGroupListResponse, drone.getCost());
+        return DroneDetailResponse.of(droneInfoResponse, timeLineResponses, testListResponses, droneGroupListResponse);
     }
     private DroneGroupListResponse createDroneGroupListResponse(Long droneId){
         DroneGroup droneGroup = droneGroupInfoRepository.findTopByDroneIdOrderByCreateDateDesc(droneId);

@@ -10,18 +10,21 @@ import static com.weflo.backend.domain.drone.domain.DroneModel.getEnumDroneModel
 @Getter
 public class DroneInfoResponse {
     private String name;
-    private String productionYear;
+    private int productionYear;
     private String model;
     private String purpose;
     private int cost;
     private int accident;
+    private int balance;
+    private int totalScore;
 
     public static DroneInfoResponse of(Drone drone){
         return DroneInfoResponse.builder()
                 .name(drone.getName())
-                .productionYear(String.valueOf(drone.getProductionYear()))
+                .productionYear(drone.getProductionYear().getYear())
                 .model(String.valueOf(drone.getModel()))
                 .purpose(drone.getPurpose())
+                .totalScore(drone.getCost())
                 .build();
     }
 }

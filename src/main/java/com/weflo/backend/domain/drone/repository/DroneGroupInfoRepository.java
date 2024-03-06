@@ -18,4 +18,6 @@ public interface DroneGroupInfoRepository extends JpaRepository<DroneGroupInfo, 
     DroneGroup findTopByDroneIdOrderByCreateDateDesc(@Param("droneId") Long droneId);
     @Query("SELECT dgi.drone FROM DroneGroupInfo dgi WHERE dgi.droneGroup.id = :droneGroupId")
     List<Drone> findAllDroneByDroneGroupId(@Param("droneGroupId")Long droneGroupId);
+    @Query("SELECT dgi.droneGroup FROM DroneGroupInfo dgi WHERE dgi.drone.id = :droneId")
+    List<DroneGroup> findAllDroneGroupByDroneId(@Param("droneId") Long droneId);
 }

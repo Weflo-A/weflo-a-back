@@ -37,8 +37,7 @@ public class ComponentController {
     @GetMapping("/drones/{droneId}/components")
     public ResponseEntity<SuccessResponse<?>> getDroneComponentsByPoint(@PathVariable("droneId") Long droneId,
                                                                  @RequestParam(value = "point") Long point,
-                                                                        @RequestParam(value = "than") String than) {
-
+                                                                 @RequestParam(value = "than") String than) {
         List<ComponentResponse> findComponents = new ArrayList<>();
 
         if ("MORE".equals(than)) {
@@ -46,7 +45,7 @@ public class ComponentController {
         } else if ("LESS".equals(than)) {
             findComponents = componentService.getDroneComponentsByPointDown(droneId, point);
         }
-
+      
         return SuccessResponse.ok(findComponents);
     }
 

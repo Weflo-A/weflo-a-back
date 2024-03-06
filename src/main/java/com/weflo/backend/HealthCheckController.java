@@ -5,6 +5,8 @@ import com.weflo.backend.domain.component.domain.ComponentType;
 import com.weflo.backend.domain.component.domain.Part;
 import com.weflo.backend.domain.component.repository.ComponentRepository;
 import com.weflo.backend.domain.component.repository.DroneComponentRepository;
+import com.weflo.backend.domain.cost.domain.DroneGroupMonthCost;
+import com.weflo.backend.domain.cost.repository.DroneGroupMonthCostRepository;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneComponent;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
@@ -18,6 +20,8 @@ import com.weflo.backend.domain.repairstore.repository.RepairStoreRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +41,7 @@ public class HealthCheckController {
     private final ComponentRepository componentRepository;
     private final DroneRepository droneRepository;
     private final DroneComponentRepository droneComponentRepository;
+    private final DroneGroupMonthCostRepository droneGroupMonthCostRepository;
     private final DroneGroupRepository droneGroupRepository;
     private final DroneGroupInfoRepository droneGroupInfoRepository;
     @Operation(
@@ -163,7 +168,7 @@ public class HealthCheckController {
                 .model(DroneModel.MODEL1)
                 .purpose("비행 목적")
                 .flightCount(200)
-                .productionYear(LocalDateTime.of(2000, 4, 4, 6, 30))
+                .productionYear(LocalDate.of(2000, 4, 4))
                 .build();
 
         Drone droneB = Drone.builder()
@@ -172,7 +177,7 @@ public class HealthCheckController {
                 .model(DroneModel.MODEL2)
                 .purpose("비행 목적")
                 .flightCount(300)
-                .productionYear(LocalDateTime.of(2001, 4, 4, 6, 30))
+                .productionYear(LocalDate.of(2001, 4, 4))
                 .build();
 
         droneRepository.save(droneA);
@@ -218,6 +223,32 @@ public class HealthCheckController {
         droneComponentRepository.save(droneComponentB);
         droneComponentRepository.save(droneComponentC);
         droneComponentRepository.save(droneComponentD);
+
+        for (int i = 1; i <= 12; i++) {
+            DroneGroupMonthCost monthCost = DroneGroupMonthCost.builder()
+                    .name("그룹A")
+                    .droneCount((long) i * 10)
+                    .month((long) i)
+                    .year(2023L)
+                    .monthCost((long) i * 20)
+                    .purpose("비행 목적" + i)
+                    .build();
+
+            droneGroupMonthCostRepository.save(monthCost);
+        }
+
+        for (int i = 1; i <= 6; i++) {
+            DroneGroupMonthCost monthCost = DroneGroupMonthCost.builder()
+                    .name("그룹A")
+                    .droneCount((long) i * 10)
+                    .month((long) i)
+                    .year(2024L)
+                    .monthCost((long) i * 20)
+                    .purpose("비행 목적" + i)
+                    .build();
+
+            droneGroupMonthCostRepository.save(monthCost);
+        }
 
         DroneGroup droneGroupA = DroneGroup.builder()
                 .name("그룹 A")
