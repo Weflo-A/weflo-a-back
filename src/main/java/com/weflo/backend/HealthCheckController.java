@@ -244,7 +244,7 @@ public class HealthCheckController {
                     .month((long) i)
                     .year(2023L)
                     .monthCost((long) i * 20)
-                    .purpose("비행 목적" + i)
+                    .purpose("그룹 사용 목적" + i)
                     .build();
 
             droneGroupMonthCostRepository.save(monthCost);
@@ -257,7 +257,7 @@ public class HealthCheckController {
                     .month((long) i)
                     .year(2024L)
                     .monthCost((long) i * 20)
-                    .purpose("비행 목적" + i)
+                    .purpose("그룹 사용 목적" + i)
                     .build();
 
             droneGroupMonthCostRepository.save(monthCost);
