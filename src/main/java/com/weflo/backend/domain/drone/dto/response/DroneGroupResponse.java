@@ -6,11 +6,11 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class DroneGroupInfoResponse {
+public class DroneGroupResponse {
     private Long groupId;
     private String name;
-    public static DroneGroupInfoResponse of(DroneGroup droneGroup){
-        return DroneGroupInfoResponse.builder()
+    public static DroneGroupResponse of(DroneGroup droneGroup){
+        return DroneGroupResponse.builder()
                 .groupId(droneGroup.getId())
                 .name(droneGroup.getName())
                 .build();

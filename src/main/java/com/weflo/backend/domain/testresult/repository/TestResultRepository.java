@@ -13,5 +13,7 @@ public interface TestResultRepository extends JpaRepository<TestResult, Long> {
     TestResult findByDroneIdAndCreateDate(Long droneId, LocalDateTime date);
     @Query("SELECT tr FROM TestResult tr WHERE tr.createDate <= :dateTime ORDER BY tr.createDate DESC LIMIT 1")
     TestResult findClosestPreviousByCreateDate(@Param("dateTime") LocalDateTime dateTime);
+    List<TestResult> findByDroneGroupIdAndYearAndMonth(Long droneGroupId, int year, int month);
+
 
 }
