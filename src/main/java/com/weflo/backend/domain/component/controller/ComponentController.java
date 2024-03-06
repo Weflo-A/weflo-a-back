@@ -50,10 +50,17 @@ public class ComponentController {
         return SuccessResponse.ok(findComponents);
     }
 
+    @Operation(
+            summary = "모든 드론의 모델 별 점수 기준 부품 리스트 조회 API",
+            description = "쿼리 파라미터로 넘어온 점수 이하의 부품들을 모델 별로 나누어 반환합니다."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "요청이 성공했습니다."
+    )
     @GetMapping("/components")
     public ResponseEntity<SuccessResponse<?>> getComponentsByModels(@RequestParam("point") Long point) {
         List<ComponentsByModelsResponse> responses = componentService.getDroneComponentsByModels(point);
         return SuccessResponse.ok(responses);
-
     }
 }
