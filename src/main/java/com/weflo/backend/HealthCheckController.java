@@ -9,13 +9,19 @@ import com.weflo.backend.domain.cost.domain.DroneGroupMonthCost;
 import com.weflo.backend.domain.cost.repository.DroneGroupMonthCostRepository;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneComponent;
+import com.weflo.backend.domain.drone.domain.DroneGroup;
+import com.weflo.backend.domain.drone.domain.DroneGroupInfo;
 import com.weflo.backend.domain.drone.domain.DroneModel;
+import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
+import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
 import com.weflo.backend.domain.drone.repository.DroneRepository;
 import com.weflo.backend.domain.repairstore.domain.RepairStore;
 import com.weflo.backend.domain.repairstore.repository.RepairStoreRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +42,8 @@ public class HealthCheckController {
     private final DroneRepository droneRepository;
     private final DroneComponentRepository droneComponentRepository;
     private final DroneGroupMonthCostRepository droneGroupMonthCostRepository;
+    private final DroneGroupRepository droneGroupRepository;
+    private final DroneGroupInfoRepository droneGroupInfoRepository;
     @Operation(
             summary = "데이터 세팅",
             description = "서버 상태를 체크합니다."
@@ -115,6 +123,7 @@ public class HealthCheckController {
                 .price(1000)
                 .description("부품 A 정의")
                 .type(ComponentType.ESC)
+                .star(4.5)
                 .image("부품 A 이미지 경로")
                 .build();
 
@@ -124,6 +133,7 @@ public class HealthCheckController {
                 .price(2000)
                 .description("부품 B 정의")
                 .type(ComponentType.BLADE)
+                .star(3.5)
                 .image("부품 B 이미지 경로")
                 .build();
 
@@ -133,6 +143,7 @@ public class HealthCheckController {
                 .price(3000)
                 .description("부품 C 정의")
                 .type(ComponentType.MOTOR)
+                .star(1.0)
                 .image("부품 C 이미지 경로")
                 .build();
 
@@ -142,6 +153,7 @@ public class HealthCheckController {
                 .price(4000)
                 .description("부품 D 정의")
                 .type(ComponentType.BLADE)
+                .star(2.0)
                 .image("부품 D 이미지 경로")
                 .build();
 
@@ -156,7 +168,7 @@ public class HealthCheckController {
                 .model(DroneModel.MODEL1)
                 .purpose("비행 목적")
                 .flightCount(200)
-                .productionYear(LocalDateTime.of(2000, 4, 4, 6, 30))
+                .productionYear(LocalDate.of(2000, 4, 4))
                 .build();
 
         Drone droneB = Drone.builder()
@@ -165,7 +177,7 @@ public class HealthCheckController {
                 .model(DroneModel.MODEL2)
                 .purpose("비행 목적")
                 .flightCount(300)
-                .productionYear(LocalDateTime.of(2001, 4, 4, 6, 30))
+                .productionYear(LocalDate.of(2001, 4, 4))
                 .build();
 
         droneRepository.save(droneA);
@@ -237,5 +249,35 @@ public class HealthCheckController {
 
             droneGroupMonthCostRepository.save(monthCost);
         }
+
+        DroneGroup droneGroupA = DroneGroup.builder()
+                .name("그룹 A")
+                .build();
+
+        DroneGroup droneGroupB = DroneGroup.builder()
+                .name("그룹 B")
+                .build();
+
+        droneGroupRepository.save(droneGroupA);
+        droneGroupRepository.save(droneGroupB);
+
+        DroneGroupInfo droneGroupInfo1 = DroneGroupInfo.builder()
+                .drone(droneA)
+                .droneGroup(droneGroupA)
+                .build();
+
+        DroneGroupInfo droneGroupInfo2 = DroneGroupInfo.builder()
+                .drone(droneA)
+                .droneGroup(droneGroupB)
+                .build();
+
+        DroneGroupInfo droneGroupInfo3 = DroneGroupInfo.builder()
+                .drone(droneB)
+                .droneGroup(droneGroupA)
+                .build();
+
+        droneGroupInfoRepository.save(droneGroupInfo1);
+        droneGroupInfoRepository.save(droneGroupInfo2);
+        droneGroupInfoRepository.save(droneGroupInfo3);
     }
 }
