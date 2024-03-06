@@ -18,6 +18,8 @@ import com.weflo.backend.domain.repairstore.repository.RepairStoreRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -163,7 +165,7 @@ public class HealthCheckController {
                 .model(DroneModel.MODEL1)
                 .purpose("비행 목적")
                 .flightCount(200)
-                .productionYear(LocalDateTime.of(2000, 4, 4, 6, 30))
+                .productionYear(LocalDate.of(2000, 4, 4))
                 .build();
 
         Drone droneB = Drone.builder()
@@ -172,7 +174,7 @@ public class HealthCheckController {
                 .model(DroneModel.MODEL2)
                 .purpose("비행 목적")
                 .flightCount(300)
-                .productionYear(LocalDateTime.of(2001, 4, 4, 6, 30))
+                .productionYear(LocalDate.of(2001, 4, 4))
                 .build();
 
         droneRepository.save(droneA);

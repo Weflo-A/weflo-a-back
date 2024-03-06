@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -23,7 +25,7 @@ public class DashBoardDetailService {
     public DashBoardDetailResponse getDashBoardDetail(DashBoardDetailRequest dashBoardDetailRequest){
         Drone drone = findService.findDroneById(dashBoardDetailRequest.getDroneId());
         TestResult testResult = findTestResultByDroneIdAndDate(dashBoardDetailRequest.getDroneId(), dashBoardDetailRequest.getDate());
-        DroneTestInfoResponse droneTestInfoResponse = createDroneTestInfoResponse(drone, testResult);
+        DroneTestInfoResponse droneTestInfoResponse = createDroneTestInfoResponse(drone);
         DroneTestResultResponse droneTestResultResponse = createDroneTestResultResponse(testResult);
         List<DroneScoreResponse> droneScoreResponses = createDroneScoreResponses(testResult);
         DroneScoreAvgResponse droneScoreAvgResponse = createDroneScoreAvgResponse(testResult);
@@ -88,13 +90,17 @@ public class DashBoardDetailService {
         DroneWarningResponse droneWarningResponse12 = DroneWarningResponse.createDroneWarningResponse("PART4", "Esc", testResult.getPart4Esc());
         droneWarningResponses.add(droneWarningResponse12);
 
-        droneWarningResponses.sort(Comparator.comparingInt(DroneWarningResponse::getScore).reversed());
+        List<DroneWarningResponse> top5Warnings = droneWarningResponses.stream()
+                .sorted(Comparator.comparingInt(DroneWarningResponse::getScore))
+                .limit(5)
+                .collect(Collectors.toList());
 
-        return droneWarningResponses;
+
+        return top5Warnings;
     }
     private DroneTotalScoreResponse createDroneTotalScoreResponse(TestResult testResult){
-        TotalScoreResponse totalScoreResponse = createTotalScoreResponse(testResult);
-        return DroneTotalScoreResponse.of(totalScoreResponse);
+        TestResult closetTestResult = testResultRepository.findClosestPreviousByCreateDate(testResult.getCreateDate());
+        return DroneTotalScoreResponse.of(testResult,closetTestResult);
     }
     private TotalScoreResponse createTotalScoreResponse(TestResult testResult){
         return TotalScoreResponse.of(
@@ -113,24 +119,21 @@ public class DashBoardDetailService {
     }
     private List<DroneScoreResponse> createDroneScoreResponses(TestResult testResult) {
         List<DroneScoreResponse> droneScoreResponses = new ArrayList<>();
-        DroneScoreResponse part1Score = DroneScoreResponse.createDroneScoreResponse(testResult.getPart1Motor(), testResult.getPart1Blade(), testResult.getPart1Esc(), findService.getPart1Point(testResult));
+        DroneScoreResponse part1Score = DroneScoreResponse.createDroneScoreResponse("PART1",testResult.getPart1Motor(), testResult.getPart1Blade(), testResult.getPart1Esc(), findService.getPart1Point(testResult));
         droneScoreResponses.add(part1Score);
-        DroneScoreResponse part2Score = DroneScoreResponse.createDroneScoreResponse(testResult.getPart2Motor(), testResult.getPart2Blade(), testResult.getPart2Esc(), findService.getPart2Point(testResult));
+        DroneScoreResponse part2Score = DroneScoreResponse.createDroneScoreResponse("PART2",testResult.getPart2Motor(), testResult.getPart2Blade(), testResult.getPart2Esc(), findService.getPart2Point(testResult));
         droneScoreResponses.add(part2Score);
-        DroneScoreResponse part3Score = DroneScoreResponse.createDroneScoreResponse(testResult.getPart3Motor(), testResult.getPart3Blade(), testResult.getPart3Esc(), findService.getPart3Point(testResult));
+        DroneScoreResponse part3Score = DroneScoreResponse.createDroneScoreResponse("PART3",testResult.getPart3Motor(), testResult.getPart3Blade(), testResult.getPart3Esc(), findService.getPart3Point(testResult));
         droneScoreResponses.add(part3Score);
-        DroneScoreResponse part4Score = DroneScoreResponse.createDroneScoreResponse(testResult.getPart4Motor(), testResult.getPart4Blade(), testResult.getPart4Esc(), findService.getPart4Point(testResult));
+        DroneScoreResponse part4Score = DroneScoreResponse.createDroneScoreResponse("PART4",testResult.getPart4Motor(), testResult.getPart4Blade(), testResult.getPart4Esc(), findService.getPart4Point(testResult));
         droneScoreResponses.add(part4Score);
         return droneScoreResponses;
     }
 
     private DroneTestResultResponse createDroneTestResultResponse(TestResult testResult){
-        return DroneTestResultResponse.of(
+        return DroneTestResultResponse.of(createTotalScoreResponse(testResult),
                 findService.getPoint(testResult),
-                findService.getPart1Point(testResult),
-                findService.getPart2Point(testResult),
-                findService.getPart3Point(testResult),
-                findService.getPart4Point(testResult));
+                createDroneScoreResponses(testResult));
     }
     private TestResult findTestResultByDroneIdAndDate(Long droneId, String date){
         // "2022-03-15"와 같은 형식의 날짜 문자열을 LocalDate로 변환
@@ -139,7 +142,9 @@ public class DashBoardDetailService {
         // 변환된 LocalDate를 사용하여 Repository 메서드 호출
         return testResultRepository.findByDroneIdAndCreateDate(droneId, localDate.atStartOfDay());
     }
-    private DroneTestInfoResponse createDroneTestInfoResponse(Drone drone, TestResult testResult){
-        return DroneTestInfoResponse.of(drone,testResult);
+    private DroneTestInfoResponse createDroneTestInfoResponse(Drone drone){
+        List<TestResult> testResults = testResultRepository.findAllByDroneId(drone.getId());
+        List<String> testDates= testResults.stream().map(testResult->testResult.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"))).collect(Collectors.toList());
+        return DroneTestInfoResponse.of(drone,testDates);
     }
 }

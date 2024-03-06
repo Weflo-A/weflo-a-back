@@ -2,6 +2,8 @@ package com.weflo.backend.domain.drone.domain;
 
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.*;
 
@@ -23,7 +25,7 @@ public class Drone {
 
     private String name;
 
-    private LocalDateTime productionYear;
+    private LocalDate productionYear;
     @Enumerated(EnumType.STRING)
     private DroneModel model;
 
