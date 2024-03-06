@@ -7,7 +7,11 @@ import com.weflo.backend.domain.component.repository.ComponentRepository;
 import com.weflo.backend.domain.component.repository.DroneComponentRepository;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneComponent;
+import com.weflo.backend.domain.drone.domain.DroneGroup;
+import com.weflo.backend.domain.drone.domain.DroneGroupInfo;
 import com.weflo.backend.domain.drone.domain.DroneModel;
+import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
+import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
 import com.weflo.backend.domain.drone.repository.DroneRepository;
 import com.weflo.backend.domain.repairstore.domain.RepairStore;
 import com.weflo.backend.domain.repairstore.repository.RepairStoreRepository;
@@ -33,7 +37,8 @@ public class HealthCheckController {
     private final ComponentRepository componentRepository;
     private final DroneRepository droneRepository;
     private final DroneComponentRepository droneComponentRepository;
-
+    private final DroneGroupRepository droneGroupRepository;
+    private final DroneGroupInfoRepository droneGroupInfoRepository;
     @Operation(
             summary = "데이터 세팅",
             description = "서버 상태를 체크합니다."
@@ -213,5 +218,35 @@ public class HealthCheckController {
         droneComponentRepository.save(droneComponentB);
         droneComponentRepository.save(droneComponentC);
         droneComponentRepository.save(droneComponentD);
+
+        DroneGroup droneGroupA = DroneGroup.builder()
+                .name("그룹 A")
+                .build();
+
+        DroneGroup droneGroupB = DroneGroup.builder()
+                .name("그룹 B")
+                .build();
+
+        droneGroupRepository.save(droneGroupA);
+        droneGroupRepository.save(droneGroupB);
+
+        DroneGroupInfo droneGroupInfo1 = DroneGroupInfo.builder()
+                .drone(droneA)
+                .droneGroup(droneGroupA)
+                .build();
+
+        DroneGroupInfo droneGroupInfo2 = DroneGroupInfo.builder()
+                .drone(droneA)
+                .droneGroup(droneGroupB)
+                .build();
+
+        DroneGroupInfo droneGroupInfo3 = DroneGroupInfo.builder()
+                .drone(droneB)
+                .droneGroup(droneGroupA)
+                .build();
+
+        droneGroupInfoRepository.save(droneGroupInfo1);
+        droneGroupInfoRepository.save(droneGroupInfo2);
+        droneGroupInfoRepository.save(droneGroupInfo3);
     }
 }
