@@ -51,7 +51,7 @@ public class DashBoardDetailService {
         if ("motor".equals(filter)) {
             droneScoreResponses.sort(Comparator.comparingInt(DroneScoreResponse::getMotor).reversed());
         } else if ("blade".equals(filter)) {
-            droneScoreResponses.sort(Comparator.comparing(DroneScoreResponse::getBlade));
+            droneScoreResponses.sort(Comparator.comparing(DroneScoreResponse::getBlade).reversed());
         } else if ("esc".equals(filter)) {
             droneScoreResponses.sort(Comparator.comparingInt(DroneScoreResponse::getEsc).reversed());
         } else if ("total".equals(filter)) {
