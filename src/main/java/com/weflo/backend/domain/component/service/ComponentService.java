@@ -3,14 +3,22 @@ package com.weflo.backend.domain.component.service;
 import com.weflo.backend.domain.component.domain.Component;
 import com.weflo.backend.domain.component.domain.ComponentType;
 import com.weflo.backend.domain.component.dto.ComponentResponse;
+import com.weflo.backend.domain.component.dto.ComponentsByGroupResponse;
 import com.weflo.backend.domain.component.dto.ComponentsByModelsResponse;
 import com.weflo.backend.domain.component.dto.DroneComponentResponse;
 import com.weflo.backend.domain.component.repository.ComponentRepository;
 import com.weflo.backend.domain.component.repository.DroneComponentRepository;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneComponent;
+import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.domain.DroneModel;
+import com.weflo.backend.domain.drone.dto.response.DroneGroupListResponse;
+import com.weflo.backend.domain.drone.dto.response.DroneListResponse;
+import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
 import com.weflo.backend.domain.drone.repository.DroneRepository;
+import com.weflo.backend.domain.drone.service.DroneGroupService;
+import com.weflo.backend.global.error.ErrorCode;
+import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +33,8 @@ public class ComponentService {
     private final ComponentRepository componentRepository;
     private final DroneComponentRepository droneComponentRepository;
     private final DroneRepository droneRepository;
+    private final DroneGroupRepository droneGroupRepository;
+    private final DroneGroupService droneGroupService;
 
     public List<DroneComponentResponse> getDroneComponentsByPointUp(Long droneId, Long point) {
         List<DroneComponent> findDroneComponents = droneComponentRepository.findByDroneIdAndPointGreaterThanEqual(
@@ -61,20 +71,7 @@ public class ComponentService {
             List<Drone> filteredDrones = allDrones.stream().filter(drone -> drone.getModel().equals(firstDrone.getModel()))
                     .toList();
 
-            Map<ComponentType, Long> componentStatus = new HashMap<>();
-
-            for (Drone drone : filteredDrones) {
-                List<DroneComponentResponse> findComponents = getDroneComponentsByPointDown(drone.getId(),
-                        point);
-
-                for (DroneComponentResponse findComponent : findComponents) {
-                    if (!componentStatus.containsKey(findComponent.getType())) {
-                        componentStatus.put(findComponent.getType(), 1L);
-                    } else {
-                        componentStatus.put(findComponent.getType(), componentStatus.get(findComponent.getType()) + 1L);
-                    }
-                }
-            }
+            Map<ComponentType, Long> componentStatus = generateComponentStatus(point, filteredDrones);
 
             ComponentsByModelsResponse response = ComponentsByModelsResponse.of(firstDrone.getModel(),
                     componentStatus);
@@ -88,5 +85,45 @@ public class ComponentService {
         }
 
         return result;
+    }
+
+    public List<ComponentsByGroupResponse> getDroneComponentsByGroup(Long point) {
+        List<DroneGroup> allDroneGroups = droneGroupRepository.findAll();
+
+        List<ComponentsByGroupResponse> result = new ArrayList<>();
+
+        for (DroneGroup droneGroup : allDroneGroups) {
+            DroneGroupListResponse dronesByDroneGroup = droneGroupService.getDronesByDroneGroup(droneGroup.getId());
+            List<DroneListResponse> droneList = dronesByDroneGroup.getDroneList();
+
+            List<Drone> drones = droneList.stream()
+                    .map(drone -> droneRepository.findById(drone.getId()).orElseThrow(() ->
+                                    new EntityNotFoundException(ErrorCode.DRONE_NOT_FOUND)))
+                    .toList();
+
+            Map<ComponentType, Long> componentStatus = generateComponentStatus(point, drones);
+            ComponentsByGroupResponse response = ComponentsByGroupResponse.of(droneGroup.getName(), componentStatus);
+            result.add(response);
+        }
+
+        return result;
+    }
+
+    private Map<ComponentType, Long> generateComponentStatus(Long point, List<Drone> filteredDrones) {
+        Map<ComponentType, Long> componentStatus = new HashMap<>();
+
+        for (Drone drone : filteredDrones) {
+            List<DroneComponentResponse> findComponents = getDroneComponentsByPointDown(drone.getId(),
+                    point);
+
+            for (DroneComponentResponse findComponent : findComponents) {
+                if (!componentStatus.containsKey(findComponent.getType())) {
+                    componentStatus.put(findComponent.getType(), 1L);
+                } else {
+                    componentStatus.put(findComponent.getType(), componentStatus.get(findComponent.getType()) + 1L);
+                }
+            }
+        }
+        return componentStatus;
     }
 }

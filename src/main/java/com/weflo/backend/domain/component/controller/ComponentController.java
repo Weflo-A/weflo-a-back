@@ -1,6 +1,7 @@
 package com.weflo.backend.domain.component.controller;
 
 import com.weflo.backend.domain.component.dto.ComponentResponse;
+import com.weflo.backend.domain.component.dto.ComponentsByGroupResponse;
 import com.weflo.backend.domain.component.dto.ComponentsByModelsResponse;
 import com.weflo.backend.domain.component.dto.DroneComponentResponse;
 import com.weflo.backend.domain.component.service.ComponentService;
@@ -51,17 +52,28 @@ public class ComponentController {
     }
 
     @Operation(
-            summary = "드론 모델 별 점수 기준 부품 리스트 조회 API",
-            description = "쿼리 파라미터로 넘어온 점수 이하의 부품들을 모델 별로 나누어 반환합니다."
+            summary = "드론 모델 & 그룹 별 점수 기준 부품 리스트 조회 API",
+            description = "쿼리 파라미터로 넘어온 점수 이하의 부품들을 모델(그룹) 별로 나누어 반환합니다."
     )
     @ApiResponse(
             responseCode = "200",
             description = "요청이 성공했습니다."
     )
     @GetMapping("/drone-components")
-    public ResponseEntity<SuccessResponse<?>> getComponentsByModels(@RequestParam("point") Long point) {
-        List<ComponentsByModelsResponse> responses = componentService.getDroneComponentsByModels(point);
-        return SuccessResponse.ok(responses);
+    public ResponseEntity<SuccessResponse<?>> getComponentsByModels(@RequestParam("point") Long point,
+                                                                    @RequestParam("mode") String mode
+    ) {
+        if ("MODEL".equals(mode)) {
+            List<ComponentsByModelsResponse> responses = componentService.getDroneComponentsByModels(point);
+            return SuccessResponse.ok(responses);
+        }
+
+        if ("GROUP".equals(mode)) {
+            List<ComponentsByGroupResponse> responses = componentService.getDroneComponentsByGroup(point);
+            return SuccessResponse.ok(responses);
+        }
+
+        return null;
     }
 
     @Operation(

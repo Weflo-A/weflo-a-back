@@ -35,7 +35,7 @@ public class DroneGroupController {
             description = "요청이 성공했습니다."
     )
 
-    @GetMapping("/drone-group/{droneGroupId}/drones")
+    @GetMapping("/{droneGroupId}/drones")
     public ResponseEntity<SuccessResponse<?>> getDronesByGroup(@PathVariable(value = "droneGroupId") Long droneGroupId){
         DroneGroupListResponse droneGroupListResponses = droneGroupService.getDronesByDroneGroup(droneGroupId);
         return SuccessResponse.ok(droneGroupListResponses);
