@@ -1,6 +1,8 @@
 package com.weflo.backend.global.common.service;
 
 import com.weflo.backend.domain.drone.domain.Drone;
+import com.weflo.backend.domain.drone.domain.DroneGroup;
+import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
 import com.weflo.backend.domain.drone.repository.DroneRepository;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.global.error.ErrorCode;
@@ -12,6 +14,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class FindService {
     private final DroneRepository droneRepository;
+    private final DroneGroupRepository droneGroupRepository;
+    public DroneGroup findDroneGroupById(Long groupId){
+        return droneGroupRepository.findById(groupId).orElseThrow(()->new EntityNotFoundException(ErrorCode.DRONE_GROUP_NOT_FOUND));
+    }
     public Drone findDroneById(Long droneId){
         return droneRepository.findById(droneId).orElseThrow(() -> new EntityNotFoundException(ErrorCode.DRONE_NOT_FOUND));
     }

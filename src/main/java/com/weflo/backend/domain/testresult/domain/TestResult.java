@@ -45,8 +45,7 @@ public class TestResult extends BaseTimeEntity {
     private int part4Motor;
     private int part4Esc;
 
-
-
+    private int totalCost;
     @ManyToOne
     @JoinColumn(name = "drone_id")
     private Drone drone;
