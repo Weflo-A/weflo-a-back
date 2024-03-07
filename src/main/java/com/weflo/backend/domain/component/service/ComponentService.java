@@ -43,16 +43,11 @@ public class ComponentService {
         return DroneComponentResponse.ofList(findDroneComponents);
     }
 
-    public List<ComponentResponse> getComponentsByTypes(String[] types) {
-        List<ComponentResponse> droneComponentResult = new ArrayList<>();
+    public List<ComponentResponse> getComponents() {
 
-        for (String type : types) {
-            ComponentType findType = ComponentType.findTypeByName(type);
-            List<Component> findComponentsByType = componentRepository.findByType(findType);
-            droneComponentResult.addAll(ComponentResponse.ofList(findComponentsByType));
-        }
+        List<Component> allComponents = componentRepository.findAll();
 
-        return droneComponentResult;
+        return ComponentResponse.ofList(allComponents);
     }
 
     public List<DroneComponentResponse> getDroneComponentsByPointDown(Long droneId, Long point) {

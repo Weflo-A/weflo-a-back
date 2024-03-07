@@ -85,8 +85,8 @@ public class ComponentController {
             description = "요청이 성공했습니다."
     )
     @GetMapping("/components")
-    public ResponseEntity<SuccessResponse<?>> getComponentsByType(String[] type) {
-        List<ComponentResponse> componentResponses = componentService.getComponentsByTypes(type);
+    public ResponseEntity<SuccessResponse<?>> getComponentsByType() {
+        List<ComponentResponse> componentResponses = componentService.getComponents();
         return SuccessResponse.ok(componentResponses);
     }
 }
