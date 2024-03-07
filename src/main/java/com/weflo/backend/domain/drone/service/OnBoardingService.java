@@ -77,7 +77,7 @@ public class OnBoardingService {
             List<TestResult> testResults = testResultRepository.findByDroneIdAndCreateDateYearAndCreateDateMonth(drone.getId(),year,month);
             groupMonthAvgScore = getMonthAvgScore(testResults,groupMonthAvgScore);
         }
-        if(groupMonthAvgScore!=0) {
+        if(groupMonthAvgScore!=0&&!drones.isEmpty()) {
             groupMonthAvgScore = groupMonthAvgScore/drones.size();
         }
         return DroneGroupAvgTimeLineResponse.of(month,groupMonthAvgScore);
@@ -119,7 +119,7 @@ public class OnBoardingService {
         for(TestResult testResult : testResults){
             groupMonthAvgScore = testResult.getPoint()+groupMonthAvgScore;
         }
-        if(groupMonthAvgScore!=0) {
+        if(groupMonthAvgScore!=0&&!testResults.isEmpty()) {
             groupMonthAvgScore = groupMonthAvgScore/testResults.size();
         }
         return groupMonthAvgScore;
