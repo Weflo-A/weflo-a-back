@@ -47,7 +47,11 @@ public class DashBoardService {
     }
     private DroneInfoResponse createDroneInfoResponse(Drone drone, TestResult testResult){
 
-        return DroneInfoResponse.of(drone, findService.getPoint(testResult));
+        return DroneInfoResponse.of(drone,
+                findService.getPoint(testResult),
+                findService.getMotorPoint(testResult),
+                findService.getBladePoint(testResult),
+                findService.getEscPoint(testResult));
     }
     private List<TimeLineResponse> createTimeLineResponse(List<TestResult> testResults){
         return testResults.stream()

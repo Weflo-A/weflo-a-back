@@ -2,8 +2,10 @@ package com.weflo.backend.domain.drone.controller;
 
 import com.weflo.backend.domain.drone.dto.request.DashBoardDetailRequest;
 import com.weflo.backend.domain.drone.dto.request.SearchDroneRequest;
+import com.weflo.backend.domain.drone.dto.request.SortScoreListRequest;
 import com.weflo.backend.domain.drone.dto.response.DroneDetailResponse;
 import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DashBoardDetailResponse;
+import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DroneScoreResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.SearchDroneResponse;
 import com.weflo.backend.domain.drone.service.DashBoardDetailService;
 import com.weflo.backend.domain.drone.service.DashBoardService;
@@ -35,6 +37,11 @@ public class DroneController {
     public ResponseEntity<SuccessResponse<?>> getDroneDashBoardDetail(@RequestBody DashBoardDetailRequest dashBoardDetailRequest){
         final DashBoardDetailResponse dashBoardDetailResponse = dashBoardDetailService.getDashBoardDetail(dashBoardDetailRequest);
         return SuccessResponse.ok(dashBoardDetailResponse);
+    }
+    @PostMapping("/sort")
+    public ResponseEntity<SuccessResponse<?>> sortScoreList(@RequestBody SortScoreListRequest sortScoreListRequest){
+        final List<DroneScoreResponse> droneScoreResponses = dashBoardDetailService.sortDroneScoreResponseList(sortScoreListRequest);
+        return SuccessResponse.ok(droneScoreResponses);
     }
     @PostMapping("/search")
     public ResponseEntity<SuccessResponse<?>> searchDrone(@RequestBody SearchDroneRequest searchDroneRequest){
