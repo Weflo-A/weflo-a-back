@@ -239,6 +239,19 @@ public class HealthCheckController {
 
         for (int i = 1; i <= 6; i++) {
             DroneGroupMonthCost monthCost = DroneGroupMonthCost.builder()
+                    .name("그룹B")
+                    .droneCount((long) i * 10)
+                    .month((long) i)
+                    .year(2023L)
+                    .monthCost((long) i * 20)
+                    .purpose("비행 목적" + i)
+                    .build();
+
+            droneGroupMonthCostRepository.save(monthCost);
+        }
+
+        for (int i = 1; i <= 6; i++) {
+            DroneGroupMonthCost monthCost = DroneGroupMonthCost.builder()
                     .name("그룹A")
                     .droneCount((long) i * 10)
                     .month((long) i)

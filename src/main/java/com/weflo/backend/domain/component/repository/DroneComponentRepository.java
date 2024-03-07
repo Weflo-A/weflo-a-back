@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DroneComponentRepository extends JpaRepository<DroneComponent, Long> {
     List<DroneComponent> findByDroneIdAndPointGreaterThanEqual(Long droneId, Long point);
+    List<DroneComponent> findByDroneIdAndPointLessThanEqual(Long droneId, Long point);
 }
