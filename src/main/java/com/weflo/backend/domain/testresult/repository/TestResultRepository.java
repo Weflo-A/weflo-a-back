@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface TestResultRepository extends JpaRepository<TestResult, Long> {
     List<TestResult> findAllByDroneId(Long droneId);
-    TestResult findByDroneIdAndCreateDate(Long droneId, LocalDateTime date);
+    @Query("SELECT tr FROM TestResult tr WHERE tr.droneId = :droneId AND tr.createDate = :date")
+    TestResult findByDroneIdAndCreateDate(@Param("droneId") Long droneId, @Param("date") LocalDateTime date);
     @Query("SELECT tr FROM TestResult tr WHERE tr.createDate <= :dateTime ORDER BY tr.createDate DESC LIMIT 1")
     TestResult findClosestPreviousByCreateDate(@Param("dateTime") LocalDateTime dateTime);
     @Query("SELECT tr FROM TestResult tr WHERE tr.drone.id = :droneId " +
