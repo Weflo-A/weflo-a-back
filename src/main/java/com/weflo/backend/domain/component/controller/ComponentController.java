@@ -1,6 +1,7 @@
 package com.weflo.backend.domain.component.controller;
 
 import com.weflo.backend.domain.component.dto.ComponentResponse;
+import com.weflo.backend.domain.component.dto.ComponentsByGroupResponse;
 import com.weflo.backend.domain.component.dto.ComponentsByModelsResponse;
 import com.weflo.backend.domain.component.dto.DroneComponentResponse;
 import com.weflo.backend.domain.component.service.ComponentService;
@@ -59,9 +60,20 @@ public class ComponentController {
             description = "요청이 성공했습니다."
     )
     @GetMapping("/drone-components")
-    public ResponseEntity<SuccessResponse<?>> getComponentsByModels(@RequestParam("point") Long point) {
-        List<ComponentsByModelsResponse> responses = componentService.getDroneComponentsByModels(point);
-        return SuccessResponse.ok(responses);
+    public ResponseEntity<SuccessResponse<?>> getComponentsByModels(@RequestParam("point") Long point,
+                                                                    @RequestParam("mode") String mode
+    ) {
+        if ("MODEL".equals(mode)) {
+            List<ComponentsByModelsResponse> responses = componentService.getDroneComponentsByModels(point);
+            return SuccessResponse.ok(responses);
+        }
+
+        if ("GROUP".equals(mode)) {
+            List<ComponentsByGroupResponse> responses = componentService.getDroneComponentsByGroup(point);
+            return SuccessResponse.ok(responses);
+        }
+
+        return null;
     }
 
     @Operation(
