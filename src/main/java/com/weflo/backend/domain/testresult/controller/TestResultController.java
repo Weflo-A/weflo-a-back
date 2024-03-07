@@ -29,6 +29,7 @@ public class TestResultController {
     @Operation(
             summary = "견적서 조회 API",
             description = "날짜와 드론 PK를 기준으로 견적서를 조회 합니다."
+                    + "견적서 날짜들을 조회할 때는 쿼리 파라미터로 아무것도 넘기지 않으면 됩니다."
     )
     @ApiResponse(
             responseCode = "200",
