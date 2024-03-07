@@ -14,7 +14,7 @@ public class ComponentCostAvgTimeLine {
     public static ComponentCostAvgTimeLine of(int month, int totalAvgCost, int groupAvgCost){
         return ComponentCostAvgTimeLine.builder()
                 .month(month)
-                .totalAvgCost(cost)
+                .totalAvgCost(totalAvgCost)
                 .groupAvgCost(groupAvgCost)
                 .build();
     }
