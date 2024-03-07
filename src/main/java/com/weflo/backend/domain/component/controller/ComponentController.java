@@ -77,8 +77,8 @@ public class ComponentController {
     }
 
     @Operation(
-            summary = "타입 별 부품 조회 API",
-            description = "쿼리 파라미터로 넘어온 타입의 부품들을 반환합니다."
+            summary = "전체 부품 조회 API",
+            description = "모든 부품들을 반환합니다."
     )
     @ApiResponse(
             responseCode = "200",
