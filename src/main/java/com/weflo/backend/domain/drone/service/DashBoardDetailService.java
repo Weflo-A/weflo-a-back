@@ -139,7 +139,7 @@ public class DashBoardDetailService {
         LocalDateTime localDateTime = LocalDateTime.parse(date + "T00:00:00");
 
         // 변환된 LocalDate를 사용하여 Repository 메서드 호출
-        return testResultRepository.findByDroneIdAndCreateDate(droneId, localDateTime).orElseThrow(()->new EntityNotFoundException(ErrorCode.TEST_RESULT_NOT_FOUND));
+        return testResultRepository.findByDroneIdAndCreateDateYearAndCreateDateMonthAndCreateDateDay(droneId, localDateTime.getYear(), localDateTime.getMonthValue(),localDateTime.getDayOfMonth()).orElseThrow(()->new EntityNotFoundException(ErrorCode.TEST_RESULT_NOT_FOUND));
     }
     private DroneTestInfoResponse createDroneTestInfoResponse(Drone drone){
         List<TestResult> testResults = testResultRepository.findAllByDroneId(drone.getId());
