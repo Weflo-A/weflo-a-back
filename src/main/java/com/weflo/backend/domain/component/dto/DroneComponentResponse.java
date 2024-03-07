@@ -7,37 +7,39 @@ import com.weflo.backend.domain.drone.domain.DroneComponent;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Builder;
+import lombok.Data;
 
 @Builder
-public record DroneComponentResponse(
-        String image,
-        ComponentType type,
-        Part part,
-        String name,
-        Long point,
-        Double star,
-        String description,
-        int price
-){
-        public static List<DroneComponentResponse> ofList(List<DroneComponent> droneComponents) {
-            List<DroneComponentResponse> droneComponentResult = new ArrayList<>();
+@Data
+public class DroneComponentResponse{
+    private String image;
+    private ComponentType type;
+    private Part part;
+    private String name;
+    private Long point;
+    private Double star;
+    private String description;
+    private int price;
 
-            for (DroneComponent droneComponent : droneComponents) {
-                Component component = droneComponent.getComponent();
-                DroneComponentResponse droneComponentResponse = builder()
-                        .image(component.getImage())
-                        .type(component.getType())
-                        .part(component.getPart())
-                        .point(droneComponent.getPoint())
-                        .name(component.getName())
-                        .star(component.getStar())
-                        .description(component.getDescription())
-                        .price(component.getPrice())
-                        .build();
+    public static List<DroneComponentResponse> ofList(List<DroneComponent> droneComponents) {
+        List<DroneComponentResponse> droneComponentResult = new ArrayList<>();
 
-                droneComponentResult.add(droneComponentResponse);
-            }
+        for (DroneComponent droneComponent : droneComponents) {
+            Component component = droneComponent.getComponent();
+            DroneComponentResponse droneComponentResponse = builder()
+                    .image(component.getImage())
+                    .type(component.getType())
+                    .part(component.getPart())
+                    .point(droneComponent.getPoint())
+                    .name(component.getName())
+                    .star(component.getStar())
+                    .description(component.getDescription())
+                    .price(component.getPrice())
+                    .build();
 
-            return droneComponentResult;
+            droneComponentResult.add(droneComponentResponse);
         }
+
+        return droneComponentResult;
+    }
 }
