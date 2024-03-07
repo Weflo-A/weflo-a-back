@@ -27,7 +27,8 @@ public class DashBoardService {
     public DroneDetailResponse getDroneDetail(Long droneId){
         Drone drone = findService.findDroneById(droneId);
         List<TestResult> testResults = findTestResultById(droneId);
-        DroneInfoResponse droneInfoResponse = createDroneInfoResponse(drone);
+        TestResult testResult = testResultRepository.findFirstByDroneIdOrderByCreateDateDesc(droneId);
+        DroneInfoResponse droneInfoResponse = createDroneInfoResponse(drone,testResult);
         List<TimeLineResponse> timeLineResponses = createTimeLineResponse(testResults);
         List<TestListResponse> testListResponses = createTestListResponse(testResults);
         DroneGroupListResponse droneGroupListResponse = createDroneGroupListResponse(droneId);
@@ -44,8 +45,9 @@ public class DashBoardService {
                 .map(drone -> DroneListResponse.of(drone))
                 .collect(Collectors.toList());
     }
-    private DroneInfoResponse createDroneInfoResponse(Drone drone){
-        return DroneInfoResponse.of(drone);
+    private DroneInfoResponse createDroneInfoResponse(Drone drone, TestResult testResult){
+
+        return DroneInfoResponse.of(drone, findService.getPoint(testResult));
     }
     private List<TimeLineResponse> createTimeLineResponse(List<TestResult> testResults){
         return testResults.stream()

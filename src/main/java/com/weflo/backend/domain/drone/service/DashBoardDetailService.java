@@ -6,6 +6,8 @@ import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.*;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
 import com.weflo.backend.global.common.service.FindService;
+import com.weflo.backend.global.error.ErrorCode;
+import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -140,7 +142,7 @@ public class DashBoardDetailService {
         LocalDate localDate = LocalDate.parse(date);
 
         // 변환된 LocalDate를 사용하여 Repository 메서드 호출
-        return testResultRepository.findByDroneIdAndCreateDate(droneId, localDate.atStartOfDay());
+        return testResultRepository.findByDroneIdAndCreateDate(droneId, localDate.atStartOfDay()).orElseThrow(()->new EntityNotFoundException(ErrorCode.TEST_RESULT_NOT_FOUND));
     }
     private DroneTestInfoResponse createDroneTestInfoResponse(Drone drone){
         List<TestResult> testResults = testResultRepository.findAllByDroneId(drone.getId());
