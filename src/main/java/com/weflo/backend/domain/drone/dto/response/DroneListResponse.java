@@ -7,10 +7,12 @@ import lombok.Getter;
 @Builder
 @Getter
 public class DroneListResponse {
+    private Long id;
     private String name;
 
     public static DroneListResponse of(Drone drone){
         return DroneListResponse.builder()
+                .id(drone.getId())
                 .name(drone.getName())
                 .build();
     }

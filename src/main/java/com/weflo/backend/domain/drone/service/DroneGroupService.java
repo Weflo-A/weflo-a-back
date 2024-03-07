@@ -28,11 +28,7 @@ public class DroneGroupService {
         DroneGroup findDroneGroup = droneGroupRepository.findById(droneGroupId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
 
-        List<DroneListResponse> droneListResponses = findDrones.stream()
-                .map(drone -> DroneListResponse.builder()
-                .name(drone.getName())
-                .build()).toList();
-        List<DroneGroupListResponse> result = new ArrayList<>();
+        List<DroneListResponse> droneListResponses = findDrones.stream().map(DroneListResponse::of).toList();
 
         return DroneGroupListResponse.of(findDroneGroup.getName(), droneListResponses);
     }
