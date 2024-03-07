@@ -4,16 +4,22 @@ import com.weflo.backend.domain.cost.dto.ComponentCostAvgTimeLine;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.dto.request.DroneGroupRequest;
+import com.weflo.backend.domain.drone.dto.response.DroneInfoResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.*;
 import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
+import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
 import com.weflo.backend.global.common.service.FindService;
+import com.weflo.backend.global.error.ErrorCode;
+import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -21,6 +27,7 @@ public class OnBoardingService {
     private final DroneGroupInfoRepository droneGroupInfoRepository;
     private final FindService findService;
     private final TestResultRepository testResultRepository;
+    private final DroneGroupRepository droneGroupRepository;
     public DroneGroupInfoResponse getDroneGroupInfo(DroneGroupRequest droneGroupRequest){
         DroneGroup droneGroup = findService.findDroneGroupById(droneGroupRequest.getGroupId());
         DroneGroupInfoDetailResponse droneGroupInfoDetail = createDroneGroupInfoDetail(droneGroup);
@@ -32,6 +39,27 @@ public class OnBoardingService {
         DroneGroupStateResponse droneGroupStateResponse = createDroneGroupStateResponse(droneGroupRequest.getGroupId(), drones);
         List<DroneGroupAvgTimeLineResponse> droneGroupAvgTimeLineResponses = createDroneGroupAvgScoreResponses(drones,droneGroupRequest.getYear());
         return DroneGroupAvgResponse.of(droneGroupStateResponse, droneGroupAvgTimeLineResponses);
+    }
+    public List<DroneSimpleInfoResponse> getDroneListFromDroneGroup(Long groupId, String filter){
+        List<Drone> drones = droneGroupInfoRepository.findAllDroneByDroneGroupId(groupId);
+        DroneGroup droneGroup = findService.findDroneGroupById(groupId);
+        List<DroneSimpleInfoResponse> droneSimpleInfoResponses = createDroneSimpleInfoResponses(drones,droneGroup);
+
+        return sort(droneSimpleInfoResponses,filter);
+    }
+    private List<DroneSimpleInfoResponse> sort(List<DroneSimpleInfoResponse> droneSimpleInfoResponses, String filter){
+        if ("cost".equals(filter)) {
+            droneSimpleInfoResponses.sort(Comparator.comparingInt(DroneSimpleInfoResponse::getCost).reversed());
+        } else if ("date".equals(filter)) {
+            droneSimpleInfoResponses.sort(Comparator.comparing(DroneSimpleInfoResponse::getDate));
+        } else if ("year".equals(filter)) {
+            droneSimpleInfoResponses.sort(Comparator.comparingInt(DroneSimpleInfoResponse::getYear).reversed());
+        }
+
+        return droneSimpleInfoResponses;
+    }
+    private List<DroneSimpleInfoResponse> createDroneSimpleInfoResponses(List<Drone> drones,DroneGroup droneGroup){
+        return drones.stream().map(drone -> DroneSimpleInfoResponse.of(drone,droneGroup.getCreateDate())).collect(Collectors.toList());
     }
     private List<DroneGroupAvgTimeLineResponse> createDroneGroupAvgScoreResponses(List<Drone> drones, int year){
         List<DroneGroupAvgTimeLineResponse> droneGroupAvgTimeLineResponses = new ArrayList<>();

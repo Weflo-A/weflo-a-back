@@ -8,7 +8,7 @@ import static com.weflo.backend.domain.drone.domain.DroneModel.getEnumDroneModel
 
 @Builder
 @Getter
-public class DroneInfoResponse {
+public class    DroneInfoResponse {
     private String name;
     private int productionYear;
     private String model;
