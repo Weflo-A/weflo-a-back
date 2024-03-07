@@ -52,8 +52,8 @@ public class ComponentController {
     }
 
     @Operation(
-            summary = "드론 모델 별 점수 기준 부품 리스트 조회 API",
-            description = "쿼리 파라미터로 넘어온 점수 이하의 부품들을 모델 별로 나누어 반환합니다."
+            summary = "드론 모델 & 그룹 별 점수 기준 부품 리스트 조회 API",
+            description = "쿼리 파라미터로 넘어온 점수 이하의 부품들을 모델(그룹) 별로 나누어 반환합니다."
     )
     @ApiResponse(
             responseCode = "200",
