@@ -3,6 +3,7 @@ package com.weflo.backend.domain.drone.service;
 import com.weflo.backend.domain.cost.dto.ComponentCostAvgTimeLine;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
+import com.weflo.backend.domain.drone.dto.request.DroneGroupRequest;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.*;
 import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
 import com.weflo.backend.domain.testresult.domain.TestResult;
@@ -20,16 +21,16 @@ public class OnBoardingService {
     private final DroneGroupInfoRepository droneGroupInfoRepository;
     private final FindService findService;
     private final TestResultRepository testResultRepository;
-    public DroneGroupInfoResponse getDroneGroupInfo(Long groupId, int year){
-        DroneGroup droneGroup = findService.findDroneGroupById(groupId);
+    public DroneGroupInfoResponse getDroneGroupInfo(DroneGroupRequest droneGroupRequest){
+        DroneGroup droneGroup = findService.findDroneGroupById(droneGroupRequest.getGroupId());
         DroneGroupInfoDetailResponse droneGroupInfoDetail = createDroneGroupInfoDetail(droneGroup);
-        List<ComponentCostAvgTimeLine> componentCostAvgTimeLines = createComponentCostAvgTimeLines(groupId, year);
+        List<ComponentCostAvgTimeLine> componentCostAvgTimeLines = createComponentCostAvgTimeLines(droneGroupRequest.getGroupId(), droneGroupRequest.getYear());
         return DroneGroupInfoResponse.of(droneGroupInfoDetail, componentCostAvgTimeLines);
     }
-    public DroneGroupAvgResponse getDroneGroupAvg(Long groupId, int year){
-        List<Drone> drones = droneGroupInfoRepository.findAllDroneByDroneGroupId(groupId);
-        DroneGroupStateResponse droneGroupStateResponse = createDroneGroupStateResponse(groupId,drones);
-        List<DroneGroupAvgTimeLineResponse> droneGroupAvgTimeLineResponses = createDroneGroupAvgScoreResponses(drones,year);
+    public DroneGroupAvgResponse getDroneGroupAvg(DroneGroupRequest droneGroupRequest){
+        List<Drone> drones = droneGroupInfoRepository.findAllDroneByDroneGroupId(droneGroupRequest.getGroupId());
+        DroneGroupStateResponse droneGroupStateResponse = createDroneGroupStateResponse(droneGroupRequest.getGroupId(), drones);
+        List<DroneGroupAvgTimeLineResponse> droneGroupAvgTimeLineResponses = createDroneGroupAvgScoreResponses(drones,droneGroupRequest.getYear());
         return DroneGroupAvgResponse.of(droneGroupStateResponse, droneGroupAvgTimeLineResponses);
     }
     private List<DroneGroupAvgTimeLineResponse> createDroneGroupAvgScoreResponses(List<Drone> drones, int year){
@@ -43,10 +44,13 @@ public class OnBoardingService {
     private DroneGroupAvgTimeLineResponse createDroneGroupAvgTimeLine(List<Drone> drones, int year, int month){
         int groupMonthAvgScore=0;
         for(Drone drone : drones){
-            List<TestResult> testResults = testResultRepository.findByDroneGroupIdAndYearAndMonth(drone.getId(),year,month);
+            List<TestResult> testResults = testResultRepository.findByDroneIdAndCreateDateYearAndCreateDateMonth(drone.getId(),year,month);
             groupMonthAvgScore = getMonthAvgScore(testResults,groupMonthAvgScore);
         }
-        return DroneGroupAvgTimeLineResponse.of(month,groupMonthAvgScore/drones.size());
+        if(groupMonthAvgScore!=0) {
+            groupMonthAvgScore = groupMonthAvgScore/drones.size();
+        }
+        return DroneGroupAvgTimeLineResponse.of(month,groupMonthAvgScore);
     }
     private DroneGroupStateResponse createDroneGroupStateResponse(Long groupId,List<Drone> drones){
         int avgScore =0;
@@ -68,7 +72,7 @@ public class OnBoardingService {
         int groupMonthCost=0;
         int totalMonthCost=0;
         for(Drone drone : drones){
-            List<TestResult> testResults = testResultRepository.findByDroneGroupIdAndYearAndMonth(drone.getId(),year,month);
+            List<TestResult> testResults = testResultRepository.findByDroneIdAndCreateDateYearAndCreateDateMonth(drone.getId(),year,month);
             groupMonthCost = getMonthCost(testResults,groupMonthCost);
         }
         List<TestResult> allTestResults = testResultRepository.findAll();
@@ -85,7 +89,10 @@ public class OnBoardingService {
         for(TestResult testResult : testResults){
             groupMonthAvgScore = testResult.getPoint()+groupMonthAvgScore;
         }
-        return groupMonthAvgScore/testResults.size();
+        if(groupMonthAvgScore!=0) {
+            groupMonthAvgScore = groupMonthAvgScore/testResults.size();
+        }
+        return groupMonthAvgScore;
     }
     private DroneGroupInfoDetailResponse createDroneGroupInfoDetail(DroneGroup droneGroup){
         int droneCount = getDroneCount(droneGroup.getId());
