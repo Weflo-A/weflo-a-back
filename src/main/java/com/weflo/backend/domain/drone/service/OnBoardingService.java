@@ -5,15 +5,12 @@ import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.dto.request.DroneGroupRequest;
 import com.weflo.backend.domain.drone.dto.request.DroneInfoListRequest;
-import com.weflo.backend.domain.drone.dto.response.DroneInfoResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.*;
 import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
 import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
 import com.weflo.backend.global.common.service.FindService;
-import com.weflo.backend.global.error.ErrorCode;
-import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -80,7 +77,7 @@ public class OnBoardingService {
             List<TestResult> testResults = testResultRepository.findByDroneIdAndCreateDateYearAndCreateDateMonth(drone.getId(),year,month);
             groupMonthAvgScore = getMonthAvgScore(testResults,groupMonthAvgScore);
         }
-        if(groupMonthAvgScore!=0) {
+        if(groupMonthAvgScore!=0&&!drones.isEmpty()) {
             groupMonthAvgScore = groupMonthAvgScore/drones.size();
         }
         return DroneGroupAvgTimeLineResponse.of(month,groupMonthAvgScore);
@@ -122,7 +119,7 @@ public class OnBoardingService {
         for(TestResult testResult : testResults){
             groupMonthAvgScore = testResult.getPoint()+groupMonthAvgScore;
         }
-        if(groupMonthAvgScore!=0) {
+        if(groupMonthAvgScore!=0&&!testResults.isEmpty()) {
             groupMonthAvgScore = groupMonthAvgScore/testResults.size();
         }
         return groupMonthAvgScore;
