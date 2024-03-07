@@ -5,15 +5,12 @@ import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.dto.request.DroneGroupRequest;
 import com.weflo.backend.domain.drone.dto.request.DroneInfoListRequest;
-import com.weflo.backend.domain.drone.dto.response.DroneInfoResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.*;
 import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
 import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
 import com.weflo.backend.global.common.service.FindService;
-import com.weflo.backend.global.error.ErrorCode;
-import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

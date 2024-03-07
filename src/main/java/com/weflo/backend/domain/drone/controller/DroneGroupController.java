@@ -1,6 +1,5 @@
 package com.weflo.backend.domain.drone.controller;
 
-import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.dto.request.DroneGroupRequest;
 import com.weflo.backend.domain.drone.dto.request.DroneInfoListRequest;
 import com.weflo.backend.domain.drone.dto.response.DroneGroupListResponse;
@@ -8,7 +7,6 @@ import com.weflo.backend.domain.drone.dto.response.onBoarding.DroneGroupAvgRespo
 import com.weflo.backend.domain.drone.dto.response.onBoarding.DroneGroupInfoResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.DroneGroupNameResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.DroneSimpleInfoResponse;
-import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
 import com.weflo.backend.domain.drone.service.DroneGroupService;
 import com.weflo.backend.domain.drone.service.OnBoardingService;
 import com.weflo.backend.global.common.SuccessResponse;
