@@ -87,6 +87,9 @@ public class OnBoardingService {
         for(Drone drone : drones){
             avgScore = avgScore+drone.getCost();
         }
+        if(avgScore!=0&&!drones.isEmpty()) {
+            avgScore = avgScore/drones.size();
+        }
         return DroneGroupStateResponse.of(avgScore/drones.size());
     }
     private List<ComponentCostAvgTimeLine> createComponentCostAvgTimeLines(Long groupId, int year){
