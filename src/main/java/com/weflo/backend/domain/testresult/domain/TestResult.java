@@ -1,9 +1,10 @@
 package com.weflo.backend.domain.testresult.domain;
-import com.weflo.backend.domain.component.domain.ComponentType;
-import com.weflo.backend.domain.component.domain.Part;
+import com.weflo.backend.domain.component.domain.Component;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class TestResult extends BaseTimeEntity {
+public class TestResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "test_result_id")
@@ -45,7 +46,14 @@ public class TestResult extends BaseTimeEntity {
     private int part4Motor;
     private int part4Esc;
 
+    private LocalDateTime createDate;
+
+    @ManyToMany
+    @Builder.Default
+    List<Component> components = new ArrayList<>();
+
     private int totalCost;
+
     @ManyToOne
     @JoinColumn(name = "drone_id")
     private Drone drone;

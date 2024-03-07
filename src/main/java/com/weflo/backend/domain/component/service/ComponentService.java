@@ -68,10 +68,10 @@ public class ComponentService {
                         point);
 
                 for (DroneComponentResponse findComponent : findComponents) {
-                    if (!componentStatus.containsKey(findComponent.type())) {
-                        componentStatus.put(findComponent.type(), 1L);
+                    if (!componentStatus.containsKey(findComponent.getType())) {
+                        componentStatus.put(findComponent.getType(), 1L);
                     } else {
-                        componentStatus.put(findComponent.type(), componentStatus.get(findComponent.type()) + 1L);
+                        componentStatus.put(findComponent.getType(), componentStatus.get(findComponent.getType()) + 1L);
                     }
                 }
             }
