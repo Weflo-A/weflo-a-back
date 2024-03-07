@@ -10,8 +10,6 @@ import com.weflo.backend.global.error.ErrorCode;
 import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -138,11 +136,10 @@ public class DashBoardDetailService {
                 createDroneScoreResponses(testResult));
     }
     private TestResult findTestResultByDroneIdAndDate(Long droneId, String date){
-        // "2022-03-15"와 같은 형식의 날짜 문자열을 LocalDate로 변환
-        LocalDate localDate = LocalDate.parse(date);
+        LocalDateTime localDateTime = LocalDateTime.parse(date + "T00:00:00");
 
         // 변환된 LocalDate를 사용하여 Repository 메서드 호출
-        return testResultRepository.findByDroneIdAndCreateDate(droneId, localDate.atStartOfDay()).orElseThrow(()->new EntityNotFoundException(ErrorCode.TEST_RESULT_NOT_FOUND));
+        return testResultRepository.findByDroneIdAndCreateDate(droneId, localDateTime).orElseThrow(()->new EntityNotFoundException(ErrorCode.TEST_RESULT_NOT_FOUND));
     }
     private DroneTestInfoResponse createDroneTestInfoResponse(Drone drone){
         List<TestResult> testResults = testResultRepository.findAllByDroneId(drone.getId());
