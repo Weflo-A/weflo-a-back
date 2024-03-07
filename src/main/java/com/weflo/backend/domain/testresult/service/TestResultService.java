@@ -6,6 +6,7 @@ import com.weflo.backend.domain.component.domain.Part;
 import com.weflo.backend.domain.component.dto.ComponentResponse;
 import com.weflo.backend.domain.component.dto.DroneComponentResponse;
 import com.weflo.backend.domain.testresult.domain.TestResult;
+import com.weflo.backend.domain.testresult.dto.TestResultDateResponse;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,6 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class TestResultService {
 
     private final TestResultRepository testResultRepository;
+
+    @Transactional(readOnly = true)
+    public List<TestResultDateResponse> getTestResultDates(Long droneId) {
+        List<TestResult> findTestResults = testResultRepository.findAllByDroneId(droneId);
+        return TestResultDateResponse.ofList(findTestResults);
+    }
 
     @Transactional(readOnly = true)
     public List<DroneComponentResponse> getTestResultComponents(Long droneId, LocalDateTime start, LocalDateTime end) {

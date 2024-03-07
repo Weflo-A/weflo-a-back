@@ -2,6 +2,7 @@ package com.weflo.backend.domain.testresult.controller;
 
 import com.weflo.backend.domain.component.dto.ComponentResponse;
 import com.weflo.backend.domain.component.dto.DroneComponentResponse;
+import com.weflo.backend.domain.testresult.dto.TestResultDateResponse;
 import com.weflo.backend.domain.testresult.service.TestResultService;
 import com.weflo.backend.global.common.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,11 +35,16 @@ public class TestResultController {
             description = "요청이 성공했습니다."
     )
     @GetMapping("/drones/{droneId}/test-results")
-    public ResponseEntity<SuccessResponse<?>> getTestResult(
+    public ResponseEntity<SuccessResponse<?>> getTestResultByDroneIdAndDate(
             @PathVariable(value = "droneId") Long droneId,
-            @RequestParam("year") int year,
-            @RequestParam("month") int month,
-            @RequestParam("day") int day) {
+            @RequestParam(value = "year", required = false) Integer year,
+            @RequestParam(value = "month", required = false) Integer month,
+            @RequestParam(value = "day", required = false) Integer day) {
+
+        if (year == null || month == null || day == null) {
+            List<TestResultDateResponse> dateResponses = testResultService.getTestResultDates(droneId);
+            return SuccessResponse.ok(dateResponses);
+        }
 
         LocalDateTime start = LocalDateTime.of(year, month, day, 0, 0, 0);
         LocalDateTime end = LocalDateTime.of(year, month, day, 23, 59, 59);
@@ -46,5 +52,4 @@ public class TestResultController {
 
         return SuccessResponse.ok(responses);
     }
-
 }
