@@ -2,6 +2,7 @@ package com.weflo.backend.domain.drone.service;
 
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.dto.request.DashBoardDetailRequest;
+import com.weflo.backend.domain.drone.dto.request.SortScoreListRequest;
 import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.*;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
@@ -40,6 +41,23 @@ public class DashBoardDetailService {
                 droneTotalScoreResponse,
                 droneWarningResponses,
                 warningPart);
+    }
+    public List<DroneScoreResponse> sortDroneScoreResponseList(SortScoreListRequest sortScoreListRequest){
+        TestResult testResult = findTestResultByDroneIdAndDate(sortScoreListRequest.getDroneId(), sortScoreListRequest.getDate());
+        List<DroneScoreResponse> droneScoreResponses = createDroneScoreResponses(testResult);
+        return sort(droneScoreResponses, sortScoreListRequest.getFilter());
+    }
+    private List<DroneScoreResponse> sort(List<DroneScoreResponse> droneScoreResponses, String filter){
+        if ("motor".equals(filter)) {
+            droneScoreResponses.sort(Comparator.comparingInt(DroneScoreResponse::getMotor).reversed());
+        } else if ("blade".equals(filter)) {
+            droneScoreResponses.sort(Comparator.comparing(DroneScoreResponse::getBlade));
+        } else if ("esc".equals(filter)) {
+            droneScoreResponses.sort(Comparator.comparingInt(DroneScoreResponse::getEsc).reversed());
+        } else if ("total".equals(filter)) {
+            droneScoreResponses.sort(Comparator.comparingInt(DroneScoreResponse::getTotal).reversed());
+        }
+        return droneScoreResponses;
     }
     private String findWarningPart(TestResult testResult){
         int part1 = findService.getPart1Point(testResult);
