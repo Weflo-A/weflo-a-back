@@ -2,14 +2,15 @@ package com.weflo.backend.domain.drone.service;
 
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.dto.request.DashBoardDetailRequest;
+import com.weflo.backend.domain.drone.dto.request.SortScoreListRequest;
 import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.*;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
 import com.weflo.backend.global.common.service.FindService;
+import com.weflo.backend.global.error.ErrorCode;
+import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,6 +41,23 @@ public class DashBoardDetailService {
                 droneTotalScoreResponse,
                 droneWarningResponses,
                 warningPart);
+    }
+    public List<DroneScoreResponse> sortDroneScoreResponseList(SortScoreListRequest sortScoreListRequest){
+        TestResult testResult = findTestResultByDroneIdAndDate(sortScoreListRequest.getDroneId(), sortScoreListRequest.getDate());
+        List<DroneScoreResponse> droneScoreResponses = createDroneScoreResponses(testResult);
+        return sort(droneScoreResponses, sortScoreListRequest.getFilter());
+    }
+    private List<DroneScoreResponse> sort(List<DroneScoreResponse> droneScoreResponses, String filter){
+        if ("motor".equals(filter)) {
+            droneScoreResponses.sort(Comparator.comparingInt(DroneScoreResponse::getMotor).reversed());
+        } else if ("blade".equals(filter)) {
+            droneScoreResponses.sort(Comparator.comparing(DroneScoreResponse::getBlade).reversed());
+        } else if ("esc".equals(filter)) {
+            droneScoreResponses.sort(Comparator.comparingInt(DroneScoreResponse::getEsc).reversed());
+        } else if ("total".equals(filter)) {
+            droneScoreResponses.sort(Comparator.comparingInt(DroneScoreResponse::getTotal).reversed());
+        }
+        return droneScoreResponses;
     }
     private String findWarningPart(TestResult testResult){
         int part1 = findService.getPart1Point(testResult);
@@ -136,11 +154,10 @@ public class DashBoardDetailService {
                 createDroneScoreResponses(testResult));
     }
     private TestResult findTestResultByDroneIdAndDate(Long droneId, String date){
-        // "2022-03-15"와 같은 형식의 날짜 문자열을 LocalDate로 변환
-        LocalDate localDate = LocalDate.parse(date);
+        LocalDateTime localDateTime = LocalDateTime.parse(date + "T00:00:00");
 
         // 변환된 LocalDate를 사용하여 Repository 메서드 호출
-        return testResultRepository.findByDroneIdAndCreateDate(droneId, localDate.atStartOfDay());
+        return testResultRepository.findByDroneIdAndCreateDateYearAndCreateDateMonthAndCreateDateDay(droneId, localDateTime.getYear(), localDateTime.getMonthValue(),localDateTime.getDayOfMonth()).orElseThrow(()->new EntityNotFoundException(ErrorCode.TEST_RESULT_NOT_FOUND));
     }
     private DroneTestInfoResponse createDroneTestInfoResponse(Drone drone){
         List<TestResult> testResults = testResultRepository.findAllByDroneId(drone.getId());

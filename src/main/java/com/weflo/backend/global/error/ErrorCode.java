@@ -31,6 +31,7 @@ public enum ErrorCode {
      */
     ENTITY_NOT_FOUND(HttpStatus.NOT_FOUND, "엔티티를 찾을 수 없습니다."),
     DRONE_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 드론입니다."),
+    DRONE_GROUP_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 드론그룹입니다."),
     TEST_RESULT_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 검사 결과입니다."),
 
     /**

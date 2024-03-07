@@ -52,6 +52,8 @@ public class TestResult {
     @Builder.Default
     List<Component> components = new ArrayList<>();
 
+    private int totalCost;
+
     @ManyToOne
     @JoinColumn(name = "drone_id")
     private Drone drone;

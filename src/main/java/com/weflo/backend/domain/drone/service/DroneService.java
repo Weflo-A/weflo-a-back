@@ -3,7 +3,7 @@ package com.weflo.backend.domain.drone.service;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.dto.request.SearchDroneRequest;
-import com.weflo.backend.domain.drone.dto.response.DroneGroupInfoResponse;
+import com.weflo.backend.domain.drone.dto.response.DroneGroupResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.SearchDroneResponse;
 import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
 import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
@@ -27,7 +27,7 @@ public class DroneService {
     private List<SearchDroneResponse> createSearchDroneResponse(SearchDroneRequest searchDroneRequest){
         List<Drone> drones = droneRepository.findAllByNameContaining(searchDroneRequest.getName());
         List<Drone> searchResults = new ArrayList<>();
-        List<DroneGroupInfoResponse> groupInfo = createDroneGroupInfoResponses();
+        List<DroneGroupResponse> groupInfo = createDroneGroupInfoResponses();
         for(Drone drone : drones){
             List<DroneGroup> droneGroups = droneGroupInfoRepository.findAllDroneGroupByDroneId(drone.getId());
             if (searchDroneRequest.getModel().stream().anyMatch(model -> model.equalsIgnoreCase(String.valueOf(drone.getModel())))) {
@@ -48,9 +48,9 @@ public class DroneService {
                         ))
                 .collect(Collectors.toList());
     }
-    private List<DroneGroupInfoResponse> createDroneGroupInfoResponses(){
+    private List<DroneGroupResponse> createDroneGroupInfoResponses(){
         List<DroneGroup> droneGroups = droneGroupRepository.findAll();
-        return droneGroups.stream().map(droneGroup -> DroneGroupInfoResponse.of(droneGroup)).collect(Collectors.toList());
+        return droneGroups.stream().map(droneGroup -> DroneGroupResponse.of(droneGroup)).collect(Collectors.toList());
     }
     private List<String> getGroupsWithDroneId(Long droneId){
         List<DroneGroup> droneGroups = droneGroupInfoRepository.findAllDroneGroupByDroneId(droneId);
