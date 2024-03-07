@@ -13,6 +13,7 @@ public class DroneGroupStateResponse {
         return DroneGroupStateResponse.builder()
                 .avgScore(avgScore)
                 .brokenType("블레이드")
-                .mostFixComponent("블레이드 210");
+                .mostFixComponent("블레이드 210")
+                .build();
     }
 }
