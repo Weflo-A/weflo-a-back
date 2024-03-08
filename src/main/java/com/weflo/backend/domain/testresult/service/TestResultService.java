@@ -5,8 +5,12 @@ import com.weflo.backend.domain.component.domain.ComponentType;
 import com.weflo.backend.domain.component.domain.Part;
 import com.weflo.backend.domain.component.dto.ComponentResponse;
 import com.weflo.backend.domain.component.dto.DroneComponentResponse;
+import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.TotalScoreResponse;
 import com.weflo.backend.domain.testresult.domain.TestResult;
+import com.weflo.backend.domain.testresult.dto.ComponentDetailResponse;
+import com.weflo.backend.domain.testresult.dto.PartTotalScoreResponse;
 import com.weflo.backend.domain.testresult.dto.TestResultDateResponse;
+import com.weflo.backend.domain.testresult.dto.TestResultTopSectionResponse;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -100,5 +104,50 @@ public class TestResultService {
         if (Part.PART4.equals(part) && ComponentType.MOTOR.equals(type)) {
             response.setPoint((long)result.getPart4Motor());
         }
+    }
+
+    public TestResultTopSectionResponse generateTopSectionResponse(List<DroneComponentResponse> responses) {
+        PartTotalScoreResponse partTotalScoreResponse = generatePartTotalScoreResponse(responses);
+
+        List<ComponentDetailResponse> componentDetailResponses = ComponentDetailResponse.ofList(responses, 2, 5);
+
+        return TestResultTopSectionResponse.builder()
+                .totalScore(partTotalScoreResponse)
+                .components(componentDetailResponses)
+                .build();
+    }
+
+    private PartTotalScoreResponse generatePartTotalScoreResponse(List<DroneComponentResponse> responses) {
+        List<Long> part1ComponentsPoints = responses.stream()
+                .filter(component -> component.getPart().equals(Part.PART1.getKoreanName()))
+                .map(DroneComponentResponse::getPoint)
+                .toList();
+
+        List<Long> part2ComponentsPoints = responses.stream()
+                .filter(component -> component.getPart().equals(Part.PART2.getKoreanName()))
+                .map(DroneComponentResponse::getPoint)
+                .toList();
+
+        List<Long> part3ComponentsPoints = responses.stream()
+                .filter(component -> component.getPart().equals(Part.PART3.getKoreanName()))
+                .map(DroneComponentResponse::getPoint)
+                .toList();
+
+        List<Long> part4ComponentsPoints = responses.stream()
+                .filter(component -> component.getPart().equals(Part.PART4.getKoreanName()))
+                .map(DroneComponentResponse::getPoint)
+                .toList();
+
+        int part1Sum = part1ComponentsPoints.stream().mapToInt(Long::intValue).sum()/3;
+        int part2Sum = part2ComponentsPoints.stream().mapToInt(Long::intValue).sum()/3;
+        int part3Sum = part3ComponentsPoints.stream().mapToInt(Long::intValue).sum()/3;
+        int part4Sum = part4ComponentsPoints.stream().mapToInt(Long::intValue).sum()/3;
+
+        return PartTotalScoreResponse.builder()
+                .part1(part1Sum)
+                .part2(part2Sum)
+                .part3(part3Sum)
+                .part4(part4Sum)
+                .build();
     }
 }

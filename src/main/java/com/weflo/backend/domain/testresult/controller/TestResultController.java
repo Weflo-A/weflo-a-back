@@ -3,6 +3,7 @@ package com.weflo.backend.domain.testresult.controller;
 import com.weflo.backend.domain.component.dto.ComponentResponse;
 import com.weflo.backend.domain.component.dto.DroneComponentResponse;
 import com.weflo.backend.domain.testresult.dto.TestResultDateResponse;
+import com.weflo.backend.domain.testresult.dto.TestResultTopSectionResponse;
 import com.weflo.backend.domain.testresult.service.TestResultService;
 import com.weflo.backend.global.common.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,20 +41,33 @@ public class TestResultController {
             @PathVariable(value = "droneId") Long droneId,
             @RequestParam(value = "year", required = false) Integer year,
             @RequestParam(value = "month", required = false) Integer month,
-            @RequestParam(value = "day", required = false) Integer day) {
+            @RequestParam(value = "day", required = false) Integer day,
+            @RequestParam(value = "mode", required = false) String mode) {
 
         if (year == null || month == null || day == null) {
             List<TestResultDateResponse> dateResponses = testResultService.getTestResultDates(droneId);
             return SuccessResponse.ok(dateResponses);
         }
 
-        LocalDateTime start = LocalDateTime.of(year, month, day, 0, 0, 0);
-        LocalDateTime end = LocalDateTime.of(year, month, day, 23, 59, 59);
-        List<DroneComponentResponse> responses = testResultService.getTestResultComponents(droneId, start, end);
+        if ("TOP-SECTION".equals(mode)) {
+            LocalDateTime start = LocalDateTime.of(year, month, day, 0, 0, 0);
+            LocalDateTime end = LocalDateTime.of(year, month, day, 23, 59, 59);
+            List<DroneComponentResponse> responses = testResultService.getTestResultComponents(droneId, start, end);
+            TestResultTopSectionResponse testResultTopSectionResponse = testResultService.generateTopSectionResponse(
+                    responses);
 
-        return SuccessResponse.ok(responses);
+            return SuccessResponse.ok(testResultTopSectionResponse);
+        }
+
+        if (mode == null) {
+            LocalDateTime start = LocalDateTime.of(year, month, day, 0, 0, 0);
+            LocalDateTime end = LocalDateTime.of(year, month, day, 23, 59, 59);
+            List<DroneComponentResponse> responses = testResultService.getTestResultComponents(droneId, start, end);
+
+            return SuccessResponse.ok(responses);
+        }
+
+        return null;
+
     }
-
-
-
 }
