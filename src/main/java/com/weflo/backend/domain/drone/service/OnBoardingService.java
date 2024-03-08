@@ -3,29 +3,40 @@ package com.weflo.backend.domain.drone.service;
 import com.weflo.backend.domain.cost.dto.ComponentCostAvgTimeLine;
 import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
+import com.weflo.backend.domain.drone.domain.DroneGroupInfo;
+import com.weflo.backend.domain.drone.domain.DroneModel;
+import com.weflo.backend.domain.drone.dto.request.CreateDroneRequest;
 import com.weflo.backend.domain.drone.dto.request.DroneGroupRequest;
 import com.weflo.backend.domain.drone.dto.request.DroneInfoListRequest;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.*;
 import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
 import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
+import com.weflo.backend.domain.drone.repository.DroneRepository;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
 import com.weflo.backend.global.common.service.FindService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.weflo.backend.domain.drone.domain.DroneModel.getEnumDroneModelFromStringModel;
+
 @RequiredArgsConstructor
 @Service
+@Slf4j
+@Transactional
 public class OnBoardingService {
     private final DroneGroupInfoRepository droneGroupInfoRepository;
     private final FindService findService;
     private final TestResultRepository testResultRepository;
     private final DroneGroupRepository droneGroupRepository;
+    private final DroneRepository droneRepository;
     public DroneGroupInfoResponse getDroneGroupInfo(DroneGroupRequest droneGroupRequest){
         DroneGroup droneGroup = findService.findDroneGroupById(droneGroupRequest.getGroupId());
         DroneGroupInfoDetailResponse droneGroupInfoDetail = createDroneGroupInfoDetail(droneGroup);
@@ -48,6 +59,25 @@ public class OnBoardingService {
     public List<DroneGroupNameResponse> getDroneGroupNameList(){
         List<DroneGroup> droneGroups = droneGroupRepository.findAll();
         return droneGroups.stream().map(droneGroup -> DroneGroupNameResponse.of(droneGroup)).collect(Collectors.toList());
+    }
+    public void createDrone(CreateDroneRequest createDroneRequest){
+        List<DroneGroupInfo> droneGroupInfos = new ArrayList<>();
+        List<DroneGroup> droneGroups = new ArrayList<>();
+        for(Long groupId : createDroneRequest.getGroupIds()) {
+            DroneGroupInfo droneGroupInfo = droneGroupInfoRepository.findByDroneGroupId(groupId);
+            droneGroupInfos.add(droneGroupInfo);
+
+            DroneGroup droneGroup = findService.findDroneGroupById(groupId);
+            droneGroups.add(droneGroup);
+        }
+        DroneModel droneModel = getEnumDroneModelFromStringModel(createDroneRequest.getModel());
+        Drone drone = Drone.createDrone(createDroneRequest,droneModel);
+        for(DroneGroupInfo droneGroupInfo : droneGroupInfos) {
+            droneGroupInfo = DroneGroupInfo.createDroneGroupInfo(droneGroupInfo, droneGroups, drone);
+            droneGroupInfoRepository.save(droneGroupInfo);
+        }
+        droneRepository.save(drone);
+
     }
     private List<DroneSimpleInfoResponse> sort(List<DroneSimpleInfoResponse> droneSimpleInfoResponses, String filter){
         if ("cost".equals(filter)) {

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "drone_group_info")
@@ -26,4 +27,15 @@ public class DroneGroupInfo extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drone_group_id")
     private DroneGroup droneGroup;
+
+    public static DroneGroupInfo createDroneGroupInfo(DroneGroupInfo droneGroupInfo, List<DroneGroup> droneGroups, Drone drone) {
+        for(DroneGroup droneGroup : droneGroups) {
+            droneGroupInfo = DroneGroupInfo.builder()
+                    .drone(drone)
+                    .droneGroup(droneGroup)
+                    .build();
+            droneGroup.addDroneGroupInfo(droneGroupInfo);
+        }
+        return droneGroupInfo;
+    }
 }

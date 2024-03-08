@@ -1,5 +1,6 @@
 package com.weflo.backend.domain.drone.controller;
 
+import com.weflo.backend.domain.drone.dto.request.CreateDroneRequest;
 import com.weflo.backend.domain.drone.dto.request.DashBoardDetailRequest;
 import com.weflo.backend.domain.drone.dto.request.SearchDroneRequest;
 import com.weflo.backend.domain.drone.dto.request.SortScoreListRequest;
@@ -7,10 +8,7 @@ import com.weflo.backend.domain.drone.dto.response.DroneDetailResponse;
 import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DashBoardDetailResponse;
 import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DroneScoreResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.SearchDroneResponse;
-import com.weflo.backend.domain.drone.service.DashBoardDetailService;
-import com.weflo.backend.domain.drone.service.DashBoardService;
-import com.weflo.backend.domain.drone.service.DroneService;
-import com.weflo.backend.domain.drone.service.DroneGroupService;
+import com.weflo.backend.domain.drone.service.*;
 import com.weflo.backend.global.common.SuccessResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +24,17 @@ public class DroneController {
     private final DashBoardService dashBoardService;
     private final DashBoardDetailService dashBoardDetailService;
     private final DroneService droneService;
-    private final DroneGroupService droneGroupService;
+    private final OnBoardingService onBoardingService;
     @GetMapping("/detail")
     public ResponseEntity<SuccessResponse<?>> getDroneDetail(@RequestParam(value = "droneId") Long droneId){
         final DroneDetailResponse droneDetailResponse = dashBoardService.getDroneDetail(droneId);
         return SuccessResponse.ok(droneDetailResponse);
     }
-
+    @PostMapping("/create")
+    public ResponseEntity<SuccessResponse<?>> createDrone(@RequestBody CreateDroneRequest createDroneRequest){
+        onBoardingService.createDrone(createDroneRequest);
+        return SuccessResponse.created(null);
+    }
     @PostMapping("/dashboard/detail")
     public ResponseEntity<SuccessResponse<?>> getDroneDashBoardDetail(@RequestBody DashBoardDetailRequest dashBoardDetailRequest){
         final DashBoardDetailResponse dashBoardDetailResponse = dashBoardDetailService.getDashBoardDetail(dashBoardDetailRequest);
