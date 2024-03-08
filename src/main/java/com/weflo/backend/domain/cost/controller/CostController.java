@@ -36,4 +36,5 @@ public class CostController {
         List<MonthCostResponse> monthCostResponses = costService.getDroneGroupMonthCosts(year, month);
         return SuccessResponse.ok(monthCostResponses);
     }
+
 }

@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ComponentRepository extends JpaRepository<Component, Long> {
     List<Component> findByType(ComponentType type);
 
+    Component findByName(String name);
 }
