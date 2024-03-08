@@ -26,7 +26,7 @@ public class Drone {
 
     private String name;
 
-    private LocalDate productionYear;
+    private int productionYear;
     @Enumerated(EnumType.STRING)
     private DroneModel model;
 
@@ -52,7 +52,7 @@ public class Drone {
         Drone drone = Drone.builder()
                 .name(createDroneRequest.getDroneName())
                 .model(droneModel)
-                .productionYear(LocalDate.ofEpochDay(createDroneRequest.getYear()))
+                .productionYear(createDroneRequest.getYear())
                 .purpose(createDroneRequest.getPurpose())
                 .build();
         return drone;

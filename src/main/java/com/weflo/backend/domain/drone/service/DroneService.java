@@ -33,7 +33,7 @@ public class DroneService {
             if (searchDroneRequest.getModel().stream().anyMatch(model -> model.equalsIgnoreCase(String.valueOf(drone.getModel())))) {
                 searchResults.add(drone);
             }
-            else if(searchDroneRequest.getYear().stream().anyMatch(year -> year.equals(drone.getProductionYear().getYear()))){
+            else if(searchDroneRequest.getYear().stream().anyMatch(year -> year.equals(drone.getProductionYear()))){
                 searchResults.add(drone);
             }
             else if (searchDroneRequest.getGroup().stream()

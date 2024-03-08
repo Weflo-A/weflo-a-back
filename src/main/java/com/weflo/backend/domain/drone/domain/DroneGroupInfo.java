@@ -28,14 +28,12 @@ public class DroneGroupInfo extends BaseTimeEntity {
     @JoinColumn(name = "drone_group_id")
     private DroneGroup droneGroup;
 
-    public static DroneGroupInfo createDroneGroupInfo(DroneGroupInfo droneGroupInfo, List<DroneGroup> droneGroups, Drone drone) {
-        for(DroneGroup droneGroup : droneGroups) {
-            droneGroupInfo = DroneGroupInfo.builder()
+    public static DroneGroupInfo createDroneGroupInfo(DroneGroup droneGroup, Drone drone) {
+            DroneGroupInfo droneGroupInfo = DroneGroupInfo.builder()
                     .drone(drone)
                     .droneGroup(droneGroup)
                     .build();
             droneGroup.addDroneGroupInfo(droneGroupInfo);
-        }
         return droneGroupInfo;
     }
 }

@@ -61,19 +61,15 @@ public class OnBoardingService {
         return droneGroups.stream().map(droneGroup -> DroneGroupNameResponse.of(droneGroup)).collect(Collectors.toList());
     }
     public void createDrone(CreateDroneRequest createDroneRequest){
-        List<DroneGroupInfo> droneGroupInfos = new ArrayList<>();
         List<DroneGroup> droneGroups = new ArrayList<>();
         for(Long groupId : createDroneRequest.getGroupIds()) {
-            DroneGroupInfo droneGroupInfo = droneGroupInfoRepository.findByDroneGroupId(groupId);
-            droneGroupInfos.add(droneGroupInfo);
-
             DroneGroup droneGroup = findService.findDroneGroupById(groupId);
             droneGroups.add(droneGroup);
         }
         DroneModel droneModel = getEnumDroneModelFromStringModel(createDroneRequest.getModel());
         Drone drone = Drone.createDrone(createDroneRequest,droneModel);
-        for(DroneGroupInfo droneGroupInfo : droneGroupInfos) {
-            droneGroupInfo = DroneGroupInfo.createDroneGroupInfo(droneGroupInfo, droneGroups, drone);
+        for(DroneGroup droneGroup : droneGroups) {
+            DroneGroupInfo droneGroupInfo = DroneGroupInfo.createDroneGroupInfo(droneGroup, drone);
             droneGroupInfoRepository.save(droneGroupInfo);
         }
         droneRepository.save(drone);

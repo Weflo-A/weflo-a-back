@@ -23,7 +23,7 @@ public class DroneInfoResponse {
     public static DroneInfoResponse of(Drone drone, int totalScore,int motorAvg, int bladeAvg, int escAvg){
         return DroneInfoResponse.builder()
                 .name(drone.getName())
-                .productionYear(drone.getProductionYear().getYear())
+                .productionYear(drone.getProductionYear())
                 .model(String.valueOf(drone.getModel()))
                 .purpose(drone.getPurpose())
                 .totalScore(totalScore)
