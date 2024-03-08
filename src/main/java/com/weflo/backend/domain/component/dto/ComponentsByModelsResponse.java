@@ -9,10 +9,10 @@ import lombok.Builder;
 @Builder
 public record ComponentsByModelsResponse(
         DroneModel modelName,
-        Map<ComponentType, Long> componentStatus
+        Map<String, Long> componentStatus
 ) {
 
-    public static ComponentsByModelsResponse of(DroneModel modelName, Map<ComponentType, Long> componentStatus) {
+    public static ComponentsByModelsResponse of(DroneModel modelName, Map<String, Long> componentStatus) {
         return builder().modelName(modelName)
                 .componentStatus(componentStatus)
                 .build();

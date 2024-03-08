@@ -44,7 +44,6 @@ public class ComponentService {
     }
 
     public List<ComponentResponse> getComponents() {
-
         List<Component> allComponents = componentRepository.findAll();
 
         return ComponentResponse.ofList(allComponents);
@@ -66,7 +65,7 @@ public class ComponentService {
             List<Drone> filteredDrones = allDrones.stream().filter(drone -> drone.getModel().equals(firstDrone.getModel()))
                     .toList();
 
-            Map<ComponentType, Long> componentStatus = generateComponentStatus(point, filteredDrones);
+            Map<String, Long> componentStatus = generateComponentStatus(point, filteredDrones);
 
             ComponentsByModelsResponse response = ComponentsByModelsResponse.of(firstDrone.getModel(),
                     componentStatus);
@@ -96,7 +95,7 @@ public class ComponentService {
                                     new EntityNotFoundException(ErrorCode.DRONE_NOT_FOUND)))
                     .toList();
 
-            Map<ComponentType, Long> componentStatus = generateComponentStatus(point, drones);
+            Map<String, Long> componentStatus = generateComponentStatus(point, drones);
             ComponentsByGroupResponse response = ComponentsByGroupResponse.of(droneGroup.getName(), componentStatus);
             result.add(response);
         }
@@ -104,8 +103,8 @@ public class ComponentService {
         return result;
     }
 
-    private Map<ComponentType, Long> generateComponentStatus(Long point, List<Drone> filteredDrones) {
-        Map<ComponentType, Long> componentStatus = new HashMap<>();
+    private Map<String, Long> generateComponentStatus(Long point, List<Drone> filteredDrones) {
+        Map<String, Long> componentStatus = new HashMap<>();
 
         for (Drone drone : filteredDrones) {
             List<DroneComponentResponse> findComponents = getDroneComponentsByPointDown(drone.getId(),
@@ -120,5 +119,10 @@ public class ComponentService {
             }
         }
         return componentStatus;
+    }
+
+    public List<DroneComponentResponse> getDroneComponents() {
+        List<DroneComponent> findDroneComponents = droneComponentRepository.findAll();
+        return DroneComponentResponse.ofList(findDroneComponents);
     }
 }

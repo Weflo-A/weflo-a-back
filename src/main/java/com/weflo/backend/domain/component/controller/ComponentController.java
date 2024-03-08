@@ -60,9 +60,13 @@ public class ComponentController {
             description = "요청이 성공했습니다."
     )
     @GetMapping("/drone-components")
-    public ResponseEntity<SuccessResponse<?>> getComponentsByModels(@RequestParam("point") Long point,
-                                                                    @RequestParam("mode") String mode
+    public ResponseEntity<SuccessResponse<?>> getComponentsByModels(@RequestParam(value = "point", required = false) Long point,
+                                                                    @RequestParam(value = "mode", required = false) String mode
     ) {
+        if (point == null || mode == null) {
+            List<DroneComponentResponse> droneComponentsResponses = componentService.getDroneComponents();
+            return SuccessResponse.ok(droneComponentsResponses);
+        }
         if ("MODEL".equals(mode)) {
             List<ComponentsByModelsResponse> responses = componentService.getDroneComponentsByModels(point);
             return SuccessResponse.ok(responses);

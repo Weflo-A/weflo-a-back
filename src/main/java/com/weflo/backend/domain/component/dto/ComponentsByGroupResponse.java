@@ -8,10 +8,10 @@ import lombok.Builder;
 @Builder
 public record ComponentsByGroupResponse(
         String groupName,
-        Map<ComponentType, Long> componentStatus
+        Map<String, Long> componentStatus
 ) {
 
-    public static ComponentsByGroupResponse of(String groupName, Map<ComponentType, Long> componentStatus) {
+    public static ComponentsByGroupResponse of(String groupName, Map<String, Long> componentStatus) {
         return builder().groupName(groupName)
                 .componentStatus(componentStatus)
                 .build();
