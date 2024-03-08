@@ -1,6 +1,7 @@
 package com.weflo.backend.domain.component.controller;
 
 import com.weflo.backend.domain.component.dto.ComponentResponse;
+import com.weflo.backend.domain.component.dto.ComponentTotalPriceResponse;
 import com.weflo.backend.domain.component.dto.ComponentsByGroupResponse;
 import com.weflo.backend.domain.component.dto.ComponentsByModelsResponse;
 import com.weflo.backend.domain.component.dto.DroneComponentResponse;
@@ -89,8 +90,13 @@ public class ComponentController {
             description = "요청이 성공했습니다."
     )
     @GetMapping("/components")
-    public ResponseEntity<SuccessResponse<?>> getComponentsByType() {
-        List<ComponentResponse> componentResponses = componentService.getComponents();
-        return SuccessResponse.ok(componentResponses);
+    public ResponseEntity<SuccessResponse<?>> getComponentsByType(@RequestParam(value = "names", required = false) String[] names) {
+        if (names == null) {
+            List<ComponentResponse> componentResponses = componentService.getComponents();
+            return SuccessResponse.ok(componentResponses);
+        } else {
+            ComponentTotalPriceResponse totalPriceResponse = componentService.getComponentsPriceByNames(names);
+            return SuccessResponse.ok(totalPriceResponse);
+        }
     }
 }

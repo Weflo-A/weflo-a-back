@@ -3,6 +3,7 @@ package com.weflo.backend.domain.component.service;
 import com.weflo.backend.domain.component.domain.Component;
 import com.weflo.backend.domain.component.domain.ComponentType;
 import com.weflo.backend.domain.component.dto.ComponentResponse;
+import com.weflo.backend.domain.component.dto.ComponentTotalPriceResponse;
 import com.weflo.backend.domain.component.dto.ComponentsByGroupResponse;
 import com.weflo.backend.domain.component.dto.ComponentsByModelsResponse;
 import com.weflo.backend.domain.component.dto.DroneComponentResponse;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -124,5 +126,16 @@ public class ComponentService {
     public List<DroneComponentResponse> getDroneComponents() {
         List<DroneComponent> findDroneComponents = droneComponentRepository.findAll();
         return DroneComponentResponse.ofList(findDroneComponents);
+    }
+
+    @Transactional(readOnly = true)
+    public ComponentTotalPriceResponse getComponentsPriceByNames(String[] names) {
+        int totalPrice = 0;
+        for (String name : names) {
+            Component findComponent = componentRepository.findByName(name);
+            totalPrice += findComponent.getPrice();
+        }
+
+        return new ComponentTotalPriceResponse(totalPrice);
     }
 }
