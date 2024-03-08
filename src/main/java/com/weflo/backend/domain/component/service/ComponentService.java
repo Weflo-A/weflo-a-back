@@ -44,7 +44,6 @@ public class ComponentService {
     }
 
     public List<ComponentResponse> getComponents() {
-
         List<Component> allComponents = componentRepository.findAll();
 
         return ComponentResponse.ofList(allComponents);
@@ -120,5 +119,10 @@ public class ComponentService {
             }
         }
         return componentStatus;
+    }
+
+    public List<DroneComponentResponse> getDroneComponents() {
+        List<DroneComponent> findDroneComponents = droneComponentRepository.findAll();
+        return DroneComponentResponse.ofList(findDroneComponents);
     }
 }
