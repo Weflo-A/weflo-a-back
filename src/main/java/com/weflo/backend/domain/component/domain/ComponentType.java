@@ -1,7 +1,15 @@
 package com.weflo.backend.domain.component.domain;
 
 public enum ComponentType {
-    BLADE, MOTOR, ESC;
+    BLADE("블레이드"),
+    MOTOR("모터"),
+    ESC("ESC");
+
+    final String koreanName;
+
+    ComponentType(String koreanName) {
+        this.koreanName = koreanName;
+    }
 
     public static ComponentType findTypeByName(String name) {
         if (BLADE.name().equals(name)) {
