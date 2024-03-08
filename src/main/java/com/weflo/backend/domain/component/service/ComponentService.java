@@ -131,11 +131,14 @@ public class ComponentService {
     @Transactional(readOnly = true)
     public ComponentTotalPriceResponse getComponentsPriceByNames(String[] names) {
         int totalPrice = 0;
+        List<ComponentResponse> componentResponses = new ArrayList<>();
+
         for (String name : names) {
             Component findComponent = componentRepository.findByName(name);
             totalPrice += findComponent.getPrice();
+            componentResponses.add(ComponentResponse.of(findComponent));
         }
 
-        return new ComponentTotalPriceResponse(totalPrice);
+        return new ComponentTotalPriceResponse(totalPrice, componentResponses);
     }
 }
