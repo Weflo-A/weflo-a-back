@@ -20,7 +20,7 @@ public class SearchDroneResponse {
                 .groupInfo(groupInfo)
                 .name(drone.getName())
                 .model(String.valueOf(drone.getModel()))
-                .year(drone.getProductionYear().getYear())
+                .year(drone.getProductionYear())
                 .groupList(groupList)
                 .build();
     }

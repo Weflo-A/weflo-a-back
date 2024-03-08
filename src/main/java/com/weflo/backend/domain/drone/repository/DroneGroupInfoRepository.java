@@ -21,4 +21,5 @@ public interface DroneGroupInfoRepository extends JpaRepository<DroneGroupInfo, 
     @Query("SELECT dgi.droneGroup FROM DroneGroupInfo dgi WHERE dgi.drone.id = :droneId")
     List<DroneGroup> findAllDroneGroupByDroneId(@Param("droneId") Long droneId);
     int countByDroneGroupId(Long droneId);
+    List<DroneGroupInfo> findAllByDroneGroupId(Long droneGroupId);
 }

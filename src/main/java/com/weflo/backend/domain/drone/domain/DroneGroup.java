@@ -26,4 +26,8 @@ public class DroneGroup extends BaseTimeEntity {
     @OneToMany(mappedBy = "droneGroup")
     @Builder.Default
     private List<DroneGroupInfo> droneGroupInfos = new ArrayList<>();
+
+    public void addDroneGroupInfo(DroneGroupInfo droneGroupInfo) {
+        this.droneGroupInfos.add(droneGroupInfo);
+    }
 }

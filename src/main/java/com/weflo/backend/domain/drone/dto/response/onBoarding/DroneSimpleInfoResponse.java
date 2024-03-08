@@ -23,7 +23,7 @@ public class DroneSimpleInfoResponse {
                 .name(drone.getName())
                 .model(String.valueOf(drone.getModel()))
                 .purpose(drone.getPurpose())
-                .year(drone.getProductionYear().getYear())
+                .year(drone.getProductionYear())
                 .cost(drone.getCost())
                 .date(date.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
                 .build();

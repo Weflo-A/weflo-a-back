@@ -1,5 +1,6 @@
 package com.weflo.backend.domain.drone.domain;
 
+import com.weflo.backend.domain.drone.dto.request.CreateDroneRequest;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import jakarta.persistence.*;
 
@@ -25,7 +26,7 @@ public class Drone {
 
     private String name;
 
-    private LocalDate productionYear;
+    private int productionYear;
     @Enumerated(EnumType.STRING)
     private DroneModel model;
 
@@ -46,4 +47,14 @@ public class Drone {
     @OneToMany(mappedBy = "drone")
     @Builder.Default
     private List<DroneComponent> droneComponents = new ArrayList<>();
+
+    public static Drone createDrone(CreateDroneRequest createDroneRequest, DroneModel droneModel) {
+        Drone drone = Drone.builder()
+                .name(createDroneRequest.getDroneName())
+                .model(droneModel)
+                .productionYear(createDroneRequest.getYear())
+                .purpose(createDroneRequest.getPurpose())
+                .build();
+        return drone;
+    }
 }

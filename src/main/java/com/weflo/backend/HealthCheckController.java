@@ -261,7 +261,7 @@ public class HealthCheckController {
                 .model(DroneModel.MODEL1)
                 .purpose("비행 목적")
                 .flightCount(200)
-                .productionYear(LocalDate.of(2000, 4, 4))
+                .productionYear(2000)
                 .build();
 
         Drone droneB = Drone.builder()
@@ -270,7 +270,7 @@ public class HealthCheckController {
                 .model(DroneModel.MODEL2)
                 .purpose("비행 목적")
                 .flightCount(300)
-                .productionYear(LocalDate.of(2001, 4, 4))
+                .productionYear(2001)
                 .build();
 
         droneRepository.save(droneA);
