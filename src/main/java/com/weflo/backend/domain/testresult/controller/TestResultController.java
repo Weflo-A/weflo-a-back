@@ -50,7 +50,7 @@ public class TestResultController {
         }
 
         if ("TOP-SECTION".equals(mode)) {
-            LocalDateTime start = LocalDateTime.of(year, month, day, 0, 0, 0);
+            LocalDateTime start = LocalDateTime.of(year, month, day, 0, 0, 1);
             LocalDateTime end = LocalDateTime.of(year, month, day, 23, 59, 59);
             List<DroneComponentResponse> responses = testResultService.getTestResultComponents(droneId, start, end);
             TestResultTopSectionResponse testResultTopSectionResponse = testResultService.generateTopSectionResponse(
@@ -60,7 +60,7 @@ public class TestResultController {
         }
 
         if (mode == null) {
-            LocalDateTime start = LocalDateTime.of(year, month, day, 0, 0, 0);
+            LocalDateTime start = LocalDateTime.of(year, month, day, 1, 0, 0);
             LocalDateTime end = LocalDateTime.of(year, month, day, 23, 59, 59);
             List<DroneComponentResponse> responses = testResultService.getTestResultComponents(droneId, start, end);
 
