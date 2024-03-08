@@ -17,6 +17,19 @@ public record ComponentResponse(
         String description,
         int price
 ) {
+
+    public static ComponentResponse of(Component component) {
+        return builder()
+                .image(component.getImage())
+                .type(component.getType())
+                .part(component.getPart())
+                .name(component.getName())
+                .star(component.getStar())
+                .description(component.getDescription())
+                .price(component.getPrice())
+                .build();
+    }
+
     public static List<ComponentResponse> ofList(List<Component> droneComponents) {
         List<ComponentResponse> componentResponses = new ArrayList<>();
 
