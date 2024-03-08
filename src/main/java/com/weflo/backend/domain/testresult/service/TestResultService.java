@@ -40,8 +40,8 @@ public class TestResultService {
                     .description(component.getDescription())
                     .name(component.getName())
                     .price(component.getPrice())
-                    .part(component.getPart())
-                    .type(component.getType())
+                    .part(component.getPart().getKoreanName())
+                    .type(component.getType().getKoreanName())
                     .star(component.getStar())
                     .build();
 

@@ -13,8 +13,8 @@ import lombok.Data;
 @Data
 public class DroneComponentResponse{
     private String image;
-    private ComponentType type;
-    private Part part;
+    private String type;
+    private String part;
     private String name;
     private Long point;
     private Double star;
@@ -28,8 +28,8 @@ public class DroneComponentResponse{
             Component component = droneComponent.getComponent();
             DroneComponentResponse droneComponentResponse = builder()
                     .image(component.getImage())
-                    .type(component.getType())
-                    .part(component.getPart())
+                    .type(component.getType().getKoreanName())
+                    .part(component.getPart().getKoreanName())
                     .point(droneComponent.getPoint())
                     .name(component.getName())
                     .star(component.getStar())

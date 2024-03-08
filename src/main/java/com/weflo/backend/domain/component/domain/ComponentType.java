@@ -1,5 +1,8 @@
 package com.weflo.backend.domain.component.domain;
 
+import lombok.Getter;
+
+@Getter
 public enum ComponentType {
     BLADE("블레이드"),
     MOTOR("모터"),
