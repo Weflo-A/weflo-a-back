@@ -21,7 +21,6 @@ public class TestResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "test_result_id")
     private Long id;
-
     private String space;
 
     private String stationId;
