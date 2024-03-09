@@ -82,8 +82,8 @@ public class ComponentController {
     }
 
     @Operation(
-            summary = "전체 부품 조회 API",
-            description = "모든 부품들을 반환합니다."
+            summary = "부품 가격 총합 조회 API",
+            description = "부품 이름으로 넘어온 부품들의 가격 총합을 반환합니다."
     )
     @ApiResponse(
             responseCode = "200",

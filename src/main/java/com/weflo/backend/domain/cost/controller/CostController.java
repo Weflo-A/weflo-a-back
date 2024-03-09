@@ -1,5 +1,6 @@
 package com.weflo.backend.domain.cost.controller;
 
+import com.weflo.backend.domain.cost.dto.ComponentCostAvgTimeLine;
 import com.weflo.backend.domain.cost.dto.MonthCostResponse;
 import com.weflo.backend.domain.cost.service.CostService;
 import com.weflo.backend.global.common.SuccessResponse;
@@ -33,8 +34,13 @@ public class CostController {
     @GetMapping("/month-costs")
     public ResponseEntity<SuccessResponse<?>> getDroneGroupMonthCosts(@RequestParam("year") Long year,
                                                                       @RequestParam(value = "month", required = false) Long month) {
-        List<MonthCostResponse> monthCostResponses = costService.getDroneGroupMonthCosts(year, month);
-        return SuccessResponse.ok(monthCostResponses);
+        if (month == null) {
+            List<ComponentCostAvgTimeLine> monthCostResponses = costService.getMonthTotalCost(year);
+            return SuccessResponse.ok(monthCostResponses);
+        } else {
+            List<MonthCostResponse> monthCostResponses = costService.getMonthCost(year, month);
+            return SuccessResponse.ok(monthCostResponses);
+        }
     }
 
 }
