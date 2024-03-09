@@ -4,6 +4,7 @@ import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.dto.request.SearchDroneRequest;
 import com.weflo.backend.domain.drone.dto.response.DroneGroupResponse;
+import com.weflo.backend.domain.drone.dto.response.DroneListResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.SearchDroneListResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.SearchDroneResponse;
 import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
@@ -66,5 +67,10 @@ public class DroneService {
         return droneGroups.stream()
                 .map(droneGroup -> droneGroup.getName())
                 .collect(Collectors.toList());
+    }
+
+    public List<DroneListResponse> getAllDrones() {
+        List<Drone> allDrones = droneRepository.findAll();
+        return allDrones.stream().map(DroneListResponse::of).toList();
     }
 }

@@ -5,6 +5,7 @@ import com.weflo.backend.domain.drone.dto.request.DashBoardDetailRequest;
 import com.weflo.backend.domain.drone.dto.request.SearchDroneRequest;
 import com.weflo.backend.domain.drone.dto.request.SortScoreListRequest;
 import com.weflo.backend.domain.drone.dto.response.DroneDetailResponse;
+import com.weflo.backend.domain.drone.dto.response.DroneListResponse;
 import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DashBoardDetailResponse;
 import com.weflo.backend.domain.drone.dto.response.dashBoardDetail.DroneScoreResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.SearchDroneResponse;
@@ -49,5 +50,11 @@ public class DroneController {
     public ResponseEntity<SuccessResponse<?>> searchDrone(@RequestBody SearchDroneRequest searchDroneRequest){
         final SearchDroneResponse searchDroneResponses = droneService.searchDrone(searchDroneRequest);
         return SuccessResponse.ok(searchDroneResponses);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<SuccessResponse<?>> getAllDrones() {
+        List<DroneListResponse> findAllDroneResponses = droneService.getAllDrones();
+        return SuccessResponse.ok(findAllDroneResponses);
     }
 }
