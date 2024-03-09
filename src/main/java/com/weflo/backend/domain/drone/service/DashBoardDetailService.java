@@ -25,7 +25,7 @@ public class DashBoardDetailService {
     private final FindService findService;
     public DashBoardDetailResponse getDashBoardDetail(DashBoardDetailRequest dashBoardDetailRequest){
         Drone drone = findService.findDroneById(dashBoardDetailRequest.getDroneId());
-        TestResult testResult = findTestResultByDroneIdAndDate(dashBoardDetailRequest.getDroneId(), dashBoardDetailRequest.getDate());
+        TestResult testResult = findTestResultByDroneIdAndDate(dashBoardDetailRequest.getDroneId(), dashBoardDetailRequest.getYear(), dashBoardDetailRequest.getMonth(),dashBoardDetailRequest.getDay());
         DroneTestInfoResponse droneTestInfoResponse = createDroneTestInfoResponse(drone);
         DroneTestResultResponse droneTestResultResponse = createDroneTestResultResponse(testResult);
         List<DroneScoreResponse> droneScoreResponses = createDroneScoreResponses(testResult);
@@ -43,7 +43,7 @@ public class DashBoardDetailService {
                 warningPart);
     }
     public List<DroneScoreResponse> sortDroneScoreResponseList(SortScoreListRequest sortScoreListRequest){
-        TestResult testResult = findTestResultByDroneIdAndDate(sortScoreListRequest.getDroneId(), sortScoreListRequest.getDate());
+        TestResult testResult = findTestResultByDroneIdAndDate(sortScoreListRequest.getDroneId(), sortScoreListRequest.getYear(), sortScoreListRequest.getMonth(), sortScoreListRequest.getDay());
         List<DroneScoreResponse> droneScoreResponses = createDroneScoreResponses(testResult);
         return sort(droneScoreResponses, sortScoreListRequest.getFilter());
     }
@@ -137,13 +137,13 @@ public class DashBoardDetailService {
     }
     private List<DroneScoreResponse> createDroneScoreResponses(TestResult testResult) {
         List<DroneScoreResponse> droneScoreResponses = new ArrayList<>();
-        DroneScoreResponse part1Score = DroneScoreResponse.createDroneScoreResponse("PART1",testResult.getPart1Motor(), testResult.getPart1Blade(), testResult.getPart1Esc(), findService.getPart1Point(testResult));
+        DroneScoreResponse part1Score = DroneScoreResponse.createDroneScoreResponse("01","구동부 01",testResult.getPart1Motor(), testResult.getPart1Blade(), testResult.getPart1Esc(), findService.getPart1Point(testResult));
         droneScoreResponses.add(part1Score);
-        DroneScoreResponse part2Score = DroneScoreResponse.createDroneScoreResponse("PART2",testResult.getPart2Motor(), testResult.getPart2Blade(), testResult.getPart2Esc(), findService.getPart2Point(testResult));
+        DroneScoreResponse part2Score = DroneScoreResponse.createDroneScoreResponse("02","구동부 02",testResult.getPart2Motor(), testResult.getPart2Blade(), testResult.getPart2Esc(), findService.getPart2Point(testResult));
         droneScoreResponses.add(part2Score);
-        DroneScoreResponse part3Score = DroneScoreResponse.createDroneScoreResponse("PART3",testResult.getPart3Motor(), testResult.getPart3Blade(), testResult.getPart3Esc(), findService.getPart3Point(testResult));
+        DroneScoreResponse part3Score = DroneScoreResponse.createDroneScoreResponse("03","구동부 03",testResult.getPart3Motor(), testResult.getPart3Blade(), testResult.getPart3Esc(), findService.getPart3Point(testResult));
         droneScoreResponses.add(part3Score);
-        DroneScoreResponse part4Score = DroneScoreResponse.createDroneScoreResponse("PART4",testResult.getPart4Motor(), testResult.getPart4Blade(), testResult.getPart4Esc(), findService.getPart4Point(testResult));
+        DroneScoreResponse part4Score = DroneScoreResponse.createDroneScoreResponse("04","구동부 04",testResult.getPart4Motor(), testResult.getPart4Blade(), testResult.getPart4Esc(), findService.getPart4Point(testResult));
         droneScoreResponses.add(part4Score);
         return droneScoreResponses;
     }
@@ -153,8 +153,8 @@ public class DashBoardDetailService {
                 findService.getPoint(testResult),
                 createDroneScoreResponses(testResult));
     }
-    private TestResult findTestResultByDroneIdAndDate(Long droneId, String date){
-        LocalDateTime localDateTime = LocalDateTime.parse(date + "T00:00:00");
+    private TestResult findTestResultByDroneIdAndDate(Long droneId, int year, int month, int day){
+        LocalDateTime localDateTime = LocalDateTime.of(year, month, day, 0, 0, 0);
 
         // 변환된 LocalDate를 사용하여 Repository 메서드 호출
         return testResultRepository.findByDroneIdAndCreateDateYearAndCreateDateMonthAndCreateDateDay(droneId, localDateTime.getYear(), localDateTime.getMonthValue(),localDateTime.getDayOfMonth()).orElseThrow(()->new EntityNotFoundException(ErrorCode.TEST_RESULT_NOT_FOUND));

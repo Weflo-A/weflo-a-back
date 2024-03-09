@@ -5,5 +5,7 @@ import lombok.Getter;
 @Getter
 public class DashBoardDetailRequest {
     private Long droneId;
-    private String date;
+    private int year;
+    private int month;
+    private int day;
 }
