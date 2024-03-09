@@ -30,10 +30,11 @@ public class DashBoardService {
         TestResult testResult = testResultRepository.findFirstByDroneIdOrderByCreateDateDesc(droneId);
         DroneInfoResponse droneInfoResponse = createDroneInfoResponse(drone,testResult);
         List<TimeLineResponse> timeLineResponses = createTimeLineResponse(testResults);
-        List<TestListResponse> testListResponses = createTestListResponse(testResults);
+        List<TestListResponse> firstFourTestListResponses = createTestListResponse(testResults)
+                .subList(0, Math.min(4, createTestListResponse(testResults).size()));
         DroneGroup droneGroup = droneGroupInfoRepository.findTopByDroneIdOrderByCreateDateDesc(droneId);
         List<DroneListResponse> droneListResponses = createDroneListResponse(droneGroup);
-        return DroneDetailResponse.of(droneInfoResponse, timeLineResponses,testListResponses, droneListResponses);
+        return DroneDetailResponse.of(droneInfoResponse, timeLineResponses,firstFourTestListResponses, droneListResponses);
     }
     private DroneGroupListResponse createDroneGroupListResponse(Long droneId){
         DroneGroup droneGroup = droneGroupInfoRepository.findTopByDroneIdOrderByCreateDateDesc(droneId);
