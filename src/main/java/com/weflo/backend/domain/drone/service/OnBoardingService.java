@@ -5,6 +5,7 @@ import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.domain.DroneGroupInfo;
 import com.weflo.backend.domain.drone.domain.DroneModel;
+import com.weflo.backend.domain.drone.dto.request.CreateDroneGroupRequest;
 import com.weflo.backend.domain.drone.dto.request.CreateDroneRequest;
 import com.weflo.backend.domain.drone.dto.request.DroneGroupRequest;
 import com.weflo.backend.domain.drone.dto.request.DroneInfoListRequest;
@@ -73,7 +74,10 @@ public class OnBoardingService {
             droneGroupInfoRepository.save(droneGroupInfo);
         }
         droneRepository.save(drone);
-
+    }
+    public void createDroneGroup(CreateDroneGroupRequest createDroneGroupRequest){
+        DroneGroup droneGroup = DroneGroup.createDroneGroup(createDroneGroupRequest);
+        droneGroupRepository.save(droneGroup);
     }
     private List<DroneSimpleInfoResponse> sort(List<DroneSimpleInfoResponse> droneSimpleInfoResponses, String filter){
         if ("cost".equals(filter)) {
@@ -87,7 +91,7 @@ public class OnBoardingService {
         return droneSimpleInfoResponses;
     }
     private List<DroneSimpleInfoResponse> createDroneSimpleInfoResponses(List<Drone> drones,DroneGroup droneGroup){
-        return drones.stream().map(drone -> DroneSimpleInfoResponse.of(drone,droneGroup.getCreateDate())).collect(Collectors.toList());
+        return drones.stream().map(drone -> DroneSimpleInfoResponse.of(drone,droneGroupInfoRepository.findByDroneIdAndDroneGroupId(drone.getId(), droneGroup.getId()).getCreateDate())).collect(Collectors.toList());
     }
     private List<DroneGroupAvgTimeLineResponse> createDroneGroupAvgScoreResponses(List<Drone> drones, int year){
         List<DroneGroupAvgTimeLineResponse> droneGroupAvgTimeLineResponses = new ArrayList<>();

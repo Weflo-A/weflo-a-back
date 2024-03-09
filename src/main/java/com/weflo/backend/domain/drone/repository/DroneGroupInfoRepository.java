@@ -22,4 +22,5 @@ public interface DroneGroupInfoRepository extends JpaRepository<DroneGroupInfo, 
     List<DroneGroup> findAllDroneGroupByDroneId(@Param("droneId") Long droneId);
     int countByDroneGroupId(Long droneId);
     List<DroneGroupInfo> findAllByDroneGroupId(Long droneGroupId);
+    DroneGroupInfo findByDroneIdAndDroneGroupId(Long droneId, Long droneGroupId);
 }
