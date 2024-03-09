@@ -91,7 +91,7 @@ public class OnBoardingService {
         return droneSimpleInfoResponses;
     }
     private List<DroneSimpleInfoResponse> createDroneSimpleInfoResponses(List<Drone> drones,DroneGroup droneGroup){
-        return drones.stream().map(drone -> DroneSimpleInfoResponse.of(drone,droneGroup.getCreateDate())).collect(Collectors.toList());
+        return drones.stream().map(drone -> DroneSimpleInfoResponse.of(drone,droneGroupInfoRepository.findByDroneIdAndDroneGroupId(drone.getId(), droneGroup.getId()).getCreateDate())).collect(Collectors.toList());
     }
     private List<DroneGroupAvgTimeLineResponse> createDroneGroupAvgScoreResponses(List<Drone> drones, int year){
         List<DroneGroupAvgTimeLineResponse> droneGroupAvgTimeLineResponses = new ArrayList<>();
