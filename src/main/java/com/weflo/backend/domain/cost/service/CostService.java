@@ -1,7 +1,7 @@
 package com.weflo.backend.domain.cost.service;
 
-import com.mysql.cj.PreparedQuery;
 import com.weflo.backend.domain.cost.domain.DroneGroupMonthCost;
+import com.weflo.backend.domain.cost.dto.ComponentCostAvgTimeLine;
 import com.weflo.backend.domain.cost.dto.MonthCostResponse;
 import com.weflo.backend.domain.cost.repository.DroneGroupMonthCostRepository;
 import java.util.ArrayList;
@@ -16,15 +16,33 @@ public class CostService {
     private final DroneGroupMonthCostRepository droneGroupMonthCostRepository;
 
     @Transactional(readOnly = true)
-    public List<MonthCostResponse> getDroneGroupMonthCosts(Long year, Long month) {
-        List<DroneGroupMonthCost> findMonthCosts;
+    public List<ComponentCostAvgTimeLine> getMonthTotalCost(Long year) {
+        List<DroneGroupMonthCost> findMonthCosts = droneGroupMonthCostRepository.findByYear(year);
+        List<ComponentCostAvgTimeLine> result = new ArrayList<>();
 
-        if (month == null) {
-            findMonthCosts = droneGroupMonthCostRepository.findByYear(year);
-            return MonthCostResponse.ofList(findMonthCosts);
+        int sum = 0;
+        int maxMonth = findMonthCosts.stream().mapToInt(cost -> cost.getMonth().intValue()).max()
+                .orElseThrow(RuntimeException::new);
+
+        for (int i = 1; i <= maxMonth; i++) {
+            List<DroneGroupMonthCost> filterList = new ArrayList<>();
+            for (DroneGroupMonthCost target : findMonthCosts) {
+                if (target.getMonth().intValue() == i) {
+                    filterList.add(target);
+                }
+            }
+
+            int monthCost = filterList.stream().mapToInt(cost -> cost.getMonthCost().intValue()).sum();
+            sum += monthCost;
+            result.add(ComponentCostAvgTimeLine.of(i, sum, monthCost));
         }
 
-        findMonthCosts = droneGroupMonthCostRepository.findByYearAndMonth(year, month);
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public List<MonthCostResponse> getMonthCost(Long year, Long month) {
+        List<DroneGroupMonthCost> findMonthCosts = droneGroupMonthCostRepository.findByYearAndMonth(year, month);
         return MonthCostResponse.ofList(findMonthCosts);
     }
 }
