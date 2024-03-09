@@ -7,18 +7,19 @@ import java.util.List;
 @Builder
 @Getter
 public class DroneDetailResponse {
-    private DroneGroupListResponse droneGroup;
+
+    private List<DroneListResponse> droneList;
     private List<TimeLineResponse> timeLine;
     private DroneInfoResponse droneInfo;
+    private DroneGroupListResponse droneGroupList;
     private List<TestListResponse> testList;
-//    private BrokenTypeResponse brokenTypeResponse;
 
-    public static DroneDetailResponse of(DroneInfoResponse droneInfo,List<TimeLineResponse> timeLine, List<TestListResponse> testList, DroneGroupListResponse droneGroupListResponse){
+    public static DroneDetailResponse of(DroneInfoResponse droneInfo,List<TimeLineResponse> timeLine, List<TestListResponse> testList, List<DroneListResponse> droneList){
         return DroneDetailResponse.builder()
                 .droneInfo(droneInfo)
                 .timeLine(timeLine)
                 .testList(testList)
-                .droneGroup(droneGroupListResponse)
+                .droneList(droneList)
                 .build();
     }
 }
