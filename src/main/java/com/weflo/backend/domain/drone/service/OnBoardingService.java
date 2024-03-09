@@ -16,6 +16,8 @@ import com.weflo.backend.domain.drone.repository.DroneRepository;
 import com.weflo.backend.domain.testresult.domain.TestResult;
 import com.weflo.backend.domain.testresult.repository.TestResultRepository;
 import com.weflo.backend.global.common.service.FindService;
+import com.weflo.backend.global.error.ErrorCode;
+import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -74,6 +76,12 @@ public class OnBoardingService {
             droneGroupInfoRepository.save(droneGroupInfo);
         }
         droneRepository.save(drone);
+    }
+    public void addDroneToGroup(Long droneId, Long groupId){
+        DroneGroup droneGroup = findService.findDroneGroupById(groupId);
+        Drone drone = droneRepository.findById(droneId).orElseThrow(()->new EntityNotFoundException(ErrorCode.DRONE_NOT_FOUND));
+        DroneGroupInfo droneGroupInfo = DroneGroupInfo.createDroneGroupInfo(droneGroup, drone);
+        droneGroupInfoRepository.save(droneGroupInfo);
     }
     public void createDroneGroup(CreateDroneGroupRequest createDroneGroupRequest){
         DroneGroup droneGroup = DroneGroup.createDroneGroup(createDroneGroupRequest);
