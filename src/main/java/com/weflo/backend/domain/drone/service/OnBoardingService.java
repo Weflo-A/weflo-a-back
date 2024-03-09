@@ -5,6 +5,7 @@ import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.domain.DroneGroupInfo;
 import com.weflo.backend.domain.drone.domain.DroneModel;
+import com.weflo.backend.domain.drone.dto.request.CreateDroneGroupRequest;
 import com.weflo.backend.domain.drone.dto.request.CreateDroneRequest;
 import com.weflo.backend.domain.drone.dto.request.DroneGroupRequest;
 import com.weflo.backend.domain.drone.dto.request.DroneInfoListRequest;
@@ -73,7 +74,10 @@ public class OnBoardingService {
             droneGroupInfoRepository.save(droneGroupInfo);
         }
         droneRepository.save(drone);
-
+    }
+    public void createDroneGroup(CreateDroneGroupRequest createDroneGroupRequest){
+        DroneGroup droneGroup = DroneGroup.createDroneGroup(createDroneGroupRequest);
+        droneGroupRepository.save(droneGroup);
     }
     private List<DroneSimpleInfoResponse> sort(List<DroneSimpleInfoResponse> droneSimpleInfoResponses, String filter){
         if ("cost".equals(filter)) {

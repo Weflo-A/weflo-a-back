@@ -1,5 +1,6 @@
 package com.weflo.backend.domain.drone.controller;
 
+import com.weflo.backend.domain.drone.dto.request.CreateDroneGroupRequest;
 import com.weflo.backend.domain.drone.dto.request.DroneGroupRequest;
 import com.weflo.backend.domain.drone.dto.request.DroneInfoListRequest;
 import com.weflo.backend.domain.drone.dto.response.DroneGroupListResponse;
@@ -39,6 +40,11 @@ public class DroneGroupController {
     public ResponseEntity<SuccessResponse<?>> getDronesByGroup(@PathVariable(value = "droneGroupId") Long droneGroupId){
         DroneGroupListResponse droneGroupListResponses = droneGroupService.getDronesByDroneGroup(droneGroupId);
         return SuccessResponse.ok(droneGroupListResponses);
+    }
+    @PostMapping("/create")
+    public ResponseEntity<SuccessResponse<?>> createDroneGroup(@RequestBody CreateDroneGroupRequest createDroneGroupRequest){
+        onBoardingService.createDroneGroup(createDroneGroupRequest);
+        return SuccessResponse.created(null);
     }
     @PostMapping("/info")
     public ResponseEntity<SuccessResponse<?>> getDroneGroupInfo(@RequestBody DroneGroupRequest droneGroupRequest){

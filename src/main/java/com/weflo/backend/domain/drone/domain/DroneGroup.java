@@ -1,5 +1,7 @@
 package com.weflo.backend.domain.drone.domain;
 
+import com.weflo.backend.domain.drone.dto.request.CreateDroneGroupRequest;
+import com.weflo.backend.domain.drone.dto.request.CreateDroneRequest;
 import com.weflo.backend.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,5 +31,11 @@ public class DroneGroup extends BaseTimeEntity {
 
     public void addDroneGroupInfo(DroneGroupInfo droneGroupInfo) {
         this.droneGroupInfos.add(droneGroupInfo);
+    }
+    public static DroneGroup createDroneGroup(CreateDroneGroupRequest createDroneGroupRequest) {
+        DroneGroup droneGroup = DroneGroup.builder()
+                .name(createDroneGroupRequest.getGroupName())
+                .build();
+        return droneGroup;
     }
 }
