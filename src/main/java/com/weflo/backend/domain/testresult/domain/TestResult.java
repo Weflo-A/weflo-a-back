@@ -22,8 +22,6 @@ public class TestResult {
     @Column(name = "test_result_id")
     private Long id;
 
-    private int point;
-
     private String space;
 
     private String stationId;

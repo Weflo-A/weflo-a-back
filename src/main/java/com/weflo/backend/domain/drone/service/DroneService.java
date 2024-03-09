@@ -4,6 +4,7 @@ import com.weflo.backend.domain.drone.domain.Drone;
 import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.dto.request.SearchDroneRequest;
 import com.weflo.backend.domain.drone.dto.response.DroneGroupResponse;
+import com.weflo.backend.domain.drone.dto.response.onBoarding.SearchDroneListResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.SearchDroneResponse;
 import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
 import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
@@ -21,10 +22,11 @@ public class DroneService {
     private final DroneRepository droneRepository;
     private final DroneGroupInfoRepository droneGroupInfoRepository;
     private final DroneGroupRepository droneGroupRepository;
-    public List<SearchDroneResponse> searchDrone(SearchDroneRequest searchDroneRequest){
-        return createSearchDroneResponse(searchDroneRequest);
+    public SearchDroneResponse searchDrone(SearchDroneRequest searchDroneRequest){
+            SearchDroneResponse searchDroneResponse = createSearchDroneResponse(searchDroneRequest);
+            return searchDroneResponse;
     }
-    private List<SearchDroneResponse> createSearchDroneResponse(SearchDroneRequest searchDroneRequest){
+    private SearchDroneResponse createSearchDroneResponse(SearchDroneRequest searchDroneRequest){
         List<Drone> drones = droneRepository.findAllByNameContaining(searchDroneRequest.getName());
         List<Drone> searchResults = new ArrayList<>();
         List<DroneGroupResponse> groupInfo = createDroneGroupInfoResponses();
@@ -41,10 +43,17 @@ public class DroneService {
                 searchResults.add(drone);
             }
         }
-        return searchResults.stream()
-                .map(searchResult ->
-                        SearchDroneResponse.of(groupInfo,
-                                searchResult, getGroupsWithDroneId(searchResult.getId())
+        if(searchDroneRequest.getName().isEmpty()&&searchDroneRequest.getModel().isEmpty()&&searchDroneRequest.getGroup().isEmpty()&&searchDroneRequest.getYear().isEmpty()){
+            searchResults = droneRepository.findAll();
+        }
+        List<SearchDroneListResponse> searchDroneListResponses = createSearchDroneListResponses(searchResults);
+        return SearchDroneResponse.of(groupInfo,searchDroneListResponses);
+    }
+    private List<SearchDroneListResponse> createSearchDroneListResponses(List<Drone> drones){
+        return drones.stream()
+                .map(drone ->
+                        SearchDroneListResponse.of(drone,
+                                getGroupsWithDroneId(drone.getId())
                         ))
                 .collect(Collectors.toList());
     }

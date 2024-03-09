@@ -47,7 +47,7 @@ public class DroneController {
     }
     @PostMapping("/search")
     public ResponseEntity<SuccessResponse<?>> searchDrone(@RequestBody SearchDroneRequest searchDroneRequest){
-        final List<SearchDroneResponse> searchDroneResponses = droneService.searchDrone(searchDroneRequest);
+        final SearchDroneResponse searchDroneResponses = droneService.searchDrone(searchDroneRequest);
         return SuccessResponse.ok(searchDroneResponses);
     }
 }

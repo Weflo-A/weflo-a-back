@@ -424,7 +424,6 @@ public class HealthCheckController {
                 .part4Esc(50)
                 .space("테스트 장소 A")
                 .stationId("스테이션 1")
-                .point(70)
                 .build();
 
         TestResult testResultB = TestResult.builder()
@@ -446,7 +445,6 @@ public class HealthCheckController {
                 .part4Esc(0)
                 .space("테스트 장소 B")
                 .stationId("스테이션 2")
-                .point(70)
                 .build();
 
         testResultRepository.save(testResultA);

@@ -158,7 +158,7 @@ public class OnBoardingService {
     }
     private int getMonthAvgScore(List<TestResult> testResults, int groupMonthAvgScore){
         for(TestResult testResult : testResults){
-            groupMonthAvgScore = testResult.getPoint()+groupMonthAvgScore;
+            groupMonthAvgScore = testResult.getTotalCost()+groupMonthAvgScore;
         }
         if(groupMonthAvgScore!=0&&!testResults.isEmpty()) {
             groupMonthAvgScore = groupMonthAvgScore/testResults.size();
