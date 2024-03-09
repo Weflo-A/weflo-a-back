@@ -12,7 +12,7 @@ public class DashBoardDetailResponse {
     private DroneTestInfoResponse testInfo;
     private DroneTestResultResponse testResult;
     private List<DroneScoreResponse> scoreList;
-    private DroneScoreAvgResponse scoreAvg;
+    private List<DroneScoreAvgResponse> scoreAvgs;
     private DroneTotalScoreResponse totalScore;
     private List<DroneWarningResponse> warningList;
     private String warningPart;
@@ -20,7 +20,7 @@ public class DashBoardDetailResponse {
             DroneTestInfoResponse testInfo,
             DroneTestResultResponse testResult,
             List<DroneScoreResponse> scoreList,
-            DroneScoreAvgResponse scoreAvg,
+            List<DroneScoreAvgResponse> scoreAvgs,
             DroneTotalScoreResponse totalScore,
             List<DroneWarningResponse> warningList,
             String warningPart)
@@ -29,7 +29,7 @@ public class DashBoardDetailResponse {
                 .testInfo(testInfo)
                 .testResult(testResult)
                 .scoreList(scoreList)
-                .scoreAvg(scoreAvg)
+                .scoreAvgs(scoreAvgs)
                 .totalScore(totalScore)
                 .warningList(warningList)
                 .warningPart(warningPart)

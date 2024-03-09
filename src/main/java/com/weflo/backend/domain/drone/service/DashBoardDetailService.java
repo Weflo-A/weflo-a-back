@@ -29,7 +29,7 @@ public class DashBoardDetailService {
         DroneTestInfoResponse droneTestInfoResponse = createDroneTestInfoResponse(drone);
         DroneTestResultResponse droneTestResultResponse = createDroneTestResultResponse(testResult);
         List<DroneScoreResponse> droneScoreResponses = createDroneScoreResponses(testResult);
-        DroneScoreAvgResponse droneScoreAvgResponse = createDroneScoreAvgResponse(testResult);
+        List<DroneScoreAvgResponse> droneScoreAvgResponses = createDroneScoreAvgResponse(testResult);
         DroneTotalScoreResponse droneTotalScoreResponse =createDroneTotalScoreResponse(testResult);
         List<DroneWarningResponse> droneWarningResponses =createDroneWarningResponses(testResult);
         String warningPart = findWarningPart(testResult);
@@ -37,7 +37,7 @@ public class DashBoardDetailService {
                 droneTestInfoResponse,
                 droneTestResultResponse,
                 droneScoreResponses,
-                droneScoreAvgResponse,
+                droneScoreAvgResponses,
                 droneTotalScoreResponse,
                 droneWarningResponses,
                 warningPart);
@@ -69,43 +69,43 @@ public class DashBoardDetailService {
     }
     private String computeWaringPart(int value,int part1, int part2, int part3){
         if (value == part1) {
-            return "PART1";
+            return "구동부 01";
         } else if (value == part2) {
-            return "PART2";
+            return "구동부 02";
         } else if (value == part3) {
-            return "PART3";
+            return "구동부 03";
         } else {
-            return "PART4";
+            return "구동부 04";
         }
     }
     private List<DroneWarningResponse> createDroneWarningResponses(TestResult testResult){
         List<DroneWarningResponse> droneWarningResponses = new ArrayList<>();
-        DroneWarningResponse droneWarningResponse1 = DroneWarningResponse.createDroneWarningResponse("PART1", "Motor", testResult.getPart1Motor());
+        DroneWarningResponse droneWarningResponse1 = DroneWarningResponse.createDroneWarningResponse("구동부 01", "Motor", testResult.getPart1Motor());
         droneWarningResponses.add(droneWarningResponse1);
-        DroneWarningResponse droneWarningResponse2 = DroneWarningResponse.createDroneWarningResponse("PART1", "Blade", testResult.getPart1Blade());
+        DroneWarningResponse droneWarningResponse2 = DroneWarningResponse.createDroneWarningResponse("구동부 01", "Blade", testResult.getPart1Blade());
         droneWarningResponses.add(droneWarningResponse2);
-        DroneWarningResponse droneWarningResponse3 = DroneWarningResponse.createDroneWarningResponse("PART1", "Esc", testResult.getPart1Esc());
+        DroneWarningResponse droneWarningResponse3 = DroneWarningResponse.createDroneWarningResponse("구동부 01", "Esc", testResult.getPart1Esc());
         droneWarningResponses.add(droneWarningResponse3);
 
-        DroneWarningResponse droneWarningResponse4 = DroneWarningResponse.createDroneWarningResponse("PART2", "Motor", testResult.getPart2Motor());
+        DroneWarningResponse droneWarningResponse4 = DroneWarningResponse.createDroneWarningResponse("구동부 02", "Motor", testResult.getPart2Motor());
         droneWarningResponses.add(droneWarningResponse4);
-        DroneWarningResponse droneWarningResponse5 = DroneWarningResponse.createDroneWarningResponse("PART2", "Blade", testResult.getPart2Blade());
+        DroneWarningResponse droneWarningResponse5 = DroneWarningResponse.createDroneWarningResponse("구동부 02", "Blade", testResult.getPart2Blade());
         droneWarningResponses.add(droneWarningResponse5);
-        DroneWarningResponse droneWarningResponse6 = DroneWarningResponse.createDroneWarningResponse("PART2", "Esc", testResult.getPart2Esc());
+        DroneWarningResponse droneWarningResponse6 = DroneWarningResponse.createDroneWarningResponse("구동부 02", "Esc", testResult.getPart2Esc());
         droneWarningResponses.add(droneWarningResponse6);
 
-        DroneWarningResponse droneWarningResponse7 = DroneWarningResponse.createDroneWarningResponse("PART3", "Motor", testResult.getPart3Motor());
+        DroneWarningResponse droneWarningResponse7 = DroneWarningResponse.createDroneWarningResponse("구동부 03", "Motor", testResult.getPart3Motor());
         droneWarningResponses.add(droneWarningResponse7);
-        DroneWarningResponse droneWarningResponse8 = DroneWarningResponse.createDroneWarningResponse("PART3", "Blade", testResult.getPart3Blade());
+        DroneWarningResponse droneWarningResponse8 = DroneWarningResponse.createDroneWarningResponse("구동부 03", "Blade", testResult.getPart3Blade());
         droneWarningResponses.add(droneWarningResponse8);
-        DroneWarningResponse droneWarningResponse9 = DroneWarningResponse.createDroneWarningResponse("PART3", "Esc", testResult.getPart3Esc());
+        DroneWarningResponse droneWarningResponse9 = DroneWarningResponse.createDroneWarningResponse("구동부 03", "Esc", testResult.getPart3Esc());
         droneWarningResponses.add(droneWarningResponse9);
 
-        DroneWarningResponse droneWarningResponse10 = DroneWarningResponse.createDroneWarningResponse("PART4", "Motor", testResult.getPart4Motor());
+        DroneWarningResponse droneWarningResponse10 = DroneWarningResponse.createDroneWarningResponse("구동부 04", "Motor", testResult.getPart4Motor());
         droneWarningResponses.add(droneWarningResponse10);
-        DroneWarningResponse droneWarningResponse11 = DroneWarningResponse.createDroneWarningResponse("PART4", "Blade", testResult.getPart4Blade());
+        DroneWarningResponse droneWarningResponse11 = DroneWarningResponse.createDroneWarningResponse("구동부 04", "Blade", testResult.getPart4Blade());
         droneWarningResponses.add(droneWarningResponse11);
-        DroneWarningResponse droneWarningResponse12 = DroneWarningResponse.createDroneWarningResponse("PART4", "Esc", testResult.getPart4Esc());
+        DroneWarningResponse droneWarningResponse12 = DroneWarningResponse.createDroneWarningResponse("구동부 04", "Esc", testResult.getPart4Esc());
         droneWarningResponses.add(droneWarningResponse12);
 
         List<DroneWarningResponse> top5Warnings = droneWarningResponses.stream()
@@ -128,12 +128,13 @@ public class DashBoardDetailService {
                 findService.getPart4Point(testResult)
         );
     }
-    private DroneScoreAvgResponse createDroneScoreAvgResponse(TestResult testResult){
-        return DroneScoreAvgResponse.of(
-                findService.getMotorPoint(testResult),
-                findService.getBladePoint(testResult),
-                findService.getEscPoint(testResult),
-                findService.getPoint(testResult));
+    private List<DroneScoreAvgResponse> createDroneScoreAvgResponse(TestResult testResult){
+        List<DroneScoreAvgResponse> droneScoreAvgResponses = new ArrayList<>();
+        droneScoreAvgResponses.add(DroneScoreAvgResponse.createDroneScoreAvg("모터", findService.getMotorPoint(testResult)));
+        droneScoreAvgResponses.add(DroneScoreAvgResponse.createDroneScoreAvg("블레이드", findService.getBladePoint(testResult)));
+        droneScoreAvgResponses.add(DroneScoreAvgResponse.createDroneScoreAvg("ESC", findService.getEscPoint(testResult)));
+        droneScoreAvgResponses.add(DroneScoreAvgResponse.createDroneScoreAvg("종합", findService.getPoint(testResult)));
+        return droneScoreAvgResponses;
     }
     private List<DroneScoreResponse> createDroneScoreResponses(TestResult testResult) {
         List<DroneScoreResponse> droneScoreResponses = new ArrayList<>();

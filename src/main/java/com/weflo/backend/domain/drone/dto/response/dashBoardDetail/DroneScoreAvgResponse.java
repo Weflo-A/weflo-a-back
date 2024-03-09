@@ -6,16 +6,20 @@ import lombok.Getter;
 @Builder
 @Getter
 public class DroneScoreAvgResponse {
-    private int motorAvg;
-    private int bladeAvg;
-    private int escAvg;
-    private int totalAvg;
-    public static DroneScoreAvgResponse of(int motorAvg, int bladeAvg, int escAvg, int totalAvg){
+    private String type;
+    private int score;
+    public static DroneScoreAvgResponse createDroneScoreAvg(String type, int score){
         return DroneScoreAvgResponse.builder()
-                .motorAvg(motorAvg)
-                .bladeAvg(bladeAvg)
-                .escAvg(escAvg)
-                .totalAvg(totalAvg)
+                .type(type)
+                .score(score)
                 .build();
     }
+//    public static DroneScoreAvgResponse of(int motorAvg, int bladeAvg, int escAvg, int totalAvg){
+//        return DroneScoreAvgResponse.builder()
+//                .motorAvg(motorAvg)
+//                .bladeAvg(bladeAvg)
+//                .escAvg(escAvg)
+//                .totalAvg(totalAvg)
+//                .build();
+//    }
 }
