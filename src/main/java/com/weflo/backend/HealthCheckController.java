@@ -809,8 +809,19 @@ public class HealthCheckController {
             }
         }
 
+        List<Component> drone1Components = drone1.getDroneComponents().stream().map(DroneComponent::getComponent).toList();
+        List<Component> drone2Components = drone1.getDroneComponents().stream().map(DroneComponent::getComponent).toList();
+        List<Component> drone3Components = drone1.getDroneComponents().stream().map(DroneComponent::getComponent).toList();
+        List<Component> drone4Components = drone1.getDroneComponents().stream().map(DroneComponent::getComponent).toList();
+        List<Component> drone5Components = drone1.getDroneComponents().stream().map(DroneComponent::getComponent).toList();
+        List<Component> drone6Components = drone1.getDroneComponents().stream().map(DroneComponent::getComponent).toList();
+        List<Component> drone7Components = drone1.getDroneComponents().stream().map(DroneComponent::getComponent).toList();
+        List<Component> drone8Components = drone1.getDroneComponents().stream().map(DroneComponent::getComponent).toList();
+        List<Component> drone9Components = drone1.getDroneComponents().stream().map(DroneComponent::getComponent).toList();
+        List<Component> drone10Components = drone1.getDroneComponents().stream().map(DroneComponent::getComponent).toList();
+
         TestResult testResult1Drone1 = TestResult.builder()
-                .components(components)
+                .components(drone1Components)
                 .expectedDate(null)
                 .createDate(createDate1)
                 .drone(drone1)
@@ -831,7 +842,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult2Drone1 = TestResult.builder()
-                .components(components)
+                .components(drone1Components)
                 .expectedDate(null)
                 .createDate(createDate2)
                 .drone(drone1)
@@ -852,7 +863,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult3Drone1 = TestResult.builder()
-                .components(components)
+                .components(drone1Components)
                 .expectedDate(null)
                 .createDate(createDate3)
                 .drone(drone1)
@@ -873,7 +884,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult1Drone2 = TestResult.builder()
-                .components(components)
+                .components(drone2Components)
                 .expectedDate(null)
                 .createDate(createDate1)
                 .drone(drone2)
@@ -894,7 +905,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult2Drone2 = TestResult.builder()
-                .components(components)
+                .components(drone2Components)
                 .expectedDate(null)
                 .createDate(createDate2)
                 .drone(drone2)
@@ -915,7 +926,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult3Drone2 = TestResult.builder()
-                .components(components)
+                .components(drone2Components)
                 .expectedDate(null)
                 .createDate(createDate3)
                 .drone(drone2)
@@ -936,7 +947,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult1Drone3 = TestResult.builder()
-                .components(components)
+                .components(drone3Components)
                 .expectedDate(null)
                 .createDate(createDate1)
                 .drone(drone3)
@@ -957,7 +968,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult2Drone3 = TestResult.builder()
-                .components(components)
+                .components(drone3Components)
                 .expectedDate(null)
                 .createDate(createDate2)
                 .drone(drone3)
@@ -978,7 +989,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult3Drone3 = TestResult.builder()
-                .components(components)
+                .components(drone3Components)
                 .expectedDate(null)
                 .createDate(createDate3)
                 .drone(drone3)
@@ -999,7 +1010,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult1Drone4 = TestResult.builder()
-                .components(components)
+                .components(drone4Components)
                 .expectedDate(null)
                 .createDate(createDate1)
                 .drone(drone4)
@@ -1020,7 +1031,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult2Drone4 = TestResult.builder()
-                .components(components)
+                .components(drone4Components)
                 .expectedDate(null)
                 .createDate(createDate2)
                 .drone(drone4)
@@ -1041,7 +1052,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult3Drone4 = TestResult.builder()
-                .components(components)
+                .components(drone4Components)
                 .expectedDate(null)
                 .createDate(createDate3)
                 .drone(drone4)
@@ -1062,7 +1073,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult1Drone5 = TestResult.builder()
-                .components(components)
+                .components(drone5Components)
                 .expectedDate(null)
                 .createDate(createDate1)
                 .drone(drone5)
@@ -1083,7 +1094,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult2Drone5 = TestResult.builder()
-                .components(components)
+                .components(drone5Components)
                 .expectedDate(null)
                 .createDate(createDate2)
                 .drone(drone5)
@@ -1097,14 +1108,14 @@ public class HealthCheckController {
                 .part3Motor(4)
                 .part3Esc(65)
                 .part4Blade(90)
-                .part4Motor(693)
+                .part4Motor(93)
                 .part4Esc(20)
                 .space("부천")
                 .stationId("SID 2")
                 .build();
 
         TestResult testResult3Drone5 = TestResult.builder()
-                .components(components)
+                .components(drone5Components)
                 .expectedDate(null)
                 .createDate(createDate3)
                 .drone(drone5)
@@ -1125,7 +1136,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult1Drone6 = TestResult.builder()
-                .components(components)
+                .components(drone6Components)
                 .expectedDate(null)
                 .createDate(createDate1)
                 .drone(drone6)
@@ -1146,7 +1157,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult2Drone6 = TestResult.builder()
-                .components(components)
+                .components(drone6Components)
                 .expectedDate(null)
                 .createDate(createDate2)
                 .drone(drone6)
@@ -1167,7 +1178,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult3Drone6 = TestResult.builder()
-                .components(components)
+                .components(drone6Components)
                 .expectedDate(null)
                 .createDate(createDate3)
                 .drone(drone6)
@@ -1188,7 +1199,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult1Drone7 = TestResult.builder()
-                .components(components)
+                .components(drone7Components)
                 .expectedDate(null)
                 .createDate(createDate1)
                 .drone(drone7)
@@ -1209,7 +1220,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult2Drone7 = TestResult.builder()
-                .components(components)
+                .components(drone7Components)
                 .expectedDate(null)
                 .createDate(createDate2)
                 .drone(drone7)
@@ -1230,7 +1241,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult3Drone7 = TestResult.builder()
-                .components(components)
+                .components(drone7Components)
                 .expectedDate(null)
                 .createDate(createDate3)
                 .drone(drone7)
@@ -1251,7 +1262,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult1Drone8 = TestResult.builder()
-                .components(components)
+                .components(drone8Components)
                 .expectedDate(null)
                 .createDate(createDate1)
                 .drone(drone8)
@@ -1272,7 +1283,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult2Drone8 = TestResult.builder()
-                .components(components)
+                .components(drone8Components)
                 .expectedDate(null)
                 .createDate(createDate2)
                 .drone(drone8)
@@ -1293,7 +1304,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult3Drone8 = TestResult.builder()
-                .components(components)
+                .components(drone8Components)
                 .expectedDate(null)
                 .createDate(createDate3)
                 .drone(drone8)
@@ -1314,7 +1325,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult1Drone9 = TestResult.builder()
-                .components(components)
+                .components(drone9Components)
                 .expectedDate(null)
                 .createDate(createDate1)
                 .drone(drone9)
@@ -1335,7 +1346,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult2Drone9 = TestResult.builder()
-                .components(components)
+                .components(drone9Components)
                 .expectedDate(null)
                 .createDate(createDate2)
                 .drone(drone9)
@@ -1356,7 +1367,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult3Drone9 = TestResult.builder()
-                .components(components)
+                .components(drone9Components)
                 .expectedDate(null)
                 .createDate(createDate3)
                 .drone(drone9)
@@ -1377,7 +1388,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult1Drone10 = TestResult.builder()
-                .components(components)
+                .components(drone10Components)
                 .expectedDate(null)
                 .createDate(createDate1)
                 .drone(drone10)
@@ -1398,7 +1409,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult2Drone10 = TestResult.builder()
-                .components(components)
+                .components(drone10Components)
                 .expectedDate(null)
                 .createDate(createDate2)
                 .drone(drone10)
@@ -1419,7 +1430,7 @@ public class HealthCheckController {
                 .build();
 
         TestResult testResult3Drone10 = TestResult.builder()
-                .components(components)
+                .components(drone10Components)
                 .expectedDate(null)
                 .createDate(createDate3)
                 .drone(drone10)

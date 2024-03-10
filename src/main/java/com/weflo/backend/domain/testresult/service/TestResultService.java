@@ -35,7 +35,6 @@ public class TestResultService {
     public List<DroneComponentResponse> getTestResultComponents(Long droneId, LocalDateTime start, LocalDateTime end) {
         TestResult findTestResult = testResultRepository.findByDroneIdAndCreateDateBetween(droneId, start, end);
         List<Component> components = findTestResult.getComponents();
-
         List<DroneComponentResponse> responses = new ArrayList<>();
 
         for (Component component : components) {
