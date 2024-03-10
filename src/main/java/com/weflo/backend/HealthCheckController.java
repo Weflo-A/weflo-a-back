@@ -73,7 +73,7 @@ public class HealthCheckController {
                 .expectedMaxPrice(99000L)
                 .expectedMinPrice(16000L)
                 .name("드론 클리닉")
-                .canUpgrade(true)
+                .canUpgrade(false)
                 .hasModels("Eagle MDT-1600 SHIFT VL-2240R")
                 .hasTypes("Blade Motor ESC")
                 .build();
@@ -83,7 +83,7 @@ public class HealthCheckController {
                 .expectedMaxPrice(69000L)
                 .expectedMinPrice(9000L)
                 .name("에어 테크")
-                .canUpgrade(true)
+                .canUpgrade(false)
                 .hasModels("Eagle SHIFT VL-2240R")
                 .hasTypes("Blade Motor ESC")
                 .build();
