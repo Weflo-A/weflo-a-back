@@ -138,10 +138,6 @@ public class TestResultService {
                 .map(DroneComponentResponse::getPoint)
                 .toList();
 
-        for (Long part1ComponentsPoint : part1ComponentsPoints) {
-            System.out.println("part1ComponentsPoint = " + part1ComponentsPoint);
-        }
-        
         int part1Sum = part1ComponentsPoints.stream().mapToInt(Long::intValue).sum()/3;
         int part2Sum = part2ComponentsPoints.stream().mapToInt(Long::intValue).sum()/3;
         int part3Sum = part3ComponentsPoints.stream().mapToInt(Long::intValue).sum()/3;

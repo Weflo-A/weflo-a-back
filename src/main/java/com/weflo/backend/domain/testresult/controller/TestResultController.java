@@ -53,9 +53,6 @@ public class TestResultController {
             LocalDateTime start = LocalDateTime.of(year, month, day, 0, 0, 1);
             LocalDateTime end = LocalDateTime.of(year, month, day, 23, 59, 59);
             List<DroneComponentResponse> responses = testResultService.getTestResultComponents(droneId, start, end);
-            for (DroneComponentResponse response : responses) {
-                System.out.println("response.getPoint() = " + response.getPoint());
-            }
             TestResultTopSectionResponse testResultTopSectionResponse = testResultService.generateTopSectionResponse(
                     responses);
 
