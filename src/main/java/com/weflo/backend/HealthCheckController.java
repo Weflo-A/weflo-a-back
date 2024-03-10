@@ -772,64 +772,64 @@ public class HealthCheckController {
         LocalDateTime createDate3 = LocalDateTime.of(2024, 3, 12, 3, 0, 0);
 
         List<LocalDateTime> createDates = new ArrayList<>();
+
         for (int i = 1; i <= 12 ; i++) {
             createDates.add(LocalDateTime.of(2023, i, 12, 3, 0, 0));
         }
 
         List<TestResult> testResults = new ArrayList<>();
 
-        //11월 까지 넣음
-        for (int i = 0; i < createDates.size() - 1; i++) {
-            List<Component> componentList = drone1.getDroneComponents().stream()
-                    .map(DroneComponent::getComponent).toList();
+        for (Drone drone : drones) {
+            for (int i = 0; i < createDates.size(); i++) {
+                List<Component> componentList = drone.getDroneComponents().stream()
+                        .map(DroneComponent::getComponent).toList();
 
-            LocalDateTime nextExpectDate = createDates.get(i + 1);
+                TestResult newTestResult = TestResult.builder()
+                        .components(componentList)
+                        .expectedDate(null)
+                        .createDate(createDates.get(i))
+                        .drone(drone)
+                        .part1Blade(random.nextInt(101))
+                        .part1Motor(random.nextInt(101))
+                        .part1Esc(random.nextInt(101))
+                        .part2Blade(random.nextInt(101))
+                        .part2Motor(random.nextInt(101))
+                        .part2Esc(random.nextInt(101))
+                        .part3Blade(random.nextInt(101))
+                        .part3Motor(random.nextInt(101))
+                        .part3Esc(random.nextInt(101))
+                        .part4Blade(random.nextInt(101))
+                        .part4Motor(random.nextInt(101))
+                        .part4Esc(random.nextInt(101))
+                        .space("인천")
+                        .stationId("SID 1")
+                        .build();
 
-            TestResult newTestResult = TestResult.builder()
-                    .components(componentList)
-                    .expectedDate(nextExpectDate)
-                    .createDate(createDates.get(i))
-                    .drone(drone1)
-                    .part1Blade(random.nextInt(101))
-                    .part1Motor(random.nextInt(101))
-                    .part1Esc(random.nextInt(101))
-                    .part2Blade(random.nextInt(101))
-                    .part2Motor(random.nextInt(101))
-                    .part2Esc(random.nextInt(101))
-                    .part3Blade(random.nextInt(101))
-                    .part3Motor(random.nextInt(101))
-                    .part3Esc(random.nextInt(101))
-                    .part4Blade(random.nextInt(101))
-                    .part4Motor(random.nextInt(101))
-                    .part4Esc(random.nextInt(101))
-                    .space("인천")
-                    .stationId("SID 1")
-                    .build();
-
-            testResults.add(newTestResult);
+                testResults.add(newTestResult);
+            }
         }
 
         //2023년 12월 정보 넣기(2024년 1월 이랑 연결하려고)
-        TestResult testResult0 = TestResult.builder()
-                .components(components)
-                .expectedDate(createDate1)
-                .createDate(createDates.get(11))
-                .drone(drone1)
-                .part1Blade(10)
-                .part1Motor(40)
-                .part1Esc(26)
-                .part2Blade(40)
-                .part2Motor(78)
-                .part2Esc(30)
-                .part3Blade(15)
-                .part3Motor(86)
-                .part3Esc(27)
-                .part4Blade(100)
-                .part4Motor(64)
-                .part4Esc(38)
-                .space("인천")
-                .stationId("SID 1")
-                .build();
+//        TestResult testResult0 = TestResult.builder()
+//                .components(components)
+//                .expectedDate(createDate1)
+//                .createDate(createDates.get(11))
+//                .drone(drone1)
+//                .part1Blade(10)
+//                .part1Motor(40)
+//                .part1Esc(26)
+//                .part2Blade(40)
+//                .part2Motor(78)
+//                .part2Esc(30)
+//                .part3Blade(15)
+//                .part3Motor(86)
+//                .part3Esc(27)
+//                .part4Blade(100)
+//                .part4Motor(64)
+//                .part4Esc(38)
+//                .space("인천")
+//                .stationId("SID 1")
+//                .build();
 
         TestResult testResult1 = TestResult.builder()
                 .components(components)
@@ -895,7 +895,7 @@ public class HealthCheckController {
                 .build();
 
 
-        testResultRepository.save(testResult0);
+//        testResultRepository.save(testResult0);
         testResultRepository.save(testResult1);
         testResultRepository.save(testResult2);
         testResultRepository.save(testResult3);
