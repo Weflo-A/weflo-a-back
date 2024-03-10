@@ -5,11 +5,14 @@ import com.weflo.backend.domain.drone.domain.DroneGroup;
 import com.weflo.backend.domain.drone.dto.request.SearchDroneRequest;
 import com.weflo.backend.domain.drone.dto.response.DroneGroupResponse;
 import com.weflo.backend.domain.drone.dto.response.DroneListResponse;
+import com.weflo.backend.domain.drone.dto.response.DroneModelInfoResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.SearchDroneListResponse;
 import com.weflo.backend.domain.drone.dto.response.onBoarding.SearchDroneResponse;
 import com.weflo.backend.domain.drone.repository.DroneGroupInfoRepository;
 import com.weflo.backend.domain.drone.repository.DroneGroupRepository;
 import com.weflo.backend.domain.drone.repository.DroneRepository;
+import com.weflo.backend.global.error.ErrorCode;
+import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -77,5 +80,15 @@ public class DroneService {
     public List<DroneListResponse> getAllDrones() {
         List<Drone> allDrones = droneRepository.findAll();
         return allDrones.stream().map(DroneListResponse::of).toList();
+    }
+
+    public DroneModelInfoResponse getDroneModelByDroneId(Long droneId) {
+        Drone findDrone = droneRepository.findById(droneId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.DRONE_NOT_FOUND));
+
+        return DroneModelInfoResponse.builder()
+                .droneId(findDrone.getId())
+                .modelName(findDrone.getModel().getModel())
+                .build();
     }
 }
