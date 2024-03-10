@@ -11,9 +11,8 @@ import static com.weflo.backend.global.error.ErrorCode.INVALID_MODEL_TYPE;
 @RequiredArgsConstructor
 @Getter
 public enum DroneModel {
-    MODEL1("DJI Mavic Air 2"), MODEL2("Skydio 2"), MODEL3("Parrot Anafi USA"),
-    MODEL4("DJI Inspire 2"), MODEL5("Eagle"),  MODEL6("SHIFT"),
-    MODEL7("Autel Robotics"), MODEL8("SG 906 PRO2");
+    EAGLE("EAGLE"), MDT_1600("MDT-1600"), SHIFT("SHIFT"),
+    VL_2240R("VL-2240R");
     private final String model;
 
     public static DroneModel getEnumDroneModelFromStringModel(String model) {

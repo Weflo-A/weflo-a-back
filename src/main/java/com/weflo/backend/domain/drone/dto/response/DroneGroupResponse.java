@@ -15,4 +15,9 @@ public class DroneGroupResponse {
                 .name(droneGroup.getName())
                 .build();
     }
+    public static DroneGroupResponse create(String name){
+        return DroneGroupResponse.builder()
+                .name(name)
+                .build();
+    }
 }

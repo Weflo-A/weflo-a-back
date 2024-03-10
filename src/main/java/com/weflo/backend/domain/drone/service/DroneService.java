@@ -47,6 +47,9 @@ public class DroneService {
         if(searchDroneRequest.getName().isEmpty()&&searchDroneRequest.getModel().isEmpty()&&searchDroneRequest.getGroup().isEmpty()&&searchDroneRequest.getYear().isEmpty()){
             searchResults = droneRepository.findAll();
         }
+        if(searchDroneRequest.getModel().isEmpty()&&searchDroneRequest.getGroup().isEmpty()&&searchDroneRequest.getYear().isEmpty()){
+            searchResults = drones;
+        }
         List<SearchDroneListResponse> searchDroneListResponses = createSearchDroneListResponses(searchResults);
         return SearchDroneResponse.of(groupInfo,searchDroneListResponses);
     }
@@ -60,7 +63,9 @@ public class DroneService {
     }
     private List<DroneGroupResponse> createDroneGroupInfoResponses(){
         List<DroneGroup> droneGroups = droneGroupRepository.findAll();
-        return droneGroups.stream().map(droneGroup -> DroneGroupResponse.of(droneGroup)).collect(Collectors.toList());
+        List<DroneGroupResponse> droneGroupResponses = droneGroups.stream().map(droneGroup -> DroneGroupResponse.of(droneGroup)).collect(Collectors.toList());
+        droneGroupResponses.add(DroneGroupResponse.create("전체"));
+        return droneGroupResponses;
     }
     private List<String> getGroupsWithDroneId(Long droneId){
         List<DroneGroup> droneGroups = droneGroupInfoRepository.findAllDroneGroupByDroneId(droneId);
