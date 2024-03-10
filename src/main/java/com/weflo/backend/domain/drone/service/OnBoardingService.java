@@ -167,7 +167,7 @@ public class OnBoardingService {
                 num++;
             groupMonthCost = groupMonthCost+getMonthCost(testResults);
         }
-        List<TestResult> allTestResults = testResultRepository.findAll();
+        List<TestResult> allTestResults = testResultRepository.findByCreateDateYearAndCreateDateMonth(year,month);
         totalMonthCost = getMonthCost(allTestResults);
         if(groupMonthCost!=0&&!drones.isEmpty()) {
             groupMonthCost = groupMonthCost/num;
