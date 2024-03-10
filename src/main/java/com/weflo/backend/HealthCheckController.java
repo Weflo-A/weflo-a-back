@@ -69,7 +69,7 @@ public class HealthCheckController {
 
         //업체 정보 넣는 곳
         RepairStore store1 = RepairStore.builder()
-                .image("")
+                .image("src/sdfs/assets/images/repair1.jpeg")
                 .expectedMaxPrice(99000L)
                 .expectedMinPrice(16000L)
                 .name("드론 클리닉")
@@ -79,7 +79,7 @@ public class HealthCheckController {
                 .build();
 
         RepairStore store2 = RepairStore.builder()
-                .image("")
+                .image("src/sdfs/assets/images/repair2.png")
                 .expectedMaxPrice(69000L)
                 .expectedMinPrice(9000L)
                 .name("에어 테크")
@@ -89,7 +89,7 @@ public class HealthCheckController {
                 .build();
 
         RepairStore store3 = RepairStore.builder()
-                .image("")
+                .image("src/sdfs/assets/images/repair3.png")
                 .expectedMaxPrice(99000L)
                 .expectedMinPrice(6000L)
                 .name("모빌리티 원")
@@ -99,7 +99,7 @@ public class HealthCheckController {
                 .build();
 
         RepairStore store4 = RepairStore.builder()
-                .image("")
+                .image("src/sdfs/assets/images/repair4.jpeg")
                 .expectedMaxPrice(80000L)
                 .expectedMinPrice(24000L)
                 .name("노타 드론")
@@ -109,7 +109,7 @@ public class HealthCheckController {
                 .build();
 
         RepairStore store5 = RepairStore.builder()
-                .image("")
+                .image("src/sdfs/assets/images/repair5.png")
                 .expectedMaxPrice(128000L)
                 .expectedMinPrice(48000L)
                 .name("한드론텍")
@@ -119,7 +119,7 @@ public class HealthCheckController {
                 .build();
 
         RepairStore store6 = RepairStore.builder()
-                .image("")
+                .image("src/sdfs/assets/images/repair6.png")
                 .expectedMaxPrice(158000L)
                 .expectedMinPrice(60000L)
                 .name("픽셀플라이")
@@ -129,7 +129,7 @@ public class HealthCheckController {
                 .build();
 
         RepairStore store7 = RepairStore.builder()
-                .image("")
+                .image("src/sdfs/assets/images/repair7.png")
                 .expectedMaxPrice(78000L)
                 .expectedMinPrice(33000L)
                 .name("해오름 드론 항공")
@@ -188,14 +188,14 @@ public class HealthCheckController {
         componentBladeStars.add(3.0);
 
         List<String> componentBladeImages = new ArrayList<>();
-        componentBladeImages.add("");
-        componentBladeImages.add("");
-        componentBladeImages.add("");
-        componentBladeImages.add("");
-        componentBladeImages.add("");
-        componentBladeImages.add("");
-        componentBladeImages.add("");
-        componentBladeImages.add("");
+        componentBladeImages.add("src/sdfs/assets/images/blade1.jpeg");
+        componentBladeImages.add("src/sdfs/assets/images/blade2.jpeg");
+        componentBladeImages.add("src/sdfs/assets/images/blade3.jpeg");
+        componentBladeImages.add("src/sdfs/assets/images/blade4.jpeg");
+        componentBladeImages.add("src/sdfs/assets/images/blade5.jpeg");
+        componentBladeImages.add("src/sdfs/assets/images/blade6.jpeg");
+        componentBladeImages.add("src/sdfs/assets/images/blade7.jpeg");
+        componentBladeImages.add("src/sdfs/assets/images/blade8.png");
 
         List<Part> componentParts = new ArrayList<>();
         componentParts.add(Part.PART1);
@@ -267,14 +267,14 @@ public class HealthCheckController {
         componentMotorStars.add(3.0);
 
         List<String> componentMotorImages = new ArrayList<>();
-        componentMotorImages.add("");
-        componentMotorImages.add("");
-        componentMotorImages.add("");
-        componentMotorImages.add("");
-        componentMotorImages.add("");
-        componentMotorImages.add("");
-        componentMotorImages.add("");
-        componentMotorImages.add("");
+        componentMotorImages.add("src/sdfs/assets/images/motor1.jpeg");
+        componentMotorImages.add("src/sdfs/assets/images/motor2.jpeg");
+        componentMotorImages.add("src/sdfs/assets/images/motor3.jpeg");
+        componentMotorImages.add("src/sdfs/assets/images/motor4.jpeg");
+        componentMotorImages.add("src/sdfs/assets/images/motor5.jpeg");
+        componentMotorImages.add("src/sdfs/assets/images/motor6.png");
+        componentMotorImages.add("src/sdfs/assets/images/motor7.jpeg");
+        componentMotorImages.add("src/sdfs/assets/images/motor8.jpeg");
 
         List<Component> componentsMotor = new ArrayList<>();
 
@@ -335,14 +335,14 @@ public class HealthCheckController {
         componentESCStars.add(3.0);
 
         List<String> componentESCImages = new ArrayList<>();
-        componentESCImages.add("");
-        componentESCImages.add("");
-        componentESCImages.add("");
-        componentESCImages.add("");
-        componentESCImages.add("");
-        componentESCImages.add("");
-        componentESCImages.add("");
-        componentESCImages.add("");
+        componentESCImages.add("src/sdfs/assets/images/esc1.jpeg");
+        componentESCImages.add("src/sdfs/assets/images/esc2.jpeg");
+        componentESCImages.add("src/sdfs/assets/images/esc3.jpeg");
+        componentESCImages.add("src/sdfs/assets/images/esc4.jpeg");
+        componentESCImages.add("src/sdfs/assets/images/esc5.jpeg");
+        componentESCImages.add("src/sdfs/assets/images/esc6.jpeg");
+        componentESCImages.add("src/sdfs/assets/images/esc7.png");
+        componentESCImages.add("src/sdfs/assets/images/esc8.jpeg");
 
         List<Component> componentsESC = new ArrayList<>();
 
@@ -403,14 +403,14 @@ public class HealthCheckController {
         componentOtherStars.add(3.0);
 
         List<String> componentOtherImages = new ArrayList<>();
-        componentOtherImages.add("");
-        componentOtherImages.add("");
-        componentOtherImages.add("");
-        componentOtherImages.add("");
-        componentOtherImages.add("");
-        componentOtherImages.add("");
-        componentOtherImages.add("");
-        componentOtherImages.add("");
+        componentOtherImages.add("src/sdfs/assets/images/other1.jpeg");
+        componentOtherImages.add("src/sdfs/assets/images/other2.jpeg");
+        componentOtherImages.add("src/sdfs/assets/images/other3.png");
+        componentOtherImages.add("src/sdfs/assets/images/other4.jpeg");
+        componentOtherImages.add("src/sdfs/assets/images/other5.jpeg");
+        componentOtherImages.add("src/sdfs/assets/images/other6.jpeg");
+        componentOtherImages.add("src/sdfs/assets/images/other7.jpeg");
+        componentOtherImages.add("src/sdfs/assets/images/other8.jpeg");
 
         List<Component> componentsOthers = new ArrayList<>();
 
