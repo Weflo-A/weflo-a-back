@@ -426,9 +426,9 @@ public class HealthCheckController {
                     .build();
 
             componentsOthers.add(newComponent);
-            components.add(newComponent);
         }
 
+        componentRepository.saveAll(componentsOthers);
         componentRepository.saveAll(components);
 
         Drone drone1 = Drone.builder()
