@@ -34,4 +34,9 @@ public class DroneComponent {
 
     @Enumerated(EnumType.STRING)
     private Part part;
+
+    public void connectDrone(Drone drone) {
+        drone.getDroneComponents().add(this);
+        this.drone = drone;
+    }
 }

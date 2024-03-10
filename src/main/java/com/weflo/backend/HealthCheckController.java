@@ -557,30 +557,33 @@ public class HealthCheckController {
                         .component(componentBlade)
                         .brokenCount(random.nextInt(31))
                         .type(componentBlade.getType())
-                        .drone(drone)
                         .part(componentBlade.getPart())
                         .point((long)random.nextInt(101))
                         .build();
+
+                newDroneComponentBlade.connectDrone(drone);
 
                 Component componentMotor = componentsMotor.get(i + start);
                 DroneComponent newDroneComponentMotor = DroneComponent.builder()
                         .component(componentMotor)
                         .brokenCount(random.nextInt(31))
                         .type(componentMotor.getType())
-                        .drone(drone)
                         .part(componentMotor.getPart())
                         .point((long)random.nextInt(101))
                         .build();
+
+                newDroneComponentMotor.connectDrone(drone);
 
                 Component componentESC = componentsESC.get(i + start);
                 DroneComponent newDroneComponentESC = DroneComponent.builder()
                         .component(componentESC)
                         .brokenCount(random.nextInt(31))
                         .type(componentESC.getType())
-                        .drone(drone)
                         .part(componentESC.getPart())
                         .point((long)random.nextInt(101))
                         .build();
+
+                newDroneComponentESC.connectDrone(drone);
 
                     droneComponentRepository.save(newDroneComponentBlade);
                     droneComponentRepository.save(newDroneComponentMotor);
