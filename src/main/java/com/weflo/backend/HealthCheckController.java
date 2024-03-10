@@ -74,7 +74,7 @@ public class HealthCheckController {
                 .expectedMinPrice(16000L)
                 .name("드론 클리닉")
                 .canUpgrade(true)
-                .hasModels("DJI Mavic Air 2 Skydio 2 Parrot Anafi USA DJI Inspire 2 Eagle SHIFT Pro Autel Robotics SG 906 PRO2")
+                .hasModels("Eagle MDT-1600 SHIFT VL-2240R")
                 .hasTypes("Blade Motor ESC")
                 .build();
 
@@ -84,7 +84,7 @@ public class HealthCheckController {
                 .expectedMinPrice(9000L)
                 .name("에어 테크")
                 .canUpgrade(true)
-                .hasModels("Skydio 2 Parrot Anafi USA DJI Inspire 2 Eagle SHIFT SG 906 PRO2")
+                .hasModels("Eagle SHIFT VL-2240R")
                 .hasTypes("Blade Motor ESC")
                 .build();
 
@@ -94,7 +94,7 @@ public class HealthCheckController {
                 .expectedMinPrice(6000L)
                 .name("모빌리티 원")
                 .canUpgrade(false)
-                .hasModels("DJI Mavic Air 2 Parrot Anafi USA DJI Inspire 2 Eagle SHIFT Autel Robotics SG 906 PRO2")
+                .hasModels("Eagle MDT-1600 SHIFT VL-2240R")
                 .hasTypes("Blade Motor ESC")
                 .build();
 
@@ -104,7 +104,7 @@ public class HealthCheckController {
                 .expectedMinPrice(24000L)
                 .name("노타 드론")
                 .canUpgrade(true)
-                .hasModels("DJI Mavic Air 2 Skydio 2 Parrot Anafi USA DJI Inspire 2 Eagle Autel Robotics SG 906 PRO2")
+                .hasModels("MDT-1600 SHIFT VL-2240R")
                 .hasTypes("Motor ESC")
                 .build();
 
@@ -114,7 +114,7 @@ public class HealthCheckController {
                 .expectedMinPrice(48000L)
                 .name("한드론텍")
                 .canUpgrade(false)
-                .hasModels("DJI Mavic Air 2 Skydio 2 Parrot Anafi USA DJI Inspire 2 Eagle Autel Robotics SG 906 PRO2")
+                .hasModels("Eagle MDT-1600 VL-2240R")
                 .hasTypes("Blade ESC")
                 .build();
 
@@ -124,7 +124,7 @@ public class HealthCheckController {
                 .expectedMinPrice(60000L)
                 .name("픽셀플라이")
                 .canUpgrade(true)
-                .hasModels("DJI Mavic Air 2 Skydio 2 Parrot Anafi USA DJI Inspire 2 Eagle SHIFT Autel Robotics SG 906 PRO2")
+                .hasModels("Eagle MDT-1600 SHIFT")
                 .hasTypes("Blade Motor")
                 .build();
 
@@ -134,7 +134,7 @@ public class HealthCheckController {
                 .expectedMinPrice(33000L)
                 .name("해오름 드론 항공")
                 .canUpgrade(false)
-                .hasModels("DJI Mavic Air 2 Skydio 2 Parrot Anafi USA DJI Inspire 2 Eagle SHIFT Autel Robotics SG 906 PRO2")
+                .hasModels("Eagle MDT-1600 SHIFT VL-2240R")
                 .hasTypes("Blade Motor ESC")
                 .build();
 
@@ -432,7 +432,7 @@ public class HealthCheckController {
         componentRepository.saveAll(components);
 
         Drone drone1 = Drone.builder()
-                .name("Drone Number")
+                .name("스카이센티널")
                 .cost(1400000)
                 .model(DroneModel.EAGLE)
                 .purpose("농업용")
@@ -441,7 +441,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone2 = Drone.builder()
-                .name("Drone Number")
+                .name("플라이 마스터")
                 .cost(800000)
                 .model(DroneModel.VL_2240R)
                 .purpose("농업용")
@@ -450,7 +450,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone3 = Drone.builder()
-                .name("Drone Number")
+                .name("에어제뉴")
                 .cost(420000)
                 .model(DroneModel.SHIFT)
                 .purpose("농업용")
@@ -459,7 +459,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone4 = Drone.builder()
-                .name("Drone Number")
+                .name("무브 메이븐")
                 .cost(400000)
                 .model(DroneModel.EAGLE)
                 .purpose("교육용")
@@ -468,7 +468,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone5 = Drone.builder()
-                .name("Drone Number")
+                .name("헤븐하모니")
                 .cost(560000)
                 .model(DroneModel.VL_2240R)
                 .purpose("교육용")
@@ -477,7 +477,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone6 = Drone.builder()
-                .name("Drone Number")
+                .name("스무스소어")
                 .cost(3000000)
                 .model(DroneModel.EAGLE)
                 .purpose("교육용")
@@ -486,7 +486,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone7 = Drone.builder()
-                .name("Drone Number")
+                .name("에어큐브")
                 .cost(980000)
                 .model(DroneModel.SHIFT)
                 .purpose("교육용")
@@ -495,7 +495,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone8 = Drone.builder()
-                .name("Drone Number")
+                .name("드론비전어스")
                 .cost(1400000)
                 .model(DroneModel.MDT_1600)
                 .purpose("물류 배송")
@@ -504,7 +504,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone9 = Drone.builder()
-                .name("Drone Number")
+                .name("스카이프로미스")
                 .cost(500000)
                 .model(DroneModel.MDT_1600)
                 .purpose("물류 배송")
@@ -513,7 +513,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone10 = Drone.builder()
-                .name("Drone Number")
+                .name("플라이티탄")
                 .cost(420000)
                 .model(DroneModel.EAGLE)
                 .purpose("물류 배송")
@@ -772,64 +772,42 @@ public class HealthCheckController {
         LocalDateTime createDate3 = LocalDateTime.of(2024, 3, 12, 3, 0, 0);
 
         List<LocalDateTime> createDates = new ArrayList<>();
+
         for (int i = 1; i <= 12 ; i++) {
             createDates.add(LocalDateTime.of(2023, i, 12, 3, 0, 0));
         }
 
         List<TestResult> testResults = new ArrayList<>();
 
-        //11월 까지 넣음
-        for (int i = 0; i < createDates.size() - 1; i++) {
-            List<Component> componentList = drone1.getDroneComponents().stream()
-                    .map(DroneComponent::getComponent).toList();
+        for (Drone drone : drones) {
+            for (LocalDateTime createDate : createDates) {
+                List<Component> componentList = drone.getDroneComponents().stream()
+                        .map(DroneComponent::getComponent).toList();
 
-            LocalDateTime nextExpectDate = createDates.get(i + 1);
+                TestResult newTestResult = TestResult.builder()
+                        .components(componentList)
+                        .expectedDate(null)
+                        .createDate(createDate)
+                        .drone(drone)
+                        .part1Blade(random.nextInt(101))
+                        .part1Motor(random.nextInt(101))
+                        .part1Esc(random.nextInt(101))
+                        .part2Blade(random.nextInt(101))
+                        .part2Motor(random.nextInt(101))
+                        .part2Esc(random.nextInt(101))
+                        .part3Blade(random.nextInt(101))
+                        .part3Motor(random.nextInt(101))
+                        .part3Esc(random.nextInt(101))
+                        .part4Blade(random.nextInt(101))
+                        .part4Motor(random.nextInt(101))
+                        .part4Esc(random.nextInt(101))
+                        .space("인천")
+                        .stationId("SID 1")
+                        .build();
 
-            TestResult newTestResult = TestResult.builder()
-                    .components(componentList)
-                    .expectedDate(nextExpectDate)
-                    .createDate(createDates.get(i))
-                    .drone(drone1)
-                    .part1Blade(random.nextInt(101))
-                    .part1Motor(random.nextInt(101))
-                    .part1Esc(random.nextInt(101))
-                    .part2Blade(random.nextInt(101))
-                    .part2Motor(random.nextInt(101))
-                    .part2Esc(random.nextInt(101))
-                    .part3Blade(random.nextInt(101))
-                    .part3Motor(random.nextInt(101))
-                    .part3Esc(random.nextInt(101))
-                    .part4Blade(random.nextInt(101))
-                    .part4Motor(random.nextInt(101))
-                    .part4Esc(random.nextInt(101))
-                    .space("인천")
-                    .stationId("SID 1")
-                    .build();
-
-            testResults.add(newTestResult);
+                testResults.add(newTestResult);
+            }
         }
-
-        //2023년 12월 정보 넣기(2024년 1월 이랑 연결하려고)
-        TestResult testResult0 = TestResult.builder()
-                .components(components)
-                .expectedDate(createDate1)
-                .createDate(createDates.get(11))
-                .drone(drone1)
-                .part1Blade(10)
-                .part1Motor(40)
-                .part1Esc(26)
-                .part2Blade(40)
-                .part2Motor(78)
-                .part2Esc(30)
-                .part3Blade(15)
-                .part3Motor(86)
-                .part3Esc(27)
-                .part4Blade(100)
-                .part4Motor(64)
-                .part4Esc(38)
-                .space("인천")
-                .stationId("SID 1")
-                .build();
 
         TestResult testResult1 = TestResult.builder()
                 .components(components)
@@ -894,8 +872,6 @@ public class HealthCheckController {
                 .stationId("SID 2")
                 .build();
 
-
-        testResultRepository.save(testResult0);
         testResultRepository.save(testResult1);
         testResultRepository.save(testResult2);
         testResultRepository.save(testResult3);
