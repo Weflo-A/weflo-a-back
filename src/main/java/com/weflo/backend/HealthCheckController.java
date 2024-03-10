@@ -74,7 +74,7 @@ public class HealthCheckController {
                 .expectedMinPrice(16000L)
                 .name("드론 클리닉")
                 .canUpgrade(true)
-                .hasModels("DJI Mavic Air 2 Skydio 2 Parrot Anafi USA DJI Inspire 2 Eagle SHIFT Pro Autel Robotics SG 906 PRO2")
+                .hasModels("Eagle MDT-1600 SHIFT VL-2240R")
                 .hasTypes("Blade Motor ESC")
                 .build();
 
@@ -84,7 +84,7 @@ public class HealthCheckController {
                 .expectedMinPrice(9000L)
                 .name("에어 테크")
                 .canUpgrade(true)
-                .hasModels("Skydio 2 Parrot Anafi USA DJI Inspire 2 Eagle SHIFT SG 906 PRO2")
+                .hasModels("Eagle SHIFT VL-2240R")
                 .hasTypes("Blade Motor ESC")
                 .build();
 
@@ -94,7 +94,7 @@ public class HealthCheckController {
                 .expectedMinPrice(6000L)
                 .name("모빌리티 원")
                 .canUpgrade(false)
-                .hasModels("DJI Mavic Air 2 Parrot Anafi USA DJI Inspire 2 Eagle SHIFT Autel Robotics SG 906 PRO2")
+                .hasModels("Eagle MDT-1600 SHIFT VL-2240R")
                 .hasTypes("Blade Motor ESC")
                 .build();
 
@@ -104,7 +104,7 @@ public class HealthCheckController {
                 .expectedMinPrice(24000L)
                 .name("노타 드론")
                 .canUpgrade(true)
-                .hasModels("DJI Mavic Air 2 Skydio 2 Parrot Anafi USA DJI Inspire 2 Eagle Autel Robotics SG 906 PRO2")
+                .hasModels("MDT-1600 SHIFT VL-2240R")
                 .hasTypes("Motor ESC")
                 .build();
 
@@ -114,7 +114,7 @@ public class HealthCheckController {
                 .expectedMinPrice(48000L)
                 .name("한드론텍")
                 .canUpgrade(false)
-                .hasModels("DJI Mavic Air 2 Skydio 2 Parrot Anafi USA DJI Inspire 2 Eagle Autel Robotics SG 906 PRO2")
+                .hasModels("Eagle MDT-1600 VL-2240R")
                 .hasTypes("Blade ESC")
                 .build();
 
@@ -124,7 +124,7 @@ public class HealthCheckController {
                 .expectedMinPrice(60000L)
                 .name("픽셀플라이")
                 .canUpgrade(true)
-                .hasModels("DJI Mavic Air 2 Skydio 2 Parrot Anafi USA DJI Inspire 2 Eagle SHIFT Autel Robotics SG 906 PRO2")
+                .hasModels("Eagle MDT-1600 SHIFT")
                 .hasTypes("Blade Motor")
                 .build();
 
@@ -134,7 +134,7 @@ public class HealthCheckController {
                 .expectedMinPrice(33000L)
                 .name("해오름 드론 항공")
                 .canUpgrade(false)
-                .hasModels("DJI Mavic Air 2 Skydio 2 Parrot Anafi USA DJI Inspire 2 Eagle SHIFT Autel Robotics SG 906 PRO2")
+                .hasModels("Eagle MDT-1600 SHIFT VL-2240R")
                 .hasTypes("Blade Motor ESC")
                 .build();
 
@@ -432,7 +432,7 @@ public class HealthCheckController {
         componentRepository.saveAll(components);
 
         Drone drone1 = Drone.builder()
-                .name("Drone Number")
+                .name("스카이센티널")
                 .cost(1400000)
                 .model(DroneModel.EAGLE)
                 .purpose("농업용")
@@ -441,7 +441,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone2 = Drone.builder()
-                .name("Drone Number")
+                .name("플라이 마스터")
                 .cost(800000)
                 .model(DroneModel.VL_2240R)
                 .purpose("농업용")
@@ -450,7 +450,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone3 = Drone.builder()
-                .name("Drone Number")
+                .name("에어제뉴")
                 .cost(420000)
                 .model(DroneModel.SHIFT)
                 .purpose("농업용")
@@ -459,7 +459,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone4 = Drone.builder()
-                .name("Drone Number")
+                .name("무브 메이븐")
                 .cost(400000)
                 .model(DroneModel.EAGLE)
                 .purpose("교육용")
@@ -468,7 +468,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone5 = Drone.builder()
-                .name("Drone Number")
+                .name("헤븐하모니")
                 .cost(560000)
                 .model(DroneModel.VL_2240R)
                 .purpose("교육용")
@@ -477,7 +477,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone6 = Drone.builder()
-                .name("Drone Number")
+                .name("스무스소어")
                 .cost(3000000)
                 .model(DroneModel.EAGLE)
                 .purpose("교육용")
@@ -486,7 +486,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone7 = Drone.builder()
-                .name("Drone Number")
+                .name("에어큐브")
                 .cost(980000)
                 .model(DroneModel.SHIFT)
                 .purpose("교육용")
@@ -495,7 +495,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone8 = Drone.builder()
-                .name("Drone Number")
+                .name("드론비전어스")
                 .cost(1400000)
                 .model(DroneModel.MDT_1600)
                 .purpose("물류 배송")
@@ -504,7 +504,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone9 = Drone.builder()
-                .name("Drone Number")
+                .name("스카이프로미스")
                 .cost(500000)
                 .model(DroneModel.MDT_1600)
                 .purpose("물류 배송")
@@ -513,7 +513,7 @@ public class HealthCheckController {
                 .build();
 
         Drone drone10 = Drone.builder()
-                .name("Drone Number")
+                .name("플라이티탄")
                 .cost(420000)
                 .model(DroneModel.EAGLE)
                 .purpose("물류 배송")
