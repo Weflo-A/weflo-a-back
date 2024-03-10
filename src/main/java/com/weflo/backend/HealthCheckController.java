@@ -596,7 +596,7 @@ public class HealthCheckController {
             for (int i = 1; i <= 12; i++) {
                 DroneGroupMonthCost monthCost1 = DroneGroupMonthCost.builder()
                         .name("농업용 그룹")
-                        .droneCount((long)random.nextInt(4))
+                        .droneCount((long)random.nextInt(1, 7))
                         .month((long) i)
                         .year((long)year)
                         .monthCost((long) random.nextInt(40000))
@@ -605,7 +605,7 @@ public class HealthCheckController {
 
                 DroneGroupMonthCost monthCost2 = DroneGroupMonthCost.builder()
                         .name("교육용 그룹")
-                        .droneCount((long) random.nextInt(5))
+                        .droneCount((long) random.nextInt(1, 7))
                         .month((long) i)
                         .year((long)year)
                         .monthCost((long) random.nextInt(40000))
@@ -614,7 +614,7 @@ public class HealthCheckController {
 
                 DroneGroupMonthCost monthCost3 = DroneGroupMonthCost.builder()
                         .name("물류 배송용 그룹")
-                        .droneCount((long) random.nextInt(4))
+                        .droneCount((long) random.nextInt(1, 7))
                         .month((long) i)
                         .year((long)year)
                         .monthCost((long) random.nextInt(40000))
@@ -630,7 +630,7 @@ public class HealthCheckController {
         for (int i = 1; i <= 3; i++) {
             DroneGroupMonthCost monthCost1 = DroneGroupMonthCost.builder()
                     .name("농업용 그룹")
-                    .droneCount((long)random.nextInt(4))
+                    .droneCount((long)random.nextInt(1, 7))
                     .month((long) i)
                     .year(2024L)
                     .monthCost((long) random.nextInt(40000))
@@ -639,7 +639,7 @@ public class HealthCheckController {
 
             DroneGroupMonthCost monthCost2 = DroneGroupMonthCost.builder()
                     .name("교육용 그룹")
-                    .droneCount((long) random.nextInt(5))
+                    .droneCount((long) random.nextInt(1, 7))
                     .month((long) i)
                     .year(2024L)
                     .monthCost((long) random.nextInt(40000))
@@ -648,7 +648,7 @@ public class HealthCheckController {
 
             DroneGroupMonthCost monthCost3 = DroneGroupMonthCost.builder()
                     .name("물류 배송용 그룹")
-                    .droneCount((long) random.nextInt(4))
+                    .droneCount((long) random.nextInt(1, 7))
                     .month((long) i)
                     .year(2024L)
                     .monthCost((long) random.nextInt(40000))

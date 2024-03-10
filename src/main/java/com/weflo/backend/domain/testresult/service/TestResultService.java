@@ -122,6 +122,7 @@ public class TestResultService {
                 .map(DroneComponentResponse::getPoint)
                 .toList();
 
+
         List<Long> part2ComponentsPoints = responses.stream()
                 .filter(component -> component.getPart().equals(Part.PART2.getKoreanName()))
                 .map(DroneComponentResponse::getPoint)
@@ -140,6 +141,7 @@ public class TestResultService {
         int part1Sum = part1ComponentsPoints.stream().mapToInt(Long::intValue).sum()/3;
         int part2Sum = part2ComponentsPoints.stream().mapToInt(Long::intValue).sum()/3;
         int part3Sum = part3ComponentsPoints.stream().mapToInt(Long::intValue).sum()/3;
+        System.out.println(part3Sum);
         int part4Sum = part4ComponentsPoints.stream().mapToInt(Long::intValue).sum()/3;
 
         return PartTotalScoreResponse.builder()
