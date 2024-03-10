@@ -23,7 +23,10 @@ public interface TestResultRepository extends JpaRepository<TestResult, Long> {
     //아니 이거 왜안됨???? 개빡치넹
     Optional<TestResult> findByDroneIdAndCreateDate(Long droneId, LocalDateTime createDate);
     TestResult findFirstByDroneIdOrderByCreateDateDesc(Long droneId);
-
+    @Query("SELECT tr FROM TestResult tr WHERE " +
+            "YEAR(tr.createDate) = :year AND MONTH(tr.createDate) = :month")
+    List<TestResult> findByCreateDateYearAndCreateDateMonth(@Param("year") int year,
+                                                            @Param("month") int month);
     @Query("SELECT tr FROM TestResult tr WHERE tr.createDate <= :dateTime ORDER BY tr.createDate DESC LIMIT 1")
     TestResult findClosestPreviousByCreateDate(@Param("dateTime") LocalDateTime dateTime);
     @Query("SELECT tr FROM TestResult tr WHERE tr.drone.id = :droneId " +
