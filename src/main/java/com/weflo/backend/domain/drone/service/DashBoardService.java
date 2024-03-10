@@ -13,6 +13,7 @@ import com.weflo.backend.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,14 @@ public class DashBoardService {
         TestResult testResult = testResultRepository.findFirstByDroneIdOrderByCreateDateDesc(droneId);
         DroneInfoResponse droneInfoResponse = createDroneInfoResponse(drone,testResult);
         List<TimeLineResponse> timeLineResponses = createTimeLineResponse(testResults);
-        List<TestListResponse> firstFourTestListResponses = createTestListResponse(testResults)
-                .subList(0, Math.min(4, createTestListResponse(testResults).size()));
+        List<TestListResponse> lastFourTestListResponses = createTestListResponse(testResults)
+                .stream()
+                .sorted(Comparator.comparing(TestListResponse::getTestDate).reversed())
+                .limit(4)
+                .collect(Collectors.toList());
         DroneGroup droneGroup = droneGroupInfoRepository.findTopByDroneIdOrderByCreateDateDesc(droneId);
         List<DroneListResponse> droneListResponses = createDroneListResponse(droneGroup);
-        return DroneDetailResponse.of(droneInfoResponse, timeLineResponses,firstFourTestListResponses, droneListResponses);
+        return DroneDetailResponse.of(droneInfoResponse, timeLineResponses,lastFourTestListResponses, droneListResponses);
     }
     private DroneGroupListResponse createDroneGroupListResponse(Long droneId){
         DroneGroup droneGroup = droneGroupInfoRepository.findTopByDroneIdOrderByCreateDateDesc(droneId);
@@ -55,15 +59,24 @@ public class DashBoardService {
                 findService.getBladePoint(testResult),
                 findService.getEscPoint(testResult));
     }
-    private List<TimeLineResponse> createTimeLineResponse(List<TestResult> testResults){
-        return testResults.stream()
+    private List<TimeLineResponse> createTimeLineResponse(List<TestResult> testResults) {
+        List<TimeLineResponse> sortedList = testResults.stream()
                 .map(testResult ->
                         TimeLineResponse.of(
                                 testResult,
                                 findService.getEscPoint(testResult),
                                 findService.getBladePoint(testResult),
                                 findService.getMotorPoint(testResult)))
+                .sorted(Comparator.comparing(TimeLineResponse::getDate))
                 .collect(Collectors.toList());
+
+        int size = sortedList.size();
+        int startIndex = 0;
+        int endIndex = size;
+        if(size>8) {
+            startIndex = size - 8;
+        }
+        return sortedList.subList(startIndex, endIndex);
     }
     private List<TestListResponse> createTestListResponse(List<TestResult> testResults){
         return testResults.stream()
