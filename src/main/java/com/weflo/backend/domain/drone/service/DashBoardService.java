@@ -57,7 +57,7 @@ public class DashBoardService {
                 findService.getPoint(testResult),
                 findService.getMotorPoint(testResult),
                 findService.getBladePoint(testResult),
-                findService.getEscPoint(testResult));
+                findService.getEscPoint(testResult),testResult);
     }
     private List<TimeLineResponse> createTimeLineResponse(List<TestResult> testResults) {
         List<TimeLineResponse> sortedList = testResults.stream()
