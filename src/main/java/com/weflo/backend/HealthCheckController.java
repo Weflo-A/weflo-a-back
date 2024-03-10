@@ -780,14 +780,14 @@ public class HealthCheckController {
         List<TestResult> testResults = new ArrayList<>();
 
         for (Drone drone : drones) {
-            for (int i = 0; i < createDates.size(); i++) {
+            for (LocalDateTime createDate : createDates) {
                 List<Component> componentList = drone.getDroneComponents().stream()
                         .map(DroneComponent::getComponent).toList();
 
                 TestResult newTestResult = TestResult.builder()
                         .components(componentList)
                         .expectedDate(null)
-                        .createDate(createDates.get(i))
+                        .createDate(createDate)
                         .drone(drone)
                         .part1Blade(random.nextInt(101))
                         .part1Motor(random.nextInt(101))
@@ -808,28 +808,6 @@ public class HealthCheckController {
                 testResults.add(newTestResult);
             }
         }
-
-        //2023년 12월 정보 넣기(2024년 1월 이랑 연결하려고)
-//        TestResult testResult0 = TestResult.builder()
-//                .components(components)
-//                .expectedDate(createDate1)
-//                .createDate(createDates.get(11))
-//                .drone(drone1)
-//                .part1Blade(10)
-//                .part1Motor(40)
-//                .part1Esc(26)
-//                .part2Blade(40)
-//                .part2Motor(78)
-//                .part2Esc(30)
-//                .part3Blade(15)
-//                .part3Motor(86)
-//                .part3Esc(27)
-//                .part4Blade(100)
-//                .part4Motor(64)
-//                .part4Esc(38)
-//                .space("인천")
-//                .stationId("SID 1")
-//                .build();
 
         TestResult testResult1 = TestResult.builder()
                 .components(components)
@@ -894,8 +872,6 @@ public class HealthCheckController {
                 .stationId("SID 2")
                 .build();
 
-
-//        testResultRepository.save(testResult0);
         testResultRepository.save(testResult1);
         testResultRepository.save(testResult2);
         testResultRepository.save(testResult3);
