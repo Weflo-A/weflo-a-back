@@ -64,7 +64,7 @@ public class DroneService {
     private List<DroneGroupResponse> createDroneGroupInfoResponses(){
         List<DroneGroup> droneGroups = droneGroupRepository.findAll();
         List<DroneGroupResponse> droneGroupResponses = droneGroups.stream().map(droneGroup -> DroneGroupResponse.of(droneGroup)).collect(Collectors.toList());
-        droneGroupResponses.add(DroneGroupResponse.create("전체"));
+        droneGroupResponses.add(0, DroneGroupResponse.create("전체"));
         return droneGroupResponses;
     }
     private List<String> getGroupsWithDroneId(Long droneId){
