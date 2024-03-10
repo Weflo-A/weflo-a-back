@@ -6,7 +6,8 @@ import lombok.Getter;
 public enum ComponentType {
     BLADE("블레이드"),
     MOTOR("모터"),
-    ESC("ESC");
+    ESC("ESC"),
+    OTHER("기타");
 
     final String koreanName;
 
