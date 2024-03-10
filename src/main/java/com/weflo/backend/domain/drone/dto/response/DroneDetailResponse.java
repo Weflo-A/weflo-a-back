@@ -11,7 +11,6 @@ public class DroneDetailResponse {
     private List<DroneListResponse> droneList;
     private List<TimeLineResponse> timeLine;
     private DroneInfoResponse droneInfo;
-    private DroneGroupListResponse droneGroupList;
     private List<TestListResponse> testList;
 
     public static DroneDetailResponse of(DroneInfoResponse droneInfo,List<TimeLineResponse> timeLine, List<TestListResponse> testList, List<DroneListResponse> droneList){
