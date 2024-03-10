@@ -361,6 +361,74 @@ public class HealthCheckController {
             components.add(newComponent);
         }
 
+        //기타 부품 넣는 곳
+        List<String> componentOtherNames = new ArrayList<>();
+        componentOtherNames.add("Powerboard 고전류 전력관리 모듈 PDB 보드 6s,12s");
+        componentOtherNames.add("F450/F550 skid landing");
+        componentOtherNames.add("HX4-06009");
+        componentOtherNames.add("12A UBEC 스위치 모드 BEC 전압 안정기");
+        componentOtherNames.add("Agena HV BEC");
+        componentOtherNames.add("K3-A PRO 드론 컨트롤러 (듀얼 GPS / 농업 방제드론)");
+        componentOtherNames.add("A7-AG V3.0 농업용 비행 컨트롤러");
+        componentOtherNames.add("고휘도 Single LED Module(12V/White)");
+
+        List<Integer> componentOtherPrices = new ArrayList<>();
+        componentOtherPrices.add(145000);
+        componentOtherPrices.add(91500);
+        componentOtherPrices.add(59800);
+        componentOtherPrices.add(48500);
+        componentOtherPrices.add(69000);
+        componentOtherPrices.add(650000);
+        componentOtherPrices.add(990000);
+        componentOtherPrices.add(3000);
+
+        List<String> componentOtherDescriptions = new ArrayList<>();
+        componentOtherDescriptions.add("XT60 커넥터는 드론 배터리와 전원 분배 시스템을 연결하는 데 사용되는 안전하고 효율적인 커넥터입니다. 고전류 전달 및 미끄러짐 방지 디자인으로 안정적인 전력 전달을 제공하며, 드론 비행 중 안전을 보장합니다.");
+        componentOtherDescriptions.add("드론을 안전하게 이착륙시키기 위한 휴대용 랜딩 패드로, 방수 및 방진 소재로 제작되어 실외에서의 사용에 이상적입니다. 또한 큰 크기로 인해 비행 중에 시각적 안내 역할도 하며, 드론의 안정성을 높이는 데 도움이 됩니다.");
+        componentOtherDescriptions.add("이 보호매트는 드론의 하단 스키드 부분에 부착되어 충격을 완화하고 지상과의 마찰을 줄여 드론의 부품을 보호합니다. 고무나 실리콘 소재로 만들어져 부착 및 제거가 간편하며, 드론의 안정성을 높이는 데 도움이 됩니다.");
+        componentOtherDescriptions.add("경량 및 고성능으로 설계된 모델로, 드론 레이싱 및 에어로빅 비행에 적합합니다. BLHeli_S 프로그램과 Dshot 지원으로 정확하고 빠른 명령을 전달하여 모터의 탁월한 응답을 보장합니다. 고속 모터 회전에 대한 정밀한 제어를 제공하며, 안정적인 비행을 위한 선택으로 평가받고 있습니다.");
+        componentOtherDescriptions.add("전압 변환, 전류 보호 및 통합된 전자 부품을 내장하여 드론 시스템의 각 부분 간에 원활한 전력 흐름을 제공합니다. 경량 소재로 만들어져 비행 중에 무게를 최소화하고, 동시에 제한된 공간 내에서 효율적으로 작동할 수 있도록 설계됩니다.");
+        componentOtherDescriptions.add("주로 드론의 상단 부분을 덮는 외부 케이스나 프레임으로 구성되어 있으며, 충격이나 낙하로부터 드론을 보호합니다. 고강도 플라스틱이나 카본 파이버로 만들어져 내구성을 갖추며, 드론의 비행 안정성을 유지하면서 환경 요소로부터 부품을 보호합니다. 일부 커버에는 카메라, 센서 등을 통합할 수 있는 기능이 있어 비행 중에도 원하는 기능을 수행할 수 있습니다.");
+        componentOtherDescriptions.add("주 배터리로부터 전원을 공급받아 안정적인 전압으로 변환하고, 이를 다양한 부품에 전달합니다. BEC는 서보 모터, 수신기 및 조종기와 같은 전자 부품들이 안정적으로 동작하도록 보장하며, 별도의 전원 공급원을 필요로하지 않는 편리한 기능을 제공합니다. 이로써 모델의 전원 관리가 간편해지고, 더 나은 비행 안정성을 유지할 수 있습니다.");
+        componentOtherDescriptions.add("단일 LED 소자를 포함한 고밝음 광원 모듈로, 주로 조명 및 표시 용도로 사용됩니다. 이 모듈은 고휘도 LED가 통합되어 있어 강력하고 효율적인 조명을 제공하며, 주로 낮은 전력 소비로 높은 발광 효율을 유지합니다. 설치가 간편하며, 다양한 응용 분야에서 활용되어 안전한 조명 및 시각적 효과를 제공합니다.");
+
+        List<Double> componentOtherStars = new ArrayList<>();
+        componentOtherStars.add(4.0);
+        componentOtherStars.add(3.5);
+        componentOtherStars.add(2.0);
+        componentOtherStars.add(5.0);
+        componentOtherStars.add(3.5);
+        componentOtherStars.add(4.0);
+        componentOtherStars.add(5.0);
+        componentOtherStars.add(3.0);
+
+        List<String> componentOtherImages = new ArrayList<>();
+        componentOtherImages.add("");
+        componentOtherImages.add("");
+        componentOtherImages.add("");
+        componentOtherImages.add("");
+        componentOtherImages.add("");
+        componentOtherImages.add("");
+        componentOtherImages.add("");
+        componentOtherImages.add("");
+
+        List<Component> componentsOthers = new ArrayList<>();
+
+        for (int i = 0; i < componentOtherNames.size(); i++) {
+            Component newComponent = Component.builder()
+                    .name(componentOtherNames.get(i))
+                    .part(componentParts.get(i))
+                    .price(componentOtherPrices.get(i))
+                    .description(componentOtherDescriptions.get(i))
+                    .type(ComponentType.OTHER)
+                    .star(componentOtherStars.get(i))
+                    .image(componentOtherImages.get(i))
+                    .build();
+
+            componentsOthers.add(newComponent);
+            components.add(newComponent);
+        }
+
         componentRepository.saveAll(components);
 
         Drone drone1 = Drone.builder()
